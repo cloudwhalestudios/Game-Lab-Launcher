@@ -7,7 +7,6 @@ namespace AccessibilityInputSystem
 {
     public class BasePlayerPreferenceManager
     {
-        protected static BasePlayerPreferenceManager current;
 
 
     }

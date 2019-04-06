@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class BootController : MonoBehaviour
 {
     public float minBootDelay = 2f;
+    public bool forceFullScreen = true;
+
+    [Space]
     public string mainSceneName;
     public string setupSceneName;
 
@@ -14,7 +17,8 @@ public class BootController : MonoBehaviour
     private void Awake()
     {
         // TODO Add loading behaviour
-        userIsSetup = true;
+        userIsSetup = false;
+        Screen.fullScreen = forceFullScreen;
     }
 
     private void Start()
