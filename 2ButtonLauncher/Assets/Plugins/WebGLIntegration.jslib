@@ -1,7 +1,7 @@
 mergeInto(LibraryManager.library, {
 
     OpenGame: function(str_location) {
-        window.location.href = Pointer_stringify(str);
+        window.location.href = Pointer_stringify(str_location);
     },
 
     Reload: function() {
