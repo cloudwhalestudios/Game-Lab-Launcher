@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Marce\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Marce\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_2ButtonLauncher.1746359727.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Marce\OneDrive - Hanzehogeschool Groningen\School - Y2B3\Case Jeroen\Case Jeroen Unity\Game-Lab-Launcher\2ButtonLauncher" t="IncludeRecursive">
+      <e p="2ButtonLauncher.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="Interface" t="Include">
+            <e p="interfaceHorizontalScrollUI.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>
