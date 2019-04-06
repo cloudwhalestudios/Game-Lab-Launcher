@@ -12,13 +12,9 @@ public class TestWebGL : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void Crash();
 
-    [DllImport("__Internal")]
-    private static extern void Hello();
-
-
     private void Start()
     {
-        Hello();
+        
     }
 
     public void WebGLOpenGame(string location)
