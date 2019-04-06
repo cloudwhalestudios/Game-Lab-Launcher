@@ -29,19 +29,39 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-400577048">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="cs" value="547" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="C#" value="547" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Interface/interfaceHorizontalScrollUI.cs">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/ScrollImage.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+            <state relative-caret-position="528">
+              <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
               <folding>
-                <marker date="1554554521543" expanded="true" signature="6:100" ph="..." />
-                <marker date="1554554521543" expanded="true" signature="158:480" ph="{...}" />
-                <marker date="1554554521543" expanded="true" signature="378:399" ph="{...}" />
-                <marker date="1554554521543" expanded="true" signature="457:478" ph="{...}" />
+                <marker date="1554561284051" expanded="true" signature="6:100" ph="..." />
+                <marker date="1554561284051" expanded="true" signature="142:796" ph="{...}" />
+                <marker date="1554561284051" expanded="true" signature="313:368" ph="{...}" />
+                <marker date="1554561284051" expanded="true" signature="387:794" ph="{...}" />
+                <marker date="1554561284051" expanded="true" signature="453:575" ph="{...}" />
+                <marker date="1554561284051" expanded="true" signature="597:788" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -53,12 +73,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interface/interfaceHorizontalScrollUI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ScrollImage.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Interface/interfaceHorizontalScrollUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/ScrollImage.cs" />
       </list>
     </option>
   </component>
@@ -68,7 +89,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-52" />
     <option name="y" value="131" />
     <option name="width" value="1936" />
@@ -91,12 +112,6 @@
               <item name="Project" type="e068e287:UnityExplorerRootNode" />
               <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
               <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
-            </path>
-            <path>
-              <item name="Project" type="e068e287:UnityExplorerRootNode" />
-              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
-              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
-              <item name="Interface" type="1045f7f1:UnityExplorerNode" />
             </path>
           </expand>
           <select />
@@ -126,6 +141,22 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Attach to Unity Editor.Attach to Unity Editor" />
+      <item itemvalue="Attach to Unity Editor.Attach to Unity Editor &amp; Play" />
+    </list>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -140,11 +171,12 @@
       <workItem from="1554554323127" duration="3000" />
       <workItem from="1554554349626" duration="93000" />
       <workItem from="1554554496587" duration="151000" />
+      <workItem from="1554558588217" duration="2814000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256000" />
+    <option name="totallyTimeSpent" value="3070000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -156,13 +188,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Unity" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -177,6 +208,7 @@
       <window_info anchor="bottom" id="Unit Tests" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Unity" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -204,15 +236,18 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Interface/interfaceHorizontalScrollUI.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Interface/interfaceHorizontalScrollUI.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/ScrollImage.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        <state relative-caret-position="528">
+          <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
           <folding>
-            <marker date="1554554521543" expanded="true" signature="6:100" ph="..." />
-            <marker date="1554554521543" expanded="true" signature="158:480" ph="{...}" />
-            <marker date="1554554521543" expanded="true" signature="378:399" ph="{...}" />
-            <marker date="1554554521543" expanded="true" signature="457:478" ph="{...}" />
+            <marker date="1554561284051" expanded="true" signature="6:100" ph="..." />
+            <marker date="1554561284051" expanded="true" signature="142:796" ph="{...}" />
+            <marker date="1554561284051" expanded="true" signature="313:368" ph="{...}" />
+            <marker date="1554561284051" expanded="true" signature="387:794" ph="{...}" />
+            <marker date="1554561284051" expanded="true" signature="453:575" ph="{...}" />
+            <marker date="1554561284051" expanded="true" signature="597:788" ph="{...}" />
           </folding>
         </state>
       </provider>
