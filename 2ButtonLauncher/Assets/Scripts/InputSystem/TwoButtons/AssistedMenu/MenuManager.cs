@@ -92,11 +92,15 @@ namespace AccessibilityInputSystem
                     }
                     menuSelector = StartCoroutine(MenuSelection());
                 }
-                else if (menuSelector != null)
+                else
                 {
                     if (activeMenuController.itemSelectIndicator != null) activeMenuController.itemSelectIndicator?.gameObject.SetActive(false);
-                    StopCoroutine(menuSelector);
-                    menuSelector = null;
+
+                    if (menuSelector != null)
+                    {
+                        Cleanup();
+                        menuSelector = null;
+                    }
                     HighlightButton(buttons[selectedButtonIndex], true);
                 }
             }

@@ -158,7 +158,8 @@ public class SetupController : MonoBehaviour
         SetButtonMappingText(primaryInput);
         SetButtonMappingText(secondaryInput);
 
-        confirmationMenu.SetActive(false);
+        ShowConfirmationDialog(false);
+
         BasePlayerManager.Instance.RemovePlayer();
 
         BasePlayerManager.Instance.shouldCheckForNewPlayer = true;
