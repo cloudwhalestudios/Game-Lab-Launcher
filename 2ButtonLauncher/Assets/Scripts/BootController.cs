@@ -12,6 +12,7 @@ public class BootController : MonoBehaviour
 
     bool userIsSetup = false;
     bool finishedLoading = false;
+    bool interrupt = false;
 
     private void Awake()
     {
@@ -38,6 +39,12 @@ public class BootController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        if (interrupt)
+        {
+            userIsSetup = false;
+            PlayerPrefs.DeleteAll();
+        }
+
         if (userIsSetup)
         {
             BootLoader.LoadPlatformPlayer();
@@ -48,5 +55,11 @@ public class BootController : MonoBehaviour
             SceneManager.LoadScene(PlatformManager.Instance.setupSceneName);
         }
         yield break;
+    }
+
+    public void ClearPlayerPrefs()
+    {
+        Debug.Log("Clearing Player Preferences");
+        interrupt = true;
     }
 }
