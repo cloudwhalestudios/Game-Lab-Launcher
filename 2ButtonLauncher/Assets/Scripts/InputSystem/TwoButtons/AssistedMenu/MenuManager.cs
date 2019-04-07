@@ -21,11 +21,12 @@ namespace AccessibilityInputSystem
             [SerializeField, ReadOnly] private List<Button> buttons;
 
             Coroutine menuSelector;
+            Coroutine timerUpdateRoutine;
 
             Sprite lastDefaultStateSprite;
             Color lastDefaultColor;
 
-            bool animationUpdated = false;
+            bool firstTimeAnimation = true;
 
             void Awake()
             {
@@ -52,9 +53,17 @@ namespace AccessibilityInputSystem
                 controller = menuController;
                 buttons = new List<Button>(controller.buttonParent.GetComponentsInChildren<Button>());
                 selectedIndex = Mathf.Clamp(controller.startingIndex, 0, buttons.Count - 1);
+                firstTimeAnimation = true;
+                //Debug.Log($"new menu controller assigned: {controller.name} | selected index: {selectedIndex}");
             }
 
-            void Cleanup() => StopAllCoroutines();
+            void Cleanup()
+            {
+                if (menuSelector != null) StopCoroutine(menuSelector);
+                menuSelector = null;
+                if (timerUpdateRoutine != null) StopCoroutine(timerUpdateRoutine);
+                timerUpdateRoutine = null;
+            }
 
             void OnDestroy()
             {
@@ -148,8 +157,6 @@ namespace AccessibilityInputSystem
                     canvas.overrideSorting = false;
                     canvas.sortingOrder = 0;
                 }
-
-                animationUpdated = true;
             }
 
             public void SelectItem()
@@ -167,7 +174,7 @@ namespace AccessibilityInputSystem
                 while (true)
                 {
                     selectedButton = buttons[selectedIndex];
-                    Debug.Log($"Index {selectedIndex} of {buttons.Count - 1} ({selectedButton.name})");
+                    //Debug.Log($"Index {selectedIndex} of {buttons.Count - 1} ({selectedButton.name})");
 
 
                     // Indicate and Highlight
@@ -187,7 +194,8 @@ namespace AccessibilityInputSystem
                     
                     if (controller.itemSelectTimer != null)
                     {
-                        yield return StartCoroutine(UpdateTimerProgress(autoInterval));
+
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(autoInterval));
                     }
                     else
                     {
@@ -214,19 +222,17 @@ namespace AccessibilityInputSystem
 
             IEnumerator AnimateButtonCoroutine(Button selectedButton)
             {
-                if (!animationUpdated)
-                {
-                    // Fade first
-                    StartCoroutine(AnimateMoveItem(
-                            controller.firstSpot.buttonObject,
-                            controller.firstSpot.localPosition,
-                            controller.firstSpot.localPosition,
-                            controller.disappearClip,
-                            controller.staticFadedClip,
-                            controller.transitionTime
-                            ));
-                    UpdateAnimationSpots();
-                }
+                
+                // Fade first
+                StartCoroutine(AnimateMoveItem(
+                        controller.firstSpot.buttonObject,
+                        controller.firstSpot.localPosition,
+                        controller.firstSpot.localPosition,
+                        controller.disappearClip,
+                        controller.staticFadedClip,
+                        controller.transitionTime
+                        ));
+                UpdateAnimationSpots();
 
                 // Appear last
                 StartCoroutine(AnimateMoveItem(
@@ -258,7 +264,11 @@ namespace AccessibilityInputSystem
                             controller.transitionTime
                         ));
 
-                animationUpdated = false;
+                if (firstTimeAnimation)
+                {
+                    firstTimeAnimation = false;
+                }
+
                 yield return null;
             }
 
@@ -282,24 +292,32 @@ namespace AccessibilityInputSystem
                     animation.AddClip(staticClip, staticClip.name);
                 }
                 animation.Stop();
-                animation.Play(transitionClip.name);
-                animation[transitionClip.name].speed = transitionClip.length / transitionTime;
-                
-                item.transform.localPosition = startLocation;
-                if (startLocation != endLocation)
+
+                if (!firstTimeAnimation)
                 {
-                    var elapsedTime = 0f;
-                    while (elapsedTime <= transitionTime)
+                    animation.Play(transitionClip.name);
+                    animation[transitionClip.name].speed = transitionClip.length / transitionTime;
+
+                    item.transform.localPosition = startLocation;
+                    if (startLocation != endLocation)
                     {
-                        yield return null;
-                        elapsedTime += Time.unscaledDeltaTime;
-                        var percentage = Mathf.Clamp01(elapsedTime / transitionTime);
-                        item.transform.localPosition = Vector3.Lerp(startLocation, endLocation, percentage);
+                        var elapsedTime = 0f;
+                        while (elapsedTime <= transitionTime)
+                        {
+                            yield return null;
+                            elapsedTime += Time.unscaledDeltaTime;
+                            var percentage = Mathf.Clamp01(elapsedTime / transitionTime);
+                            item.transform.localPosition = Vector3.Lerp(startLocation, endLocation, percentage);
+                        }
+                    }
+                    else
+                    {
+                        yield return new WaitForSecondsRealtime(transitionTime);
                     }
                 }
                 else
                 {
-                    yield return new WaitForSecondsRealtime(transitionTime);
+                    item.transform.localPosition = endLocation;
                 }
                 
                 animation.Stop();

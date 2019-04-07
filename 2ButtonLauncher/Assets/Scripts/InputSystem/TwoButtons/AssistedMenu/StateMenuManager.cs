@@ -47,9 +47,20 @@ namespace AccessibilityInputSystem
             {
                 this.controller = controller;
                 currentMode = controller.indicatorMode;
+
+                selectedStateIndex = Mathf.Clamp(controller.startStateIndex, 0, controller.stateMenus.Count - 1);
+
+                if (currentMode == BaseStateMenuController.Mode.Single)
+                {
+                    controller.stateMenus[selectedStateIndex].selectEvent?.Invoke();
+                }
             }
 
-            void Cleanup() => StopAllCoroutines();
+            private void Cleanup()
+            {
+                if (stateSelector != null) StopCoroutine(stateSelector);
+                stateSelector = null;
+            }
 
             void OnDestroy()
             {
@@ -117,7 +128,6 @@ namespace AccessibilityInputSystem
 
             public void StartIndicating(bool start = true)
             {
-                selectedStateIndex = Mathf.Clamp(controller.startStateIndex, 0, controller.stateMenus.Count - 1);
 
                 switch (currentMode)
                 {
