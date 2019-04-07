@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace WebGLIntegration
 {
-    public class WebGLRedirect : MonoBehaviour
+    public class WebGLRedirect
     {
-#if UNITY_WEBPLAYER        
         private static void Redirect(string url)
         {
             JSLib.Redirect(Config.BASE_URL + url);
@@ -16,8 +15,7 @@ namespace WebGLIntegration
 
         public static void OpenPlatform()
         {
-            Redirect(Config.PLATFORM_URL);
+            Redirect(Config.LAUNCHER_URL);
         }
-#endif
     }
 }
