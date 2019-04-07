@@ -1,4 +1,5 @@
 ﻿using AccessibilityInputSystem;
+using AccessibilityInputSystem.TwoButtons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -94,13 +95,18 @@ public class SetupController : MonoBehaviour
         BasePlayerManager.NewPlayerKeyInUse += BasePlayerManager_NewPlayerKeyInUse;
         BasePlayerManager.NewPlayerAdded += BasePlayerManager_NewPlayerAdded;
         BasePlayerManager.PlayerRemoved += BasePlayerManager_PlayerRemoved;
+
+        PlatformPlayer.SetupSecondary += PlatformPlayer_SetupSecondary;
     }
+
     public void OnDisable()
     {
         BasePlayerManager.NewPlayerBeingAdded -= BasePlayerManager_NewPlayerBeingAdded;
         BasePlayerManager.NewPlayerKeyInUse -= BasePlayerManager_NewPlayerKeyInUse;
         BasePlayerManager.NewPlayerAdded -= BasePlayerManager_NewPlayerAdded;
         BasePlayerManager.PlayerRemoved -= BasePlayerManager_PlayerRemoved;
+
+        PlatformPlayer.SetupSecondary -= PlatformPlayer_SetupSecondary;
     }
 
     public void Start()
@@ -110,7 +116,18 @@ public class SetupController : MonoBehaviour
             SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
             return;
         }
+
+        ShowConfirmationDialog(false);
+
+        SetButtonMappingText(primaryInput);
+        SetButtonMappingText(secondaryInput);
+
         StartCoroutine(WelcomeRoutine(2f));
+    }
+
+    void SetButtonMappingText(InputConfigImage input, string key = "")
+    {
+        input.keyMapping.text = key;
     }
 
     IEnumerator WelcomeRoutine(float welcomeMessageTime)
@@ -121,7 +138,7 @@ public class SetupController : MonoBehaviour
         yield return new WaitForSecondsRealtime(welcomeMessageTime);
         
         BasePlayerManager.Instance.shouldCheckForNewPlayer = true;
-        yield return StartCoroutine(SwitchElementsRoutine(primaryInputText, InputConfigImage.ConfigState.Unselected, InputConfigImage.ConfigState.Unselected));
+        yield return StartCoroutine(SwitchElementsRoutine(primaryInputText, InputConfigImage.ConfigState.Highlighted, InputConfigImage.ConfigState.Unselected));
     }
 
     IEnumerator SwitchElementsRoutine(string text, InputConfigImage.ConfigState primaryState, InputConfigImage.ConfigState secondaryState, float transitionTime = 0f)
@@ -138,12 +155,21 @@ public class SetupController : MonoBehaviour
 
     public void RedoSetup()
     {
+        SetButtonMappingText(primaryInput);
+        SetButtonMappingText(secondaryInput);
+
+        ShowConfirmationDialog(false);
+
         BasePlayerManager.Instance.RemovePlayer();
+
+        BasePlayerManager.Instance.shouldCheckForNewPlayer = true;
     }
 
     public void ConfirmSetup()
     {
-
+        Debug.Log("Finished setup");
+        PlatformPreferences.Current.CompletedSetup = true;
+        SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
     }
 
     private void BasePlayerManager_PlayerRemoved(int newCount)
@@ -151,26 +177,36 @@ public class SetupController : MonoBehaviour
         // Input was reset
         if (newCount == 0)
         {
-            StartCoroutine(SwitchElementsRoutine(redoExtraText + primaryInput, InputConfigImage.ConfigState.Unselected, InputConfigImage.ConfigState.Unselected));
+            StartCoroutine(SwitchElementsRoutine(redoExtraText + primaryInputText, InputConfigImage.ConfigState.Highlighted, InputConfigImage.ConfigState.Unselected));
         }
+    }
+
+    private void PlatformPlayer_SetupSecondary()
+    {
+        Debug.Log("Secondary button reset triggerd!");
+        RedoSetup();
     }
 
     private void BasePlayerManager_NewPlayerBeingAdded(string name, BasePlayerManager.KeyEventSpecifier[] keySpecifiers)
     {
         // Selected Primary - Wait for Secondary
-        StartCoroutine(SwitchElementsRoutine(secondaryInputText, InputConfigImage.ConfigState.HighlightSelected, InputConfigImage.ConfigState.Unselected));
+        SetButtonMappingText(primaryInput, keySpecifiers[0].Key.ToString());
+
+        StartCoroutine(SwitchElementsRoutine(secondaryInputText, InputConfigImage.ConfigState.Selected, InputConfigImage.ConfigState.Highlighted));
 
     }
 
     private void BasePlayerManager_NewPlayerKeyInUse(string message, BasePlayerManager.KeyEventSpecifier keySpecifier)
     {
         // Button is already primary key
-        StartCoroutine(SwitchElementsRoutine(warningText, InputConfigImage.ConfigState.HighlightSelected, InputConfigImage.ConfigState.HighlightUnselected));
+        StartCoroutine(SwitchElementsRoutine(warningText, InputConfigImage.ConfigState.Selected, InputConfigImage.ConfigState.Highlighted));
     }
 
     private void BasePlayerManager_NewPlayerAdded(BasePlayer player)
     {
         // Setup Complete
+        SetButtonMappingText(secondaryInput, player.Keys[1].ToString());
+
         StartCoroutine(SetupCompleteRoutine(2f));
     }
 
@@ -182,11 +218,18 @@ public class SetupController : MonoBehaviour
         yield return new WaitForSecondsRealtime(completeMessageTime);
 
         ShowConfirmationDialog();
-        yield return StartCoroutine(SwitchElementsRoutine(confirmText, InputConfigImage.ConfigState.HighlightSelected, InputConfigImage.ConfigState.Selected));
+        yield return StartCoroutine(SwitchElementsRoutine(confirmText, InputConfigImage.ConfigState.HighlightSelected, InputConfigImage.ConfigState.HighlightSelected));
     }
 
     private void ShowConfirmationDialog(bool show = true)
     {
-        confirmationMenu.SetActive(show);
+        if (!show)
+        {
+            MenuManager.Instance.HideMenu();
+        }
+        else
+        {
+            MenuManager.Instance.ShowMenu();
+        }
     }
 }

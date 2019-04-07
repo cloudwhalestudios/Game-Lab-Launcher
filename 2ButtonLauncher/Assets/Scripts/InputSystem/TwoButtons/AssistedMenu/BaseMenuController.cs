@@ -23,6 +23,7 @@ namespace AccessibilityInputSystem
             public RectTransform rowSelectIndicator;
             public RectTransform columnSelectIndicator;
             public RectTransform itemSelectIndicator;
+            public RectTransform itemSelectTimer;
 
             [Header("Selection Behaviour")]
             public int startingIndex;

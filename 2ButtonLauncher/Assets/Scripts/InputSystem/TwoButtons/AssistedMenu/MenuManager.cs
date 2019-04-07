@@ -92,11 +92,15 @@ namespace AccessibilityInputSystem
                     }
                     menuSelector = StartCoroutine(MenuSelection());
                 }
-                else if (menuSelector != null)
+                else
                 {
                     if (activeMenuController.itemSelectIndicator != null) activeMenuController.itemSelectIndicator?.gameObject.SetActive(false);
-                    StopCoroutine(menuSelector);
-                    menuSelector = null;
+
+                    if (menuSelector != null)
+                    {
+                        Cleanup();
+                        menuSelector = null;
+                    }
                     HighlightButton(buttons[selectedButtonIndex], true);
                 }
             }
@@ -129,6 +133,9 @@ namespace AccessibilityInputSystem
                 buttons = new List<Button>(activeMenuController.buttonParent.GetComponentsInChildren<Button>());
                 selectedButtonIndex = Mathf.Clamp(activeMenuController.startingIndex, 0, buttons.Count - 1);
 
+                yield return null;
+                HighlightButton(buttons[selectedButtonIndex]);
+
                 while (true)
                 {
                     var buttonsPerColumn = activeMenuController.buttonsPerColumn;
@@ -145,7 +152,15 @@ namespace AccessibilityInputSystem
                         HighlightButton(selectedButton);
                     }
 
-                    yield return new WaitForSecondsRealtime(autoInterval);
+
+                    if (activeMenuController.itemSelectTimer != null)
+                    {
+                        yield return StartCoroutine(UpdateTimerProgress(autoInterval));
+                    }
+                    else
+                    {
+                        yield return new WaitForSecondsRealtime(autoInterval);
+                    }
 
                     if (singleSelection)
                     {
@@ -187,6 +202,26 @@ namespace AccessibilityInputSystem
                                 break;
                         }
                     }
+
+                    //Debug.Log("Incrementing... " + (selectedButtonIndex + 1) + " of " + buttons.Count);
+
+                }
+            }
+
+            IEnumerator UpdateTimerProgress(float waitTime)
+            {
+                //Debug.Log("Timer ...");
+                var elapsedTime = 0f;
+                activeMenuController.itemSelectTimer.localScale = new Vector3(0, 1, 1);
+                while (elapsedTime < waitTime)
+                {
+                    yield return null;
+                    elapsedTime += Time.unscaledDeltaTime;
+                    var percentage = Mathf.Clamp01(elapsedTime / waitTime);
+                    //Debug.Log($"Percent: {percentage * 100f}%; Elapsed: {elapsedTime}s; Wait: {waitTime}s");
+
+
+                    activeMenuController.itemSelectTimer.localScale = new Vector3(percentage, 1, 1);
                 }
             }
 
@@ -194,7 +229,6 @@ namespace AccessibilityInputSystem
             {
                 try
                 {
-
                     var btnRect = btn.GetComponent<RectTransform>();
                     var posX = new Vector2(btnRect.localPosition.x, 0);
                     var posY = new Vector2(0, btnRect.localPosition.y);

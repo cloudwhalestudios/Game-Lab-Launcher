@@ -14,14 +14,25 @@ namespace AccessibilityInputSystem
 
             public void Start()
             {
-                MenuManager.Instance.SetActiveMenu(this);
-                if (itemSelectIndicator != null) itemSelectIndicator.gameObject.SetActive(false);
-
+                ResetController();
                 if (BasePlayerManager.Instance.PlayerCount > 0)
                 {
                     isReady = true;
                     MenuManager.Instance.StartIndicating();
                 }
+            }
+
+            public void ResetController()
+            {
+                MenuManager.Instance.SetActiveMenu(this);
+                if (itemSelectIndicator != null)
+                {
+                    itemSelectIndicator.gameObject.SetActive(false);
+                    
+                }
+                if (itemSelectTimer != null) itemSelectTimer.localScale = new Vector3(0, 1, 1);
+
+                menuContainer.SetActive(false);
             }
 
             void OnEnable()
