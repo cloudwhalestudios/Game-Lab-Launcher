@@ -9,6 +9,7 @@ namespace AccessibilityInputSystem
     {
         public class MainMenuController : BaseMenuController
         {
+            public bool enableAutomaticIndication = false;
             [SerializeField, ReadOnly] private bool isReady = false;
 
             public void Start()
@@ -25,14 +26,20 @@ namespace AccessibilityInputSystem
 
             void OnEnable()
             {
-                BasePlayerManager.NewPlayerAdded += PlayerManager_NewPlayerAdded;
-                BasePlayerManager.PlayerRemoved += PlayerManager_PlayerWasRemoved;
+                if (enableAutomaticIndication)
+                {
+                    BasePlayerManager.NewPlayerAdded += PlayerManager_NewPlayerAdded;
+                    BasePlayerManager.PlayerRemoved += PlayerManager_PlayerWasRemoved;
+                }
             }
 
             void OnDisable()
             {
-                BasePlayerManager.NewPlayerAdded -= PlayerManager_NewPlayerAdded;
-                BasePlayerManager.PlayerRemoved -= PlayerManager_PlayerWasRemoved;
+                if (enableAutomaticIndication)
+                {
+                    BasePlayerManager.NewPlayerAdded -= PlayerManager_NewPlayerAdded;
+                    BasePlayerManager.PlayerRemoved -= PlayerManager_PlayerWasRemoved;
+                }
             }
 
             private void PlayerManager_NewPlayerAdded(BasePlayer player)

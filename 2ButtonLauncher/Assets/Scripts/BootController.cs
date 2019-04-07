@@ -5,38 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class BootController : MonoBehaviour
 {
+    [Header("Boot Options")]
     public float minBootDelay = 2f;
     public bool forceFullScreen = true;
-
-    [Space]
-    public string mainSceneName;
-    public string setupSceneName;
+    public bool resetPlayerPrefs = false;
 
     bool userIsSetup = false;
+    bool finishedLoading = false;
 
     private void Awake()
     {
         // TODO Add loading behaviour
-        userIsSetup = false;
         Screen.fullScreen = forceFullScreen;
     }
 
     private void Start()
     {
         StartCoroutine(StartNextScene());
+
+        // Load the platform preferences
+        userIsSetup = PlatformPreferences.Current.CompletedSetup;
+        
+        finishedLoading = true;
     }
 
     IEnumerator StartNextScene()
     {
         yield return new WaitForSecondsRealtime(minBootDelay);
 
+        if(!finishedLoading)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         if (userIsSetup)
         {
-            SceneManager.LoadScene(mainSceneName);
+            BootLoader.LoadPlatformPlayer();
+            SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
         }
         else
         {
-            SceneManager.LoadScene(setupSceneName);
+            SceneManager.LoadScene(PlatformManager.Instance.setupSceneName);
         }
         yield break;
     }

@@ -1,0 +1,102 @@
+﻿using AccessibilityInputSystem;
+using PlayerPreferences;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class PlatformManager : MonoBehaviour
+{
+    public static event Action<PlatformState> PlatformStateChanged;
+
+    public static PlatformManager Instance { get; private set; }
+    public PlatformState CurrentState
+    {
+        get => currentState;
+        private set
+        {
+            currentState = value;
+            PlatformStateChanged?.Invoke(currentState);
+        }
+    }
+
+    public enum PlatformState
+    {
+        Boot,
+        Setup,
+        Main
+    }
+    
+
+    [Header("Scene Control")]
+    public string bootSceneName;
+    public string setupSceneName;
+    public string mainSceneName;
+    [SerializeField, ReadOnly] private PlatformState currentState;
+
+    protected void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+
+            UpdatePlatformState(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
+    }
+
+    protected void OnDestroy()
+    {
+        if (Instance == this) { Instance = null; }
+        StopAllCoroutines();
+    }
+
+    private void OnEnable()
+    {
+        BasePlayerManager.NewPlayerAdded += BasePlayerManager_NewPlayerAdded;
+        BasePlayerManager.PlayerRemoved += BasePlayerManager_PlayerRemoved;
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+    }
+
+    private void OnDisable()
+    {
+        BasePlayerManager.NewPlayerAdded -= BasePlayerManager_NewPlayerAdded;
+        BasePlayerManager.PlayerRemoved -= BasePlayerManager_PlayerRemoved;
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+    }
+
+    private void BasePlayerManager_PlayerRemoved(int remainingPlayerCount) { }
+
+    private void BasePlayerManager_NewPlayerAdded(BasePlayer newPlayer)
+    {
+        PlatformPreferences.Current.Keys = newPlayer.Keys;
+    }
+
+    private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
+    {
+        UpdatePlatformState(newScene.name);
+    }
+
+    private void UpdatePlatformState(string sceneName)
+    {
+        if (sceneName.Equals(bootSceneName))
+        {
+            CurrentState = PlatformState.Boot;
+        }
+        else if (sceneName.Equals(setupSceneName))
+        {
+            CurrentState = PlatformState.Setup;
+        }
+        else if (sceneName.Equals(mainSceneName))
+        {
+            CurrentState = PlatformState.Main;
+        }
+    }
+}
