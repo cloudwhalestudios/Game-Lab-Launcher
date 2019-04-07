@@ -7,6 +7,7 @@ using System;
 
 public class PlatformPlayer : ActiveInputHandler
 {
+    public static event Action SetupPrimary;
     public static event Action SetupSecondary;
 
     protected override void TBPrimary_InputEvent(KeyCode primaryKey)
@@ -14,7 +15,7 @@ public class PlatformPlayer : ActiveInputHandler
         switch (PlatformManager.Instance.CurrentState)
         {
             case PlatformManager.PlatformState.Setup:
-                MenuManager.Instance.SelectButton();
+                SetupPrimary?.Invoke();
                 break;
             case PlatformManager.PlatformState.Main:
                 break;

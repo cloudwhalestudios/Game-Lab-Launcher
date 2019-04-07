@@ -89,6 +89,8 @@ public class SetupController : MonoBehaviour
     public string redoExtraText         = "Lets try that again!<br>";
     public string warningText           = "The button you pressed is already your primary button. Please try using another one!";
 
+    bool allowInput = false;
+
     public void OnEnable()
     {
         BasePlayerManager.NewPlayerBeingAdded += BasePlayerManager_NewPlayerBeingAdded;
@@ -97,8 +99,8 @@ public class SetupController : MonoBehaviour
         BasePlayerManager.PlayerRemoved += BasePlayerManager_PlayerRemoved;
 
         PlatformPlayer.SetupSecondary += PlatformPlayer_SetupSecondary;
+        PlatformPlayer.SetupPrimary += PlatformPlayer_SetupPrimary;
     }
-
     public void OnDisable()
     {
         BasePlayerManager.NewPlayerBeingAdded -= BasePlayerManager_NewPlayerBeingAdded;
@@ -181,12 +183,18 @@ public class SetupController : MonoBehaviour
         }
     }
 
+
+    private void PlatformPlayer_SetupPrimary()
+    {
+        if (allowInput) MenuManager.Instance.SelectButton();
+    }
+
     private void PlatformPlayer_SetupSecondary()
     {
         Debug.Log("Secondary button reset triggerd!");
-        RedoSetup();
+        if (allowInput) RedoSetup();
     }
-
+    
     private void BasePlayerManager_NewPlayerBeingAdded(string name, BasePlayerManager.KeyEventSpecifier[] keySpecifiers)
     {
         // Selected Primary - Wait for Secondary
@@ -223,6 +231,7 @@ public class SetupController : MonoBehaviour
 
     private void ShowConfirmationDialog(bool show = true)
     {
+        allowInput = show;
         if (!show)
         {
             MenuManager.Instance.HideMenu();
