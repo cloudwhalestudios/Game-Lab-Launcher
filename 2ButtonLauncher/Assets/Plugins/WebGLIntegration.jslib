@@ -4,7 +4,7 @@ mergeInto(LibraryManager.library, {
         window.location.href = Pointer_stringify(str_location);
     },
 
-    Reload: function() {
+    Refresh: function() {
         location.reload();
     },
 
