@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,19 +14,17 @@ namespace AccessibilityInputSystem
             public static MenuManager Instance { get; private set; }
 
             public float autoInterval;
+            public bool updateStartIndex = false;
+            public int direction = 1;
 
-            [SerializeField, ReadOnly] private BaseMenuController activeMenuController;
-            [SerializeField, ReadOnly] private int selectedButtonIndex;
+            [SerializeField, ReadOnly] private BaseMenuController controller;
+            [SerializeField, ReadOnly] private int currentIndex;
             [SerializeField, ReadOnly] private List<Button> buttons;
 
             Coroutine menuSelector;
 
             Sprite lastDefaultStateSprite;
             Color lastDefaultColor;
-            bool singleSelection;
-
-            int currentColumn;
-            int currentRow;
 
             void Awake()
             {
@@ -42,8 +41,10 @@ namespace AccessibilityInputSystem
 
             private void OnEnable() => SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             private void OnDisable() => SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+
             private void SceneManager_activeSceneChanged(Scene from, Scene to) => Cleanup();
-            public void SetActiveMenu(BaseMenuController menuController) => activeMenuController = menuController;
+
+            public void SetMenuController(BaseMenuController menuController) => controller = menuController;
             void Cleanup() => StopAllCoroutines();
 
             void OnDestroy()
@@ -52,21 +53,19 @@ namespace AccessibilityInputSystem
                 Cleanup();
             }
 
-
-
             public void ShowMenu(bool startMoving = true)
             {
-                if (activeMenuController?.menuContainer != null)
+                if (controller?.menuContainer != null)
                 {
-                    activeMenuController.menuContainer.SetActive(true);
+                    controller.menuContainer.SetActive(true);
                     StartIndicating(startMoving);
                 }
             }
             public void HideMenu()
             {
-                if (activeMenuController?.menuContainer != null)
+                if (controller?.menuContainer != null)
                 {
-                    activeMenuController.menuContainer.SetActive(false);
+                    controller.menuContainer.SetActive(false);
                     StartIndicating(false);
                 }
             }
@@ -75,85 +74,68 @@ namespace AccessibilityInputSystem
             {
                 if (indicate)
                 {
-                    switch (activeMenuController.indicatorMode)
-                    {
-                        case BaseMenuController.IndicatorMode.Single:
-                            if (activeMenuController.itemSelectIndicator != null) activeMenuController.itemSelectIndicator.gameObject.SetActive(true);
-                            break;
-                        case BaseMenuController.IndicatorMode.RowAndSingle:
-                            if (activeMenuController.rowSelectIndicator != null) activeMenuController.rowSelectIndicator.gameObject.SetActive(true);
-                            break;
-                        case BaseMenuController.IndicatorMode.ColumnAndSingle:
-                            break;
-                        case BaseMenuController.IndicatorMode.RowAndColumn:
-                            break;
-                        default:
-                            break;
-                    }
+                    if (controller.itemSelectIndicator != null) controller.itemSelectIndicator.gameObject.SetActive(true);
+                    if (controller.transitionType == BaseMenuController.Transition.Animate) UpdateAnimationSpots();
                     menuSelector = StartCoroutine(MenuSelection());
                 }
                 else
                 {
-                    if (activeMenuController.itemSelectIndicator != null) activeMenuController.itemSelectIndicator?.gameObject.SetActive(false);
+                    if (controller.itemSelectIndicator != null) controller.itemSelectIndicator?.gameObject.SetActive(false);
+                    if (updateStartIndex) controller.startingIndex = currentIndex;
 
                     if (menuSelector != null)
                     {
                         Cleanup();
                         menuSelector = null;
                     }
-                    HighlightButton(buttons[selectedButtonIndex], true);
+                    HighlightButton(buttons[currentIndex], true);
                 }
             }
 
-            public void SelectButton()
+            private void UpdateAnimationSpots()
             {
-                if (!singleSelection)
-                {
-                    singleSelection = true;
-                }
-                else
-                {
-                    buttons[selectedButtonIndex].onClick.Invoke();
-                }
+                var firstIndex = (currentIndex + buttons.Count - direction) % buttons.Count;
+                var lastIndex = (currentIndex + buttons.Count + direction) % buttons.Count;
+
+                controller.firstSpot.buttonObject = buttons[firstIndex].gameObject;
+                controller.currentSpot.buttonObject = buttons[currentIndex].gameObject;
+                controller.lastSpot.buttonObject = buttons[lastIndex].gameObject;
             }
 
-            public bool EnableMultiSelection()
+            public void SelectItem()
             {
-                if (!singleSelection) return false;
-
-                selectedButtonIndex = (selectedButtonIndex % activeMenuController.buttonsPerRow) + currentRow * activeMenuController.buttonsPerRow;
-                HighlightButton(buttons[selectedButtonIndex], true);
-                singleSelection = false;
-                return true;
+                buttons[currentIndex].onClick.Invoke();
             }
 
             IEnumerator MenuSelection()
             {
                 Button selectedButton;
-                buttons = new List<Button>(activeMenuController.buttonParent.GetComponentsInChildren<Button>());
-                selectedButtonIndex = Mathf.Clamp(activeMenuController.startingIndex, 0, buttons.Count - 1);
+                buttons = new List<Button>(controller.buttonParent.GetComponentsInChildren<Button>());
+                currentIndex = Mathf.Clamp(controller.startingIndex, 0, buttons.Count - 1);
 
                 yield return null;
-                HighlightButton(buttons[selectedButtonIndex]);
+                HighlightButton(buttons[currentIndex]);
 
                 while (true)
                 {
-                    var buttonsPerColumn = activeMenuController.buttonsPerColumn;
-                    var buttonsPerRow = activeMenuController.buttonsPerRow;
-
-                    singleSelection = singleSelection || activeMenuController.indicatorMode == BaseMenuController.IndicatorMode.Single;
-                    selectedButton = buttons[selectedButtonIndex];
+                    selectedButton = buttons[currentIndex];
 
                     // Indicate and Highlight
-                    IndicateButton(selectedButton);
-
-                    if (singleSelection)
+                    switch (controller.transitionType)
                     {
-                        HighlightButton(selectedButton);
+                        case BaseMenuController.Transition.Move:
+                            IndicateButton(selectedButton);
+                            break;
+                        case BaseMenuController.Transition.Animate:
+                            AnimateButton(selectedButton);
+                            break;
+                        default:
+                            break;
                     }
 
-
-                    if (activeMenuController.itemSelectTimer != null)
+                    HighlightButton(selectedButton);
+                    
+                    if (controller.itemSelectTimer != null)
                     {
                         yield return StartCoroutine(UpdateTimerProgress(autoInterval));
                     }
@@ -162,49 +144,81 @@ namespace AccessibilityInputSystem
                         yield return new WaitForSecondsRealtime(autoInterval);
                     }
 
-                    if (singleSelection)
-                    {
-                        // Re-apply default sprite
-                        HighlightButton(selectedButton, true);
-                        selectedButtonIndex++;
+                    HighlightButton(selectedButton, true);
+                    currentIndex = (currentIndex + buttons.Count + direction) % buttons.Count;
+                }
+            }
 
-                        switch (activeMenuController.indicatorMode)
-                        {
-                            case BaseMenuController.IndicatorMode.Single:
-                                selectedButtonIndex %= buttons.Count;
-                                break;
-                            case BaseMenuController.IndicatorMode.RowAndSingle:
-                                selectedButtonIndex = (selectedButtonIndex % buttonsPerRow) + currentRow * buttonsPerRow;
-                                break;
-                            case BaseMenuController.IndicatorMode.ColumnAndSingle:
-                                break;
-                            case BaseMenuController.IndicatorMode.RowAndColumn:
-                                break;
-                            default:
-                                break;
-                        }
+            private void AnimateButton(Button selectedButton)
+            {
+                try
+                {
+                    if (selectedButton.gameObject.Equals(controller.currentSpot.buttonObject)) return;
+                    StartCoroutine(AnimateButtonCoroutine());
+                }
+                catch (Exception)
+                {
 
-                    }
-                    else
-                    {
-                        switch (activeMenuController.indicatorMode)
-                        {
-                            case BaseMenuController.IndicatorMode.RowAndSingle: // Row increment
-                                selectedButtonIndex = (selectedButtonIndex + buttonsPerRow) % buttons.Count;
-                                currentRow = Mathf.FloorToInt((float)selectedButtonIndex / buttonsPerRow);
-                                break;
-                            case BaseMenuController.IndicatorMode.ColumnAndSingle:
-                                currentColumn = Mathf.FloorToInt((float)selectedButtonIndex / buttonsPerColumn);
-                                break;
-                            case BaseMenuController.IndicatorMode.RowAndColumn:
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    return;
+                }
+            }
 
-                    //Debug.Log("Incrementing... " + (selectedButtonIndex + 1) + " of " + buttons.Count);
+            IEnumerator AnimateButtonCoroutine()
+            {
+                // Fade last button
+                AnimateMoveItem(controller.lastSpot.buttonObject, 
+                    controller.lastSpot.location, 
+                    controller.disappearClip, 
+                    controller.transitionTime);
+                // Move and downscale last current button
+                AnimateMoveItem(controller.currentSpot.buttonObject,
+                    controller.lastSpot.location,
+                    controller.shrinkClip,
+                    controller.transitionTime);
 
+                // Move and upscale new current button
+                AnimateMoveItem(controller.firstSpot.buttonObject,
+                    controller.currentSpot.location,
+                    controller.growClip,
+                    controller.transitionTime);
+
+                UpdateAnimationSpots();
+
+                // Fade in new button
+                AnimateMoveItem(controller.firstSpot.buttonObject,
+                    controller.firstSpot.location,
+                    controller.appearClip,
+                    controller.transitionTime);
+
+                yield return null;
+
+            }
+
+            IEnumerator AnimateMoveItem(GameObject item, Vector3 location, AnimationClip clip, float transitionTime)
+            {
+                var animation = item.GetComponent<Animation>();
+                if (animation == null)
+                {
+                    animation = item.AddComponent<Animation>();
+                }
+                if (animation.GetClip(clip.name) == null)
+                {
+                    animation.AddClip(clip, clip.name);
+                }
+
+                animation.Play(clip.name);
+                animation[clip.name].speed = clip.length / transitionTime;
+
+                var startPos = item.transform.localPosition;
+                if (startPos == location) yield break;
+
+                var elapsedTime = 0f;
+                while (elapsedTime <= transitionTime)
+                {
+                    yield return null;
+                    elapsedTime += Time.unscaledDeltaTime;
+                    var percentage = Mathf.Clamp01(elapsedTime / transitionTime);
+                    item.transform.localPosition = Vector3.Lerp(startPos, location, percentage);
                 }
             }
 
@@ -212,16 +226,14 @@ namespace AccessibilityInputSystem
             {
                 //Debug.Log("Timer ...");
                 var elapsedTime = 0f;
-                activeMenuController.itemSelectTimer.localScale = new Vector3(0, 1, 1);
+                controller.itemSelectTimer.localScale = new Vector3(0, 1, 1);
                 while (elapsedTime < waitTime)
                 {
                     yield return null;
                     elapsedTime += Time.unscaledDeltaTime;
                     var percentage = Mathf.Clamp01(elapsedTime / waitTime);
                     //Debug.Log($"Percent: {percentage * 100f}%; Elapsed: {elapsedTime}s; Wait: {waitTime}s");
-
-
-                    activeMenuController.itemSelectTimer.localScale = new Vector3(percentage, 1, 1);
+                    controller.itemSelectTimer.localScale = new Vector3(percentage, 1, 1);
                 }
             }
 
@@ -233,33 +245,11 @@ namespace AccessibilityInputSystem
                     var posX = new Vector2(btnRect.localPosition.x, 0);
                     var posY = new Vector2(0, btnRect.localPosition.y);
 
-                    if (singleSelection)
-                    {
-                        if (activeMenuController.itemSelectIndicator != null)
-                            activeMenuController.itemSelectIndicator.anchoredPosition = posX + posY + activeMenuController.itemIndicatorOffset;
-                    }
-                    else
-                    {
-                        switch (activeMenuController.indicatorMode)
-                        {
-                            case BaseMenuController.IndicatorMode.Single:
-                                singleSelection = true;
-                                IndicateButton(btn);
-                                break;
-                            case BaseMenuController.IndicatorMode.RowAndSingle:
-                                if (activeMenuController.rowSelectIndicator != null)
-                                    activeMenuController.rowSelectIndicator.anchoredPosition = posY + activeMenuController.rowIndicatorOffset;
-                                break;
-                            case BaseMenuController.IndicatorMode.ColumnAndSingle:
-                                break;
-                            case BaseMenuController.IndicatorMode.RowAndColumn:
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    if (controller.itemSelectIndicator != null)
+                        controller.itemSelectIndicator.anchoredPosition = posX + posY + controller.itemIndicatorOffset;
+                   
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     return;
                 }
@@ -296,7 +286,7 @@ namespace AccessibilityInputSystem
                         }
                     }
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
 
                     return;

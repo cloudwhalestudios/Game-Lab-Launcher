@@ -186,7 +186,7 @@ public class SetupController : MonoBehaviour
 
     private void PlatformPlayer_SetupPrimary()
     {
-        if (allowInput) MenuManager.Instance.SelectButton();
+        if (allowInput) MenuManager.Instance.SelectItem();
     }
 
     private void PlatformPlayer_SetupSecondary()

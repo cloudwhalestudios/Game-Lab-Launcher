@@ -9,6 +9,8 @@ public class PlatformPlayer : ActiveInputHandler
 {
     public static event Action SetupPrimary;
     public static event Action SetupSecondary;
+    public static event Action MainPrimary;
+    public static event Action MainSecondary;
 
     protected override void TBPrimary_InputEvent(KeyCode primaryKey)
     {
@@ -18,6 +20,7 @@ public class PlatformPlayer : ActiveInputHandler
                 SetupPrimary?.Invoke();
                 break;
             case PlatformManager.PlatformState.Main:
+                MainPrimary?.Invoke();
                 break;
             default:
                 break;
@@ -32,6 +35,7 @@ public class PlatformPlayer : ActiveInputHandler
                 SetupSecondary?.Invoke();
                 break;
             case PlatformManager.PlatformState.Main:
+                MainSecondary?.Invoke();
                 break;
             default:
                 break;

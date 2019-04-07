@@ -10,7 +10,7 @@ namespace AccessibilityInputSystem
         {
             private void Start()
             {
-                MenuManager.Instance.SetActiveMenu(this);
+                MenuManager.Instance.SetMenuController(this);
             }
             public void SetMenu(GameObject _menuContainer, GameObject _buttonParent)
             {

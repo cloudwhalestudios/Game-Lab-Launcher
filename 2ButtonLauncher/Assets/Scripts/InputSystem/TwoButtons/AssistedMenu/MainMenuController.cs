@@ -15,7 +15,7 @@ namespace AccessibilityInputSystem
             public void Start()
             {
                 ResetController();
-                if (BasePlayerManager.Instance.PlayerCount > 0)
+                if (BasePlayerManager.Instance?.PlayerCount > 0)
                 {
                     isReady = true;
                     MenuManager.Instance.StartIndicating();
@@ -24,7 +24,7 @@ namespace AccessibilityInputSystem
 
             public void ResetController()
             {
-                MenuManager.Instance.SetActiveMenu(this);
+                MenuManager.Instance.SetMenuController(this);
                 if (itemSelectIndicator != null)
                 {
                     itemSelectIndicator.gameObject.SetActive(false);
@@ -32,7 +32,7 @@ namespace AccessibilityInputSystem
                 }
                 if (itemSelectTimer != null) itemSelectTimer.localScale = new Vector3(0, 1, 1);
 
-                menuContainer.SetActive(false);
+                if (menuContainer != null) menuContainer.SetActive(false);
             }
 
             void OnEnable()
