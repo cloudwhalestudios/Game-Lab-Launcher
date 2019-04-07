@@ -638,10 +638,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0797b2902a5709f4bae80d41f58a8e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 5598970322304255694, guid: f2a8a587af293244ab0f27b1e789ef74,
+    type: 3}
   playerParent: {fileID: 0}
-  disableAutoNewPlayerCheck: 1
   shouldCheckForNewPlayer: 0
+  disableAutoNewPlayerCheck: 1
   maxPlayers: 1
   waitingForNextInput: 0
   newPlayer_primaryKey: 0

@@ -167,6 +167,8 @@ public class SetupController : MonoBehaviour
     public void ConfirmSetup()
     {
         Debug.Log("Finished setup");
+        PlatformPreferences.Current.CompletedSetup = true;
+        SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
     }
 
     private void BasePlayerManager_PlayerRemoved(int newCount)
