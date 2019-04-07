@@ -12,7 +12,7 @@ namespace AccessibilityInputSystem
             [Serializable]
             public class ButtonAnimationSpot
             {
-                public Vector3 location;
+                public Vector3 localPosition;
                 [ReadOnly] public GameObject buttonObject;
             }
 
@@ -32,6 +32,7 @@ namespace AccessibilityInputSystem
             [Header("Selection Behaviour")]
             public int startingIndex;
             public Transition transitionType;
+            public bool updateStartIndex = false;
 
             [Header("Move Offset Tweaking")]
             public Vector2 itemIndicatorOffset;
@@ -44,6 +45,8 @@ namespace AccessibilityInputSystem
             public AnimationClip growClip;
             public AnimationClip shrinkClip;
             public AnimationClip disappearClip;
+
+            public AnimationClip staticFadedClip;
             public AnimationClip staticSmallClip;
             public AnimationClip staticLargeClip;
             

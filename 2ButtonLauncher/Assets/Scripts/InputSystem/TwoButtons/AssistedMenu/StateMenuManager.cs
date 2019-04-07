@@ -59,8 +59,6 @@ namespace AccessibilityInputSystem
 
             public void Select()
             {
-                Debug.Log($"Selecting State {controller.stateMenus[selectedStateIndex].name} ({selectedStateIndex})");
-
                 switch (currentMode)
                 {
                     case BaseStateMenuController.Mode.Single:
@@ -69,6 +67,8 @@ namespace AccessibilityInputSystem
                         break;
 
                     case BaseStateMenuController.Mode.State:
+                        Debug.Log($"Selecting State {controller.stateMenus[selectedStateIndex].name} ({selectedStateIndex})");
+
                         // Stop state indication
                         StartIndicating(false);
                         if (hideHighlightOnSelect)
@@ -82,7 +82,6 @@ namespace AccessibilityInputSystem
                         var selectedState = controller.stateMenus[selectedStateIndex];
                         selectedState.selectEvent?.Invoke();
 
-                        MenuManager.Instance.SetMenuController(selectedState.menuController);
                         StartIndicating();
                         break;
                 }
@@ -104,7 +103,7 @@ namespace AccessibilityInputSystem
 
                         if (hideHighlightOnSelect)
                         {
-                            lastHighlightedState.highlight.SetActive(true);
+                            lastHighlightedState?.highlight.SetActive(true);
                         }
 
                         StartIndicating();
@@ -118,16 +117,20 @@ namespace AccessibilityInputSystem
 
             public void StartIndicating(bool start = true)
             {
+                selectedStateIndex = Mathf.Clamp(controller.startStateIndex, 0, controller.stateMenus.Count - 1);
+
                 switch (currentMode)
                 {
                     case BaseStateMenuController.Mode.Single:
+                        var selectedState = controller.stateMenus[selectedStateIndex];
+                        MenuManager.Instance.SetMenuController(selectedState.menuController);
+
                         MenuManager.Instance.StartIndicating(start);
                         break;
                     case BaseStateMenuController.Mode.State:
                         // Start state indication
                         if (start)
                         {
-                            selectedStateIndex = Mathf.Clamp(controller.startStateIndex, 0, controller.stateMenus.Count - 1);
                             stateSelector = StartCoroutine(StateSelection());
                         }
                         else

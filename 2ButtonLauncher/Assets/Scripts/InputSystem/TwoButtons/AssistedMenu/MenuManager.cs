@@ -14,17 +14,18 @@ namespace AccessibilityInputSystem
             public static MenuManager Instance { get; private set; }
 
             public float autoInterval;
-            public bool updateStartIndex = false;
             public int direction = 1;
 
             [SerializeField, ReadOnly] private BaseMenuController controller;
-            [SerializeField, ReadOnly] private int currentIndex;
+            [SerializeField, ReadOnly] private int selectedIndex;
             [SerializeField, ReadOnly] private List<Button> buttons;
 
             Coroutine menuSelector;
 
             Sprite lastDefaultStateSprite;
             Color lastDefaultColor;
+
+            bool animationUpdated = false;
 
             void Awake()
             {
@@ -44,7 +45,15 @@ namespace AccessibilityInputSystem
 
             private void SceneManager_activeSceneChanged(Scene from, Scene to) => Cleanup();
 
-            public void SetMenuController(BaseMenuController menuController) => controller = menuController;
+            public void SetMenuController(BaseMenuController menuController)
+            {
+                if (controller != null && controller.updateStartIndex) controller.startingIndex = selectedIndex;
+
+                controller = menuController;
+                buttons = new List<Button>(controller.buttonParent.GetComponentsInChildren<Button>());
+                selectedIndex = Mathf.Clamp(controller.startingIndex, 0, buttons.Count - 1);
+            }
+
             void Cleanup() => StopAllCoroutines();
 
             void OnDestroy()
@@ -74,51 +83,92 @@ namespace AccessibilityInputSystem
             {
                 if (indicate)
                 {
+                    //Debug.Log(controller?.name + " " + controller?.buttonParent);
+
                     if (controller.itemSelectIndicator != null) controller.itemSelectIndicator.gameObject.SetActive(true);
-                    if (controller.transitionType == BaseMenuController.Transition.Animate) UpdateAnimationSpots();
+                    if (controller.itemSelectTimer != null) controller.itemSelectTimer.gameObject.SetActive(true);
+
+                    if (controller.transitionType == BaseMenuController.Transition.Animate) SetupButtonPosition();
+                    
                     menuSelector = StartCoroutine(MenuSelection());
                 }
                 else
                 {
                     if (controller.itemSelectIndicator != null) controller.itemSelectIndicator?.gameObject.SetActive(false);
-                    if (updateStartIndex) controller.startingIndex = currentIndex;
-
+                    if (controller.itemSelectTimer != null) controller.itemSelectTimer.gameObject.SetActive(false);
                     if (menuSelector != null)
                     {
                         Cleanup();
                         menuSelector = null;
                     }
-                    HighlightButton(buttons[currentIndex], true);
+                    HighlightButton(buttons[selectedIndex], true);
                 }
+            }
+
+            private void SetupButtonPosition()
+            {
+                UpdateAnimationSpots();
+                controller.firstSpot.buttonObject.transform.localPosition = controller.firstSpot.localPosition;
+                controller.currentSpot.buttonObject.transform.localPosition = controller.currentSpot.localPosition;
+                controller.lastSpot.buttonObject.transform.localPosition = controller.lastSpot.localPosition;
+
+                controller.firstSpot.buttonObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+                controller.currentSpot.buttonObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                controller.lastSpot.buttonObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
             }
 
             private void UpdateAnimationSpots()
             {
-                var firstIndex = (currentIndex + buttons.Count - direction) % buttons.Count;
-                var lastIndex = (currentIndex + buttons.Count + direction) % buttons.Count;
+                var firstIndex = (selectedIndex + buttons.Count - direction) % buttons.Count;
+                var lastIndex = (selectedIndex + buttons.Count + direction) % buttons.Count;
 
-                controller.firstSpot.buttonObject = buttons[firstIndex].gameObject;
-                controller.currentSpot.buttonObject = buttons[currentIndex].gameObject;
-                controller.lastSpot.buttonObject = buttons[lastIndex].gameObject;
+                var first = buttons[firstIndex].gameObject;
+                var current = buttons[selectedIndex].gameObject;
+                var last = buttons[lastIndex].gameObject;
+
+                controller.firstSpot.buttonObject = first;
+                controller.currentSpot.buttonObject = current;
+                controller.lastSpot.buttonObject = last;
+
+                var canvas = current.GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.overrideSorting = true;
+                    canvas.sortingOrder = 10;
+                }
+                canvas = first.GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.overrideSorting = false;
+                    canvas.sortingOrder = 0;
+                }
+                canvas = last.GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.overrideSorting = false;
+                    canvas.sortingOrder = 0;
+                }
+
+                animationUpdated = true;
             }
 
             public void SelectItem()
             {
-                buttons[currentIndex].onClick.Invoke();
+                Debug.Log($"Selecting button {buttons[selectedIndex].name} ({selectedIndex})");
+                buttons[selectedIndex].onClick.Invoke();
             }
 
             IEnumerator MenuSelection()
             {
                 Button selectedButton;
-                buttons = new List<Button>(controller.buttonParent.GetComponentsInChildren<Button>());
-                currentIndex = Mathf.Clamp(controller.startingIndex, 0, buttons.Count - 1);
-
                 yield return null;
-                HighlightButton(buttons[currentIndex]);
+                HighlightButton(buttons[selectedIndex]);
 
                 while (true)
                 {
-                    selectedButton = buttons[currentIndex];
+                    selectedButton = buttons[selectedIndex];
+                    Debug.Log($"Index {selectedIndex} of {buttons.Count - 1} ({selectedButton.name})");
+
 
                     // Indicate and Highlight
                     switch (controller.transitionType)
@@ -145,7 +195,7 @@ namespace AccessibilityInputSystem
                     }
 
                     HighlightButton(selectedButton, true);
-                    currentIndex = (currentIndex + buttons.Count + direction) % buttons.Count;
+                    selectedIndex = (selectedIndex + buttons.Count + direction) % buttons.Count;
                 }
             }
 
@@ -153,8 +203,7 @@ namespace AccessibilityInputSystem
             {
                 try
                 {
-                    if (selectedButton.gameObject.Equals(controller.currentSpot.buttonObject)) return;
-                    StartCoroutine(AnimateButtonCoroutine());
+                    StartCoroutine(AnimateButtonCoroutine(selectedButton));
                 }
                 catch (Exception)
                 {
@@ -163,63 +212,98 @@ namespace AccessibilityInputSystem
                 }
             }
 
-            IEnumerator AnimateButtonCoroutine()
+            IEnumerator AnimateButtonCoroutine(Button selectedButton)
             {
-                // Fade last button
-                AnimateMoveItem(controller.lastSpot.buttonObject, 
-                    controller.lastSpot.location, 
-                    controller.disappearClip, 
-                    controller.transitionTime);
-                // Move and downscale last current button
-                AnimateMoveItem(controller.currentSpot.buttonObject,
-                    controller.lastSpot.location,
-                    controller.shrinkClip,
-                    controller.transitionTime);
+                if (!animationUpdated)
+                {
+                    // Fade first
+                    StartCoroutine(AnimateMoveItem(
+                            controller.firstSpot.buttonObject,
+                            controller.firstSpot.localPosition,
+                            controller.firstSpot.localPosition,
+                            controller.disappearClip,
+                            controller.staticFadedClip,
+                            controller.transitionTime
+                            ));
+                    UpdateAnimationSpots();
+                }
 
-                // Move and upscale new current button
-                AnimateMoveItem(controller.firstSpot.buttonObject,
-                    controller.currentSpot.location,
-                    controller.growClip,
-                    controller.transitionTime);
+                // Appear last
+                StartCoroutine(AnimateMoveItem(
+                            controller.lastSpot.buttonObject,
+                            controller.lastSpot.localPosition,
+                            controller.lastSpot.localPosition,
+                            controller.appearClip,
+                            controller.staticSmallClip,
+                            controller.transitionTime
+                        ));
+                
+                // Move to current
+                StartCoroutine(AnimateMoveItem(
+                            controller.currentSpot.buttonObject,
+                            controller.lastSpot.localPosition,
+                            controller.currentSpot.localPosition,
+                            controller.growClip,
+                            controller.staticLargeClip,
+                            controller.transitionTime
+                        ));
 
-                UpdateAnimationSpots();
+                // Move to first
+                StartCoroutine(AnimateMoveItem(
+                            controller.firstSpot.buttonObject,
+                            controller.currentSpot.localPosition,
+                            controller.firstSpot.localPosition,
+                            controller.shrinkClip,
+                            controller.staticSmallClip,
+                            controller.transitionTime
+                        ));
 
-                // Fade in new button
-                AnimateMoveItem(controller.firstSpot.buttonObject,
-                    controller.firstSpot.location,
-                    controller.appearClip,
-                    controller.transitionTime);
-
+                animationUpdated = false;
                 yield return null;
-
             }
 
-            IEnumerator AnimateMoveItem(GameObject item, Vector3 location, AnimationClip clip, float transitionTime)
+            IEnumerator AnimateMoveItem(GameObject item, Vector3 startLocation, Vector3 endLocation, AnimationClip transitionClip, AnimationClip staticClip, float transitionTime)
             {
                 var animation = item.GetComponent<Animation>();
                 if (animation == null)
                 {
                     animation = item.AddComponent<Animation>();
                 }
-                if (animation.GetClip(clip.name) == null)
+                if (animation.GetClip(transitionClip.name) == null)
                 {
-                    animation.AddClip(clip, clip.name);
+                    transitionClip.legacy = true;
+                    transitionClip.wrapMode = WrapMode.Once;
+                    animation.AddClip(transitionClip, transitionClip.name);
                 }
-
-                animation.Play(clip.name);
-                animation[clip.name].speed = clip.length / transitionTime;
-
-                var startPos = item.transform.localPosition;
-                if (startPos == location) yield break;
-
-                var elapsedTime = 0f;
-                while (elapsedTime <= transitionTime)
+                if (animation.GetClip(staticClip.name) == null)
                 {
-                    yield return null;
-                    elapsedTime += Time.unscaledDeltaTime;
-                    var percentage = Mathf.Clamp01(elapsedTime / transitionTime);
-                    item.transform.localPosition = Vector3.Lerp(startPos, location, percentage);
+                    staticClip.legacy = true;
+                    staticClip.wrapMode = WrapMode.Once;
+                    animation.AddClip(staticClip, staticClip.name);
                 }
+                animation.Stop();
+                animation.Play(transitionClip.name);
+                animation[transitionClip.name].speed = transitionClip.length / transitionTime;
+                
+                item.transform.localPosition = startLocation;
+                if (startLocation != endLocation)
+                {
+                    var elapsedTime = 0f;
+                    while (elapsedTime <= transitionTime)
+                    {
+                        yield return null;
+                        elapsedTime += Time.unscaledDeltaTime;
+                        var percentage = Mathf.Clamp01(elapsedTime / transitionTime);
+                        item.transform.localPosition = Vector3.Lerp(startLocation, endLocation, percentage);
+                    }
+                }
+                else
+                {
+                    yield return new WaitForSecondsRealtime(transitionTime);
+                }
+                
+                animation.Stop();
+                animation.Play(staticClip.name);
             }
 
             IEnumerator UpdateTimerProgress(float waitTime)
