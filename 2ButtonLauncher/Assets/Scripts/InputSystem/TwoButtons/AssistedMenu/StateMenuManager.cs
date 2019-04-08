@@ -12,7 +12,6 @@ namespace AccessibilityInputSystem
         {
             public static StateMenuManager Instance { get; private set; }
 
-            public float autoInterval;
             public bool hideHighlightOnSelect = true;
             public int direction = 1;
 
@@ -192,11 +191,11 @@ namespace AccessibilityInputSystem
 
                     if (controller.stateSelectTimer != null)
                     {
-                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(controller.stateSelectTimer, autoInterval));
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(controller.stateSelectTimer, PlatformPreferences.Current.MenuProgressionTimer));
                     }
                     else
                     {
-                        yield return new WaitForSecondsRealtime(autoInterval);
+                        yield return new WaitForSecondsRealtime(PlatformPreferences.Current.MenuProgressionTimer);
                     }
 
                     selectedStateIndex = (selectedStateIndex + controller.stateMenus.Count + direction) % controller.stateMenus.Count;

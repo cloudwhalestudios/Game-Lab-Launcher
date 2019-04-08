@@ -13,7 +13,6 @@ namespace AccessibilityInputSystem
         {
             public static MenuManager Instance { get; private set; }
 
-            public float autoInterval;
             public int direction = 1;
 
             [SerializeField, ReadOnly] private BaseMenuController controller;
@@ -195,11 +194,11 @@ namespace AccessibilityInputSystem
                     if (controller.itemSelectTimer != null)
                     {
 
-                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(autoInterval));
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(PlatformPreferences.Current.MenuProgressionTimer));
                     }
                     else
                     {
-                        yield return new WaitForSecondsRealtime(autoInterval);
+                        yield return new WaitForSecondsRealtime(PlatformPreferences.Current.MenuProgressionTimer);
                     }
 
                     HighlightButton(selectedButton, true);

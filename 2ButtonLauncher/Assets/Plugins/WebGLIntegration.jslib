@@ -7,10 +7,17 @@ mergeInto(LibraryManager.library, {
     RedirectWithParams: function(str_location, str_paramsJson) {
         var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
         var location = Pointer_stringify(str_location);
+        var questionmark = false;
         for(var key in jsonObject) {
             if (jsonObject.hasOwnProperty(key)) {
                 // Attach to url
-                location += "&" + key + "=" + jsonObject[key];
+                if (!questionmark) {
+                    location += "?";
+                }
+                else {
+                    location += "&";
+                }
+                location += key + "=" + jsonObject[key];
             }
         }
         window.location.href = location;
@@ -35,13 +42,21 @@ mergeInto(LibraryManager.library, {
 
     SetParams: function(str_paramsJson) {
         var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
-        window.location.search = "";
+        var searchString = window.location.search = "";
+        var questionmark = false;
         for(var key in jsonObject) {
             if (jsonObject.hasOwnProperty(key)) {
                 // Attach to url
-                window.location.search += "&" + key + "=" + jsonObject[key];
+                if (!questionmark) {
+                    searchString += "?";
+                }
+                else {
+                    searchString += "&";
+                }
+                searchString += key + "=" + jsonObject[key];
             }
         }
+        window.location.search = searchString;
     },
 
     Crash: function() {

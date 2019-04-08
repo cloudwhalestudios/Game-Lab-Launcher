@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17fe98fe-d8c4-41d3-ac10-e976d9bdcf9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Assets.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2D/CloudWhale_Logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/2D/CloudWhale_Logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/WebGLIntegration.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/WebGLIntegration.jslib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/WebGL/JSLib.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/WebGL/JSLib.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/Boot.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/Boot.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/InputSystem/TwoButtons/AssistedMenu/MenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/InputSystem/TwoButtons/AssistedMenu/MenuManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/InputSystem/TwoButtons/AssistedMenu/StateMenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/InputSystem/TwoButtons/AssistedMenu/StateMenuManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scripts/WebGL/WebGLRedirect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/WebGL/WebGLRedirect.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Plugins/WebGLIntegration.jslib">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+            <state relative-caret-position="136">
+              <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -46,8 +42,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="348" />
+    <option name="y" value="-21" />
     <option name="width" value="974" />
     <option name="height" value="1087" />
   </component>
@@ -91,21 +88,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1554733383765</updated>
-      <workItem from="1554733387090" duration="7381000" />
+      <workItem from="1554733387090" duration="9005000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7381000" />
+    <option name="totallyTimeSpent" value="9005000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1087" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Designer" />
       <window_info id="UI Designer" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24945295" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12153518" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
@@ -134,8 +131,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Plugins/WebGLIntegration.jslib">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+        <state relative-caret-position="136">
+          <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
         </state>
       </provider>
     </entry>

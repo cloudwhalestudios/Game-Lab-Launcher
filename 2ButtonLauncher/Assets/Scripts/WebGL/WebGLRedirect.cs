@@ -14,14 +14,14 @@ namespace WebGLIntegration
 #if UNITY_WEBGL
             if (preferences != "{}") 
             {
-                JSLib.RedirectWithParams(Config.BASE_URL + url, preferences);
+                JSLib.RedirectWithParams(Config.BASE_URL + url + "/", preferences);
             }
             else 
             {
-                JSLib.Redirect(Config.BASE_URL + url);
+                JSLib.Redirect(Config.BASE_URL + url + "/");
             }
 #endif
-            Debug.Log($"Should open {Config.BASE_URL + url + preferences} right now");
+            Debug.Log($"Should open {Config.BASE_URL + url + "/" + preferences} right now");
         }
 
         public static void OpenLauncher()
