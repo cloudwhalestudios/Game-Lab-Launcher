@@ -22,6 +22,7 @@ public class BootController : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Launch);
         StartCoroutine(StartNextScene());
 
         // Load the platform preferences
