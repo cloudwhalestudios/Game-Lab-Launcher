@@ -90,6 +90,7 @@ public class SetupController : MonoBehaviour
     public string warningText           = "The button you pressed is already your primary button. Please try using another one!";
 
     bool allowInput = false;
+    bool isReset = false;
 
     public void OnEnable()
     {
@@ -116,8 +117,8 @@ public class SetupController : MonoBehaviour
     {
         if (BasePlayerManager.Instance.PlayerCount > 0)
         {
-            SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
-            return;
+            isReset = true;
+            BasePlayerManager.Instance.RemovePlayer();
         }
 
         ShowConfirmationDialog(false);
@@ -181,9 +182,13 @@ public class SetupController : MonoBehaviour
     private void BasePlayerManager_PlayerRemoved(int newCount)
     {
         // Input was reset
-        if (newCount == 0)
+        if (!isReset && newCount == 0)
         {
             StartCoroutine(SwitchElementsRoutine(redoExtraText + primaryInputText, InputConfigImage.ConfigState.Highlighted, InputConfigImage.ConfigState.Unselected));
+        }
+        else
+        {
+            isReset = false;
         }
     }
 

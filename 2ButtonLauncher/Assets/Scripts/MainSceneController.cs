@@ -73,7 +73,7 @@ public class MainSceneController : MonoBehaviour
 
     public void Return()
     {
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Abort);
+        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Abort);
         if (gameMenuOpen)
         {
             ReturnFromGameSelection();
@@ -137,33 +137,33 @@ public class MainSceneController : MonoBehaviour
     {
         if (gameMenuOpen && selectedGame != GameName.None)
         {
-            AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.GameSelected);
+            AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.GameSelected);
             PlatformManager.Instance.LaunchGame(selectedGame);
         }
     }
 
     public void Favorite()
     {
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Accept);
+        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Accept);
         // TODO add game to favorites
     }
 
     public void ApplyCategory()
     {
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Accept);
+        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Accept);
         // TODO apply category filter
     }
 
     public void ResetIntput()
     {
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Abort);
+        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Abort);
         PlatformPreferences.Current.CompletedSetup = false;
         SceneManager.LoadScene(PlatformManager.Instance.setupSceneName);
     }
 
     public void Exit()
     {
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Abort);
+        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Abort);
         PlatformManager.Instance.Exit();
     }
 

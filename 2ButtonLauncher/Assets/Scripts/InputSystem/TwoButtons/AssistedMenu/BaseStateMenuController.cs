@@ -30,6 +30,7 @@ namespace AccessibilityInputSystem
             }
 
             public Mode indicatorMode = Mode.Single;
+            public RectTransform stateSelectTimer;
 
             [Header("Selection Behaviour")]
             public int startStateIndex;

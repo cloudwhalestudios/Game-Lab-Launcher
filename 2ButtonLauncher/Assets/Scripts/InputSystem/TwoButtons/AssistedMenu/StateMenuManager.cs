@@ -48,6 +48,7 @@ namespace AccessibilityInputSystem
             {
                 this.controller = controller;
                 currentMode = controller.indicatorMode;
+                controller.stateSelectTimer?.gameObject.SetActive(false);
 
                 selectedStateIndex = Mathf.Clamp(controller.startStateIndex, 0, controller.stateMenus.Count - 1);
 
@@ -57,10 +58,20 @@ namespace AccessibilityInputSystem
                     stateMenu.selectEvent?.Invoke();
                     stateMenu.highlight.SetActive(hideHighlightOnSelect);
                 }
+                else if (currentMode == BaseStateMenuController.Mode.State)
+                {
+                    controller.stateSelectTimer?.gameObject.SetActive(true);
+                    if (controller.stateSelectTimer != null)
+                    {
+                        controller.stateSelectTimer.localScale = new Vector3(0, 1f, 1f);
+                    }
+                }
             }
 
             private void Cleanup()
             {
+                lastHighlightedState = null;
+
                 if (stateSelector != null) StopCoroutine(stateSelector);
                 stateSelector = null;
 
@@ -85,7 +96,7 @@ namespace AccessibilityInputSystem
 
                     case BaseStateMenuController.Mode.State:
                         Debug.Log($"Selecting State {controller.stateMenus[selectedStateIndex].name} ({selectedStateIndex})");
-                        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Accept);
+                        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Accept);
                         // Stop state indication
                         StartIndicating(false);
                         if (hideHighlightOnSelect)
@@ -146,12 +157,20 @@ namespace AccessibilityInputSystem
                         // Start state indication
                         if (start)
                         {
+                            controller.stateSelectTimer?.gameObject.SetActive(true);
+                            if (controller.stateSelectTimer != null)
+                            {
+                                controller.stateSelectTimer.localScale = new Vector3(0, 1f, 1f);
+                            }
+
                             stateSelector = StartCoroutine(StateSelection());
                         }
                         else
                         {
                             Cleanup();
                             if (stateSelector != null) stateSelector = null;
+
+                            controller.stateSelectTimer?.gameObject.SetActive(false);
                         }
                         break;
                 }
@@ -167,13 +186,13 @@ namespace AccessibilityInputSystem
                 while (true)
                 {
                     selectedState = controller.stateMenus[selectedStateIndex];
-                    AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Select);
+                    AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Select);
                     HighlightState(selectedState);
 
 
-                    if (selectedState.stateTimer != null)
+                    if (controller.stateSelectTimer != null)
                     {
-                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(selectedState.stateTimer, autoInterval));
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(controller.stateSelectTimer, autoInterval));
                     }
                     else
                     {
@@ -201,13 +220,20 @@ namespace AccessibilityInputSystem
 
             void HighlightState(StateMenu state)
             {
-                if (lastHighlightedState != null)
+                try
                 {
-                    lastHighlightedState.highlight.SetActive(false);
+                    if (lastHighlightedState != null)
+                    {
+                        lastHighlightedState.highlight?.SetActive(false);
+                    }
+                    state.highlight.SetActive(true);
+                    lastHighlightedState = state;
                 }
-                state.highlight.SetActive(true);
-                lastHighlightedState = state;
-
+                catch (System.Exception)
+                {
+                    Debug.Log("Exeption");
+                    return;
+                }
             }
             
         }
