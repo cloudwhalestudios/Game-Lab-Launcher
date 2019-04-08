@@ -174,8 +174,6 @@ namespace AccessibilityInputSystem
                 while (true)
                 {
                     selectedButton = buttons[selectedIndex];
-                    //Debug.Log($"Index {selectedIndex} of {buttons.Count - 1} ({selectedButton.name})");
-
 
                     // Indicate and Highlight
                     switch (controller.transitionType)
@@ -222,7 +220,6 @@ namespace AccessibilityInputSystem
 
             IEnumerator AnimateButtonCoroutine(Button selectedButton)
             {
-                
                 // Fade first
                 StartCoroutine(AnimateMoveItem(
                         controller.firstSpot.buttonObject,
@@ -326,7 +323,6 @@ namespace AccessibilityInputSystem
 
             IEnumerator UpdateTimerProgress(float waitTime)
             {
-                //Debug.Log("Timer ...");
                 var elapsedTime = 0f;
                 controller.itemSelectTimer.localScale = new Vector3(0, 1, 1);
                 while (elapsedTime < waitTime)
@@ -334,7 +330,6 @@ namespace AccessibilityInputSystem
                     yield return null;
                     elapsedTime += Time.unscaledDeltaTime;
                     var percentage = Mathf.Clamp01(elapsedTime / waitTime);
-                    //Debug.Log($"Percent: {percentage * 100f}%; Elapsed: {elapsedTime}s; Wait: {waitTime}s");
                     controller.itemSelectTimer.localScale = new Vector3(percentage, 1, 1);
                 }
             }

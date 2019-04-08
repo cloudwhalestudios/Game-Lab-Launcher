@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WebGLIntegration;
+using static MainSceneController;
 
 public class PlatformManager : MonoBehaviour
 {
@@ -27,7 +29,15 @@ public class PlatformManager : MonoBehaviour
         Setup,
         Main
     }
-    
+
+    [Serializable]
+    public enum GameName
+    {
+        None,
+        JumpAndShoot,
+        Wave,
+        TwentyFourtyEight
+    }
 
     [Header("Scene Control")]
     public string bootSceneName;
@@ -98,5 +108,27 @@ public class PlatformManager : MonoBehaviour
         {
             CurrentState = PlatformState.Main;
         }
+    }
+
+    public void LaunchGame(GameName name)
+    {
+        switch (name)
+        {
+            case GameName.JumpAndShoot:
+                WebGLRedirect.OpenGame(Config.JUMP_SHOOT_GAME);
+                break;
+            case GameName.Wave:
+                WebGLRedirect.OpenGame(Config.WAVE_GAME);
+                break;
+            case GameName.TwentyFourtyEight:
+                WebGLRedirect.OpenGame(Config.NUMBERS_GAME);
+                break;
+        }
+    }
+
+    public void Exit()
+    {
+        // For now it's just refresh
+        WebGLRedirect.OpenLauncher();
     }
 }

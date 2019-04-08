@@ -1,24 +1,29 @@
 ﻿using AccessibilityInputSystem.TwoButtons;
+using PlayerPreferences;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static PlatformManager;
 
 public class MainSceneController : MonoBehaviour
 {
-    [Serializable]
-    public class LauncherGame
-    {
-        public string name;
+    
 
-        public LauncherGame(string name)
-        {
-            this.name = name;
-        }
+    public enum Category
+    {
+        Recent,
+        Favorite,
+        All,
+        Casual,
+        Arcade,
+        Puzzle
     }
+
     [Header("Game Handling")]
-    public LauncherGame selectedGame;
-    public bool gameSelected = false;
+    public GameName selectedGame = GameName.None;
+    public bool gameMenuOpen = false;
     public BaseMenuController gameMenuController;
 
     [Header("State Menu Handling")]
@@ -44,40 +49,97 @@ public class MainSceneController : MonoBehaviour
         PlatformPlayer.MainSecondary += PlatformPlayer_MainSecondary;
     }
 
-    private void PlatformPlayer_MainPrimary()
-    {
-        StateMenuManager.Instance.Select();
-    }
-
-    private void PlatformPlayer_MainSecondary()
-    {
-        if (gameSelected)
-        {
-            gameSelected = false;
-            StopGameMenuIndication();
-            return;
-        }
-        StateMenuManager.Instance.Return();
-    }
-
     private void Start()
     {
         StateMenuManager.Instance.SetStateMenuController(stateMenuController);
         StateMenuManager.Instance.StartIndicating();
     }
 
-    public void SelectGame(string name)
+    private void PlatformPlayer_MainPrimary() => Select();
+    private void PlatformPlayer_MainSecondary() => Return();
+
+
+    public void Select()
     {
-        gameSelected = true;
-        selectedGame = new LauncherGame(name);
+        Debug.Log("Selecting...");
+        if (gameMenuOpen)
+        {
+            MenuManager.Instance.SelectItem();
+        }
+        else
+        {
+            StateMenuManager.Instance.Select();
+        }
+    }
+
+    public void Return()
+    {
+        if (gameMenuOpen)
+        {
+            ReturnFromGameSelection();
+        }
+        else
+        {
+            StateMenuManager.Instance.Return();
+        }
+    }
+
+    [EnumAction(typeof(GameName))]
+    public void SelectGame(int gameName)
+    {
+        selectedGame = (GameName)gameName;
         showGameMenu = StartCoroutine(GameMenuIndication());
     }
 
-    IEnumerator GameMenuIndication()
+    void ReturnFromGameSelection()
     {
-        yield return StartCoroutine(ShowMenu(gameMenu, true));
-        MenuManager.Instance.SetMenuController(gameMenuController);
-        MenuManager.Instance.StartIndicating();
+        if (gameMenuOpen && gameMenu != null && showGameMenu != null)
+        {
+            gameMenuOpen = false;
+
+            StopCoroutine(showGameMenu);
+            showGameMenu = null;
+
+            MenuManager.Instance.StartIndicating(false);
+            StartCoroutine(ShowMenu(gameMenu, false));
+
+            StateMenuManager.Instance.StartIndicating(true);
+
+            selectedGame = GameName.None;
+        }
+        else
+        {
+            Debug.LogWarning("Game Menu trying to be closed, when it's not open!");
+        }
+    }
+
+    public void PlayGame()
+    {
+        if (gameMenuOpen && selectedGame != GameName.None)
+        {
+            PlatformManager.Instance.LaunchGame(selectedGame);
+        }
+    }
+
+    public void Favorite()
+    {
+        // TODO add game to favorites
+    }
+
+    public void ApplyCategory()
+    {
+        // TODO apply category filter
+    }
+
+    public void ResetIntput()
+    {
+        PlatformPreferences.Current.CompletedSetup = false;
+        SceneManager.LoadScene(PlatformManager.Instance.setupSceneName);
+    }
+
+    public void Exit()
+    {
+        PlatformManager.Instance.Exit();
     }
 
     public void ShowCategoryStateMenu(bool show = true)
@@ -95,16 +157,13 @@ public class MainSceneController : MonoBehaviour
         }
     }
 
-    public void StopGameMenuIndication()
+    IEnumerator GameMenuIndication()
     {
-        if (gameMenu != null && showGameMenu != null)
-        {
-            StopCoroutine(showGameMenu);
-            showGameMenu = null;
-
-            MenuManager.Instance.StartIndicating(false);
-            StartCoroutine(ShowMenu(gameMenu, false));
-        }
+        gameMenuOpen = true;
+        StateMenuManager.Instance.StartIndicating(false);
+        yield return StartCoroutine(ShowMenu(gameMenu, true));
+        MenuManager.Instance.SetMenuController(gameMenuController);
+        MenuManager.Instance.StartIndicating();
     }
 
     IEnumerator ShowMenu(RectTransform menu, bool show)

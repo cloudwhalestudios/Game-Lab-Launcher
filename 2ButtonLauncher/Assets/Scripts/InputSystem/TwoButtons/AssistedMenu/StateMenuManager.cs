@@ -50,9 +50,11 @@ namespace AccessibilityInputSystem
 
                 selectedStateIndex = Mathf.Clamp(controller.startStateIndex, 0, controller.stateMenus.Count - 1);
 
+                var stateMenu = controller.stateMenus[selectedStateIndex];
                 if (currentMode == BaseStateMenuController.Mode.Single)
                 {
-                    controller.stateMenus[selectedStateIndex].selectEvent?.Invoke();
+                    stateMenu.selectEvent?.Invoke();
+                    stateMenu.highlight.SetActive(hideHighlightOnSelect);
                 }
             }
 
