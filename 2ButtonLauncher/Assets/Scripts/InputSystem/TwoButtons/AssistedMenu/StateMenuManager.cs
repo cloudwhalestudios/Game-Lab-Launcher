@@ -85,7 +85,7 @@ namespace AccessibilityInputSystem
 
                     case BaseStateMenuController.Mode.State:
                         Debug.Log($"Selecting State {controller.stateMenus[selectedStateIndex].name} ({selectedStateIndex})");
-
+                        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Accept);
                         // Stop state indication
                         StartIndicating(false);
                         if (hideHighlightOnSelect)
@@ -167,7 +167,7 @@ namespace AccessibilityInputSystem
                 while (true)
                 {
                     selectedState = controller.stateMenus[selectedStateIndex];
-
+                    AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Select);
                     HighlightState(selectedState);
 
 

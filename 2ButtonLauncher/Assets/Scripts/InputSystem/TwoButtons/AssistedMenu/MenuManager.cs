@@ -177,6 +177,7 @@ namespace AccessibilityInputSystem
                     selectedButton = buttons[selectedIndex];
 
                     // Indicate and Highlight
+                    AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Select);
                     switch (controller.transitionType)
                     {
                         case BaseMenuController.Transition.Move:
