@@ -10,11 +10,18 @@ namespace WebGLIntegration
     {
         private static void Redirect(string url)
         {
+            var preferences = JsonUtility.ToJson(PlatformPreferences.Current);
 #if UNITY_WEBGL
-            JSLib.Redirect(Config.BASE_URL + url);
-#else
-            Debug.Log($"Should open {Config.BASE_URL + url} right now");
+            if (preferences != "{}") 
+            {
+                JSLib.RedirectWithParams(Config.BASE_URL + url, preferences);
+            }
+            else 
+            {
+                JSLib.Redirect(Config.BASE_URL + url);
+            }
 #endif
+            Debug.Log($"Should open {Config.BASE_URL + url + preferences} right now");
         }
 
         public static void OpenLauncher()

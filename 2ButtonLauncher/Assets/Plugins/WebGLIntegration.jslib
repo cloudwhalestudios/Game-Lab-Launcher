@@ -4,8 +4,44 @@ mergeInto(LibraryManager.library, {
         window.location.href = Pointer_stringify(str_location);
     },
 
+    RedirectWithParams: function(str_location, str_paramsJson) {
+        var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
+        var location = Pointer_stringify(str_location);
+        for(var key in jsonObject) {
+            if (jsonObject.hasOwnProperty(key)) {
+                // Attach to url
+                location += "&" + key + "=" + jsonObject[key];
+            }
+        }
+        window.location.href = location;
+    },
+
     Refresh: function() {
         location.reload();
+    },
+
+    GetParams: function () {
+        var params = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            params[key] = value;
+        });
+        var jsonString = JSON.stringify(params);
+
+        var bufferSize = lengthBytesUTF8(jsonString) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(jsonString, buffer, bufferSize);
+        return buffer;
+    },
+
+    SetParams: function(str_paramsJson) {
+        var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
+        window.location.search = "";
+        for(var key in jsonObject) {
+            if (jsonObject.hasOwnProperty(key)) {
+                // Attach to url
+                window.location.search += "&" + key + "=" + jsonObject[key];
+            }
+        }
     },
 
     Crash: function() {
