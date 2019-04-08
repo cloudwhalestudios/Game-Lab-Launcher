@@ -1,26 +1,20 @@
 mergeInto(LibraryManager.library, {
 
     Redirect: function(str_location) {
-        window.location.href = Pointer_stringify(str_location);
+        window.location.href = encodeURI(Pointer_stringify(str_location));
     },
 
     RedirectWithParams: function(str_location, str_paramsJson) {
         var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
-        var location = Pointer_stringify(str_location);
-        var questionmark = false;
-        for(var key in jsonObject) {
-            if (jsonObject.hasOwnProperty(key)) {
-                // Attach to url
-                if (!questionmark) {
-                    location += "?";
-                }
-                else {
-                    location += "&";
-                }
-                location += key + "=" + jsonObject[key];
-            }
-        }
-        window.location.href = location;
+        var location = encodeURI(Pointer_stringify(str_location) + '?');
+        console.log("received location: " + location + " | received json: " + JSON.stringify(jsonObject, null, 4));
+
+        var url = Object.keys(jsonObject).map(function(k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(jsonObject[k])
+        }).join('&');
+
+        console.log("Redirecting to " . location  + "?" . url);
+        window.location.href = encodeURI(location + url);
     },
 
     Refresh: function() {
@@ -34,9 +28,14 @@ mergeInto(LibraryManager.library, {
         });
         var jsonString = JSON.stringify(params);
 
+        console.log("Read parameters as json:" + jsonString);
+
         var bufferSize = lengthBytesUTF8(jsonString) + 1;
         var buffer = _malloc(bufferSize);
         stringToUTF8(jsonString, buffer, bufferSize);
+
+        console.log("Parameter buffer:" + buffer);
+
         return buffer;
     },
 
