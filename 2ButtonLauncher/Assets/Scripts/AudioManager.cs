@@ -5,6 +5,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
+    [Header("Music input")]
+    public AudioSource Music;
 
     [Header("SFX input")]
     public AudioSource Abort;

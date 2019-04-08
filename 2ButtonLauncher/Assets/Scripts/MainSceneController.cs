@@ -51,6 +51,7 @@ public class MainSceneController : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Music);
         StateMenuManager.Instance.SetStateMenuController(stateMenuController);
         StateMenuManager.Instance.StartIndicating();
     }
