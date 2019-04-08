@@ -109,6 +109,7 @@ public class SetupController : MonoBehaviour
         BasePlayerManager.PlayerRemoved -= BasePlayerManager_PlayerRemoved;
 
         PlatformPlayer.SetupSecondary -= PlatformPlayer_SetupSecondary;
+        PlatformPlayer.SetupPrimary -= PlatformPlayer_SetupPrimary;
     }
 
     public void Start()
@@ -134,11 +135,13 @@ public class SetupController : MonoBehaviour
 
     IEnumerator WelcomeRoutine(float welcomeMessageTime)
     {
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Select);
         BasePlayerManager.Instance.shouldCheckForNewPlayer = false;
 
         yield return StartCoroutine(SwitchElementsRoutine(welcomeText, InputConfigImage.ConfigState.Unselected, InputConfigImage.ConfigState.Unselected));
         yield return new WaitForSecondsRealtime(welcomeMessageTime);
-        
+
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Select);
         BasePlayerManager.Instance.shouldCheckForNewPlayer = true;
         yield return StartCoroutine(SwitchElementsRoutine(primaryInputText, InputConfigImage.ConfigState.Highlighted, InputConfigImage.ConfigState.Unselected));
     }
@@ -147,7 +150,6 @@ public class SetupController : MonoBehaviour
     {
         //yield return new WaitForSecondsRealtime(transitionTime);
         // TODO add smooth transition effect
-
         dialogText.text = text;
         primaryInput.State = primaryState;
         secondaryInput.State = secondaryState;
@@ -157,6 +159,7 @@ public class SetupController : MonoBehaviour
 
     public void RedoSetup()
     {
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Abort);
         SetButtonMappingText(primaryInput);
         SetButtonMappingText(secondaryInput);
 
@@ -169,6 +172,7 @@ public class SetupController : MonoBehaviour
 
     public void ConfirmSetup()
     {
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.GameSelected);
         Debug.Log("Finished setup");
         PlatformPreferences.Current.CompletedSetup = true;
         SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
@@ -191,27 +195,28 @@ public class SetupController : MonoBehaviour
 
     private void PlatformPlayer_SetupSecondary()
     {
-        Debug.Log("Secondary button reset triggerd!");
         if (allowInput) RedoSetup();
     }
     
     private void BasePlayerManager_NewPlayerBeingAdded(string name, BasePlayerManager.KeyEventSpecifier[] keySpecifiers)
     {
         // Selected Primary - Wait for Secondary
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Accept);
         SetButtonMappingText(primaryInput, keySpecifiers[0].Key.ToString());
 
         StartCoroutine(SwitchElementsRoutine(secondaryInputText, InputConfigImage.ConfigState.Selected, InputConfigImage.ConfigState.Highlighted));
-
     }
 
     private void BasePlayerManager_NewPlayerKeyInUse(string message, BasePlayerManager.KeyEventSpecifier keySpecifier)
     {
         // Button is already primary key
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Abort);
         StartCoroutine(SwitchElementsRoutine(warningText, InputConfigImage.ConfigState.Selected, InputConfigImage.ConfigState.Highlighted));
     }
 
     private void BasePlayerManager_NewPlayerAdded(BasePlayer player)
     {
+        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Accept);
         // Setup Complete
         SetButtonMappingText(secondaryInput, player.Keys[1].ToString());
 
