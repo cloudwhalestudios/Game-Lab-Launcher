@@ -15,7 +15,16 @@ namespace AccessibilityInputSystem
 
             public void ResetController()
             {
-                if (itemSelectTimer != null) itemSelectTimer.localScale = new Vector3(0, 1, 1);
+                if (itemSelectIndicator != null)
+                {
+                    itemSelectIndicator.gameObject.SetActive(false);
+                }
+                if (itemSelectTimer != null)
+                {
+                    itemSelectTimer.localScale = new Vector3(0, 1, 1);
+                    itemSelectTimer.gameObject.SetActive(false);
+
+                }
             }
         }
     }

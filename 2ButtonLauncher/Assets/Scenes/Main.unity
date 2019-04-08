@@ -1654,7 +1654,7 @@ MonoBehaviour:
   gameMenuOpen: 0
   gameMenuController: {fileID: 854939097}
   stateMenuController: {fileID: 1153678236}
-  transitionTime: 0.5
+  transitionTime: 0.2
   categoryStateMenu: {fileID: 211028708}
   optionStateMenu: {fileID: 1625881810}
   gameMenu: {fileID: 1044825890}
@@ -2971,7 +2971,7 @@ PrefabInstance:
     - target: {fileID: 5598970322304255694, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5598970322304255695, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}

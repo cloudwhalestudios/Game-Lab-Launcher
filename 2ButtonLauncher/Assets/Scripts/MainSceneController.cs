@@ -30,7 +30,7 @@ public class MainSceneController : MonoBehaviour
     public BaseStateMenuController stateMenuController;
 
     [Space]
-    public float transitionTime = 0.5f;
+    public float transitionTime = 0.2f;
     public RectTransform categoryStateMenu;
     public RectTransform optionStateMenu;
     public RectTransform gameMenu;
@@ -61,7 +61,6 @@ public class MainSceneController : MonoBehaviour
 
     public void Select()
     {
-        Debug.Log("Selecting...");
         if (gameMenuOpen)
         {
             MenuManager.Instance.SelectItem();
@@ -87,25 +86,45 @@ public class MainSceneController : MonoBehaviour
     [EnumAction(typeof(GameName))]
     public void SelectGame(int gameName)
     {
-        selectedGame = (GameName)gameName;
-        showGameMenu = StartCoroutine(GameMenuIndication());
+        if (!gameMenuOpen)
+        {
+            gameMenuOpen = true;
+            selectedGame = (GameName)gameName;
+
+
+            if (showGameMenu != null)
+            {
+                StopCoroutine(showGameMenu);
+                showGameMenu = null;
+            }
+
+            StateMenuManager.Instance.StartIndicating(false);
+
+            showGameMenu = StartCoroutine(ShowMenu(gameMenu, true));
+            MenuManager.Instance.SetMenuController(gameMenuController);
+            MenuManager.Instance.StartIndicating();
+        }
     }
 
     void ReturnFromGameSelection()
     {
-        if (gameMenuOpen && gameMenu != null && showGameMenu != null)
+        if (gameMenuOpen)
         {
             gameMenuOpen = false;
+            selectedGame = GameName.None;
 
-            StopCoroutine(showGameMenu);
-            showGameMenu = null;
+
+            if (showGameMenu != null)
+            {
+                StopCoroutine(showGameMenu);
+                showGameMenu = null;
+            }
 
             MenuManager.Instance.StartIndicating(false);
-            StartCoroutine(ShowMenu(gameMenu, false));
-
             StateMenuManager.Instance.StartIndicating(true);
 
-            selectedGame = GameName.None;
+            showGameMenu = StartCoroutine(ShowMenu(gameMenu, false));
+            
         }
         else
         {
@@ -155,15 +174,6 @@ public class MainSceneController : MonoBehaviour
         {
             StartCoroutine(ShowMenu(optionStateMenu, show));
         }
-    }
-
-    IEnumerator GameMenuIndication()
-    {
-        gameMenuOpen = true;
-        StateMenuManager.Instance.StartIndicating(false);
-        yield return StartCoroutine(ShowMenu(gameMenu, true));
-        MenuManager.Instance.SetMenuController(gameMenuController);
-        MenuManager.Instance.StartIndicating();
     }
 
     IEnumerator ShowMenu(RectTransform menu, bool show)

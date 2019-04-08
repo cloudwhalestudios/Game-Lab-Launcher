@@ -20,6 +20,7 @@ namespace AccessibilityInputSystem
             [SerializeField, ReadOnly] private int selectedStateIndex;
 
             Coroutine stateSelector;
+            Coroutine timerUpdateRoutine;
 
             StateMenu lastHighlightedState;
 
@@ -62,6 +63,9 @@ namespace AccessibilityInputSystem
             {
                 if (stateSelector != null) StopCoroutine(stateSelector);
                 stateSelector = null;
+
+                if (timerUpdateRoutine != null) StopCoroutine(timerUpdateRoutine);
+                timerUpdateRoutine = null;
             }
 
             void OnDestroy()
@@ -130,7 +134,6 @@ namespace AccessibilityInputSystem
 
             public void StartIndicating(bool start = true)
             {
-
                 switch (currentMode)
                 {
                     case BaseStateMenuController.Mode.Single:
@@ -170,7 +173,7 @@ namespace AccessibilityInputSystem
 
                     if (selectedState.stateTimer != null)
                     {
-                        yield return StartCoroutine(UpdateTimerProgress(selectedState.stateTimer, autoInterval));
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(selectedState.stateTimer, autoInterval));
                     }
                     else
                     {

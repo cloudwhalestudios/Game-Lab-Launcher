@@ -54,7 +54,6 @@ namespace AccessibilityInputSystem
                 buttons = new List<Button>(controller.buttonParent.GetComponentsInChildren<Button>());
                 selectedIndex = Mathf.Clamp(controller.startingIndex, 0, buttons.Count - 1);
                 firstTimeAnimation = true;
-                //Debug.Log($"new menu controller assigned: {controller.name} | selected index: {selectedIndex}");
             }
 
             void Cleanup()
@@ -97,7 +96,8 @@ namespace AccessibilityInputSystem
                     if (controller.itemSelectIndicator != null) controller.itemSelectIndicator.gameObject.SetActive(true);
                     if (controller.itemSelectTimer != null) controller.itemSelectTimer.gameObject.SetActive(true);
 
-                    if (controller.transitionType == BaseMenuController.Transition.Animate) SetupButtonPosition();
+                    if (controller.transitionType == BaseMenuController.Transition.Animate) SetupButtonAnimation();
+                    else if (controller.transitionType == BaseMenuController.Transition.Move) SetupButtonIndication();
                     
                     menuSelector = StartCoroutine(MenuSelection());
                 }
@@ -105,16 +105,12 @@ namespace AccessibilityInputSystem
                 {
                     if (controller.itemSelectIndicator != null) controller.itemSelectIndicator?.gameObject.SetActive(false);
                     if (controller.itemSelectTimer != null) controller.itemSelectTimer.gameObject.SetActive(false);
-                    if (menuSelector != null)
-                    {
-                        Cleanup();
-                        menuSelector = null;
-                    }
+                    Cleanup();
                     HighlightButton(buttons[selectedIndex], true);
                 }
             }
 
-            private void SetupButtonPosition()
+            private void SetupButtonAnimation()
             {
                 UpdateAnimationSpots();
                 controller.firstSpot.buttonObject.transform.localPosition = controller.firstSpot.localPosition;
@@ -124,6 +120,11 @@ namespace AccessibilityInputSystem
                 controller.firstSpot.buttonObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
                 controller.currentSpot.buttonObject.transform.localScale = new Vector3(1f, 1f, 1f);
                 controller.lastSpot.buttonObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+            }
+
+            private void SetupButtonIndication()
+            {
+                IndicateButton(buttons[selectedIndex]);
             }
 
             private void UpdateAnimationSpots()
@@ -161,7 +162,7 @@ namespace AccessibilityInputSystem
 
             public void SelectItem()
             {
-                Debug.Log($"Selecting button {buttons[selectedIndex].name} ({selectedIndex})");
+                //Debug.Log($"Selecting button {buttons[selectedIndex].name} ({selectedIndex})");
                 buttons[selectedIndex].onClick.Invoke();
             }
 
