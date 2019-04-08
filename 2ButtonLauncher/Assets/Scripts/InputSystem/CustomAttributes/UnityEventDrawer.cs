@@ -6,6 +6,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+#if (UNITY_EDITOR)
 using UnityEditorInternal;
 
 [CustomPropertyDrawer(typeof(UnityEvent), true)]
@@ -583,4 +584,6 @@ public class UnityEventDrawer : PropertyDrawer
             m_Listener.serializedObject.ApplyModifiedProperties();
         }
     }
+
 }
+#endif
