@@ -21,7 +21,7 @@ namespace WebGLIntegration
                 JSLib.Redirect(Config.BASE_URL + url + "/");
             }
 #endif
-            Debug.Log($"Should open {Config.BASE_URL + url + "/" + JsonUtility.ToJson(PlatformPreferences.Current)} right now");
+            Debug.LogWarning($"Should open an encoded version of {Config.BASE_URL + url + "/?" + JsonUtility.ToJson(PlatformPreferences.Current)} now");
         }
 
         public static void OpenLauncher()
