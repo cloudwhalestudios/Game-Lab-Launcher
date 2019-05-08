@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17fe98fe-d8c4-41d3-ac10-e976d9bdcf9b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/WebGLIntegration.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/WebGLIntegration.jslib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/WebGL/WebGLRedirect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/WebGL/WebGLRedirect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Builds/Build/Builds.data.unityweb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Builds/Build/Builds.data.unityweb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.code.unityweb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.code.unityweb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.framework.unityweb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.framework.unityweb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,25 +17,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Plugins/WebGLIntegration.jslib">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="-230">
+              <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
               <folding>
                 <element signature="e#74#156#0" />
-                <element signature="e#904#938#0" />
-                <element signature="e#968#1488#0" />
-                <element signature="e#1093#1137#0" />
-                <element signature="e#1531#2130#0" />
-                <element signature="e#1730#2077#0" />
-                <element signature="e#1780#2067#0" />
-                <element signature="e#1850#1910#0" />
-                <element signature="e#1932#1992#0" />
-                <element signature="e#2155#2230#0" />
-                <element signature="e#2256#2302#0" />
-                <element signature="e#2337#2390#0" />
-                <element signature="e#2437#2534#0" />
-                <element signature="e#2569#2598#0" />
-                <element signature="e#2644#2857#0" />
-                <element signature="e#2901#2975#0" />
               </folding>
             </state>
           </provider>
@@ -61,6 +43,12 @@
       </list>
     </option>
   </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="348" />
     <option name="y" value="-21" />
@@ -73,17 +61,19 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -109,17 +99,17 @@
       <updated>1554733383765</updated>
       <workItem from="1554733387090" duration="9604000" />
       <workItem from="1554759247082" duration="341000" />
+      <workItem from="1557334747138" duration="20000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9945000" />
+    <option name="totallyTimeSpent" value="9965000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12260128" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.123667374" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -152,25 +142,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Plugins/WebGLIntegration.jslib">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="-230">
+          <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
           <folding>
             <element signature="e#74#156#0" />
-            <element signature="e#904#938#0" />
-            <element signature="e#968#1488#0" />
-            <element signature="e#1093#1137#0" />
-            <element signature="e#1531#2130#0" />
-            <element signature="e#1730#2077#0" />
-            <element signature="e#1780#2067#0" />
-            <element signature="e#1850#1910#0" />
-            <element signature="e#1932#1992#0" />
-            <element signature="e#2155#2230#0" />
-            <element signature="e#2256#2302#0" />
-            <element signature="e#2337#2390#0" />
-            <element signature="e#2437#2534#0" />
-            <element signature="e#2569#2598#0" />
-            <element signature="e#2644#2857#0" />
-            <element signature="e#2901#2975#0" />
           </folding>
         </state>
       </provider>

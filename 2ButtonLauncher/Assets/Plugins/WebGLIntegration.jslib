@@ -11,7 +11,7 @@ mergeInto(LibraryManager.library, {
 
         var url = Object.keys(jsonObject).map(function(k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(jsonObject[k])
-        }).join('&');
+        }).join(encodeURI('&'));
 
         console.log("Redirecting to " . location  + "?" . url);
         window.location.href = encodeURI(location + url);
@@ -22,11 +22,9 @@ mergeInto(LibraryManager.library, {
     },
 
     GetParams: function () {
-        var params = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            params[key] = value;
-        });
-        var jsonString = JSON.stringify(params);
+        var search = location.search.substring(1);
+        var jsonObject = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) });
+        var jsonString = JSON.stringify(jsonObject);
 
         console.log("Read parameters as json:" + jsonString);
 
