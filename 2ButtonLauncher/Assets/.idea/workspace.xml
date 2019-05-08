@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17fe98fe-d8c4-41d3-ac10-e976d9bdcf9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/WebGLIntegration.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/WebGLIntegration.jslib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Builds/Build/Builds.data.unityweb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Builds/Build/Builds.data.unityweb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.code.unityweb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.code.unityweb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.framework.unityweb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Builds/Build/Builds.wasm.framework.unityweb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +19,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Plugins/WebGLIntegration.jslib">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-230">
-              <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+            <state relative-caret-position="322">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+              <folding>
+                <element signature="e#74#156#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../Game-Lab-Games2/2ButtonJumpShoot/Assets/Plugins/WebGLIntegration.jslib">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="e#74#156#0" />
               </folding>
@@ -50,8 +64,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="348" />
-    <option name="y" value="-21" />
+    <option name="x" value="2543" />
+    <option name="y" value="-19" />
     <option name="width" value="974" />
     <option name="height" value="1087" />
   </component>
@@ -61,8 +75,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -100,16 +114,18 @@
       <workItem from="1554733387090" duration="9604000" />
       <workItem from="1554759247082" duration="341000" />
       <workItem from="1557334747138" duration="20000" />
+      <workItem from="1557335655333" duration="4918000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9965000" />
+    <option name="totallyTimeSpent" value="14883000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.123667374" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12473348" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -140,10 +156,20 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../../../Game-Lab-Games2/2ButtonJumpShoot/Assets/Plugins/WebGLIntegration.jslib">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#74#156#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Plugins/WebGLIntegration.jslib">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230">
-          <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+        <state relative-caret-position="322">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
           <folding>
             <element signature="e#74#156#0" />
           </folding>
