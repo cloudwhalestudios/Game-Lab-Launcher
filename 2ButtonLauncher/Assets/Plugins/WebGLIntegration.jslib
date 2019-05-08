@@ -5,22 +5,18 @@ mergeInto(LibraryManager.library, {
     },
 
     RedirectWithParams: function(str_location, str_paramsJson) {
+        /* // Testing
         var str_location = 'http://www.cloudwhale.nl/launcher/games/jump-and-shoot/';
         var str_paramsJson = '{"completedSetup":true,"keys":[97,100],"menuProgressionTimer":2.0}';
 
         var jsonObject = JSON.parse(str_paramsJson);
         var baseUrl = encodeURI(str_location + '?');
-        /*
-            var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
-            var baseUrl = encodeURI(Pointer_stringify(str_location) + '?');
         */
+        var jsonObject = JSON.parse(Pointer_stringify(str_paramsJson));
+        var baseUrl = encodeURI(Pointer_stringify(str_location) + '?');
+
         console.log("Received target url: " + baseUrl);
         console.log("Received json: " + JSON.stringify(jsonObject));
-
-        /*var paramUrl = Object.keys(jsonObject).map(function(k) {
-            return encodeURI(k) + '=' + encodeURI(jsonObject[k])
-        }).join(encodeURI('&'));
-    */
 
         var paramUrl = encodeURI(JSON.stringify(jsonObject));
         var url = encodeURI(baseUrl + paramUrl);
