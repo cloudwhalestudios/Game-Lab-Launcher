@@ -73,7 +73,7 @@ mergeInto(LibraryManager.library, {
         var exitCondition = Pointer_stringify(str_title);
 
         // Set the title to the exit condition for the java program to react upon
-        document.title = str_title;
+        document.title = exitCondition;
     },
 
     Crash: function() {
