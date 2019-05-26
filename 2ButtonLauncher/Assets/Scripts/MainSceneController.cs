@@ -165,7 +165,7 @@ public class MainSceneController : MonoBehaviour
     public void Exit()
     {
         AudioManager.Instance?.PlaySoundNormally(AudioManager.Instance?.Abort);
-        PlatformManager.Instance.Exit();
+        SceneManager.LoadScene(PlatformManager.Instance.exitSceneName);
     }
 
     public void ShowCategoryStateMenu(bool show = true)

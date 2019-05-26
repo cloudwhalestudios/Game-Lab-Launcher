@@ -10,5 +10,9 @@ namespace WebGLIntegration
         [DllImport("__Internal")] public static extern void Refresh();
         [DllImport("__Internal")] public static extern string GetParams();
         [DllImport("__Internal")] public static extern void SetParams(string str_paramsJson);
+        [DllImport("__Internal")] public static extern void SetTitle(string str_title);
+        [DllImport("__Internal")] public static extern void Crash();
+
+
     }
 }

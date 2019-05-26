@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 public class BootController : MonoBehaviour
 {
     [Header("Boot Options")]
-    public float minBootDelay = 2f;
-    public bool forceFullScreen = true;
-    public bool resetPlayerPrefs = false;
+    [SerializeField] private float minBootDelay = 2f;
+    [SerializeField] private RectTransform timeIndicator;
+
+    [SerializeField] private bool forceFullScreen = false;
+    [SerializeField] private bool resetPlayerPrefs = false;
 
     bool userIsSetup = false;
     bool finishedLoading = false;
@@ -33,9 +35,27 @@ public class BootController : MonoBehaviour
 
     IEnumerator StartNextScene()
     {
-        yield return new WaitForSecondsRealtime(minBootDelay);
+        var elapsedTime = 0f;
 
-        if(!finishedLoading)
+        while (true)
+        {
+            if (timeIndicator != null)
+            {
+                if (elapsedTime >= minBootDelay) break;
+
+                var percentage = Mathf.Clamp01(elapsedTime / minBootDelay);
+                timeIndicator.localScale = new Vector3(1 - percentage, 1, 1);
+                yield return new WaitForEndOfFrame();
+                elapsedTime += Time.unscaledDeltaTime;
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(minBootDelay);
+                break;
+            }
+        }
+
+        if (!finishedLoading)
         {
             yield return new WaitForEndOfFrame();
         }

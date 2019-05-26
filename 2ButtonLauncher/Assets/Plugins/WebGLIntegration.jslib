@@ -69,37 +69,14 @@ mergeInto(LibraryManager.library, {
         window.location.search = searchString;
     },
 
+    SetTitle: function(str_title) {
+        var exitCondition = Pointer_stringify(str_title);
+
+        // Set the title to the exit condition for the java program to react upon
+        document.title = str_title;
+    },
+
     Crash: function() {
         window.alert("This should totally be crashing right now.");
     },
-
-    Hello: function () {
-        window.alert("Hello, world!");
-    },
-
-    HelloString: function (str) {
-        window.alert(Pointer_stringify(str));
-    },
-
-    PrintFloatArray: function (array, size) {
-        for(var i = 0; i < size; i++)
-            console.log(HEAPF32[(array >> 2) + i]);
-    },
-
-    AddNumbers: function (x, y) {
-        return x + y;
-    },
-
-    StringReturnValueFunction: function () {
-        var returnStr = "bla";
-        var bufferSize = lengthBytesUTF8(returnStr) + 1;
-        var buffer = _malloc(bufferSize);
-        stringToUTF8(returnStr, buffer, bufferSize);
-        return buffer;
-    },
-
-    BindWebGLTexture: function (texture) {
-        GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[texture]);
-    },
-
 });

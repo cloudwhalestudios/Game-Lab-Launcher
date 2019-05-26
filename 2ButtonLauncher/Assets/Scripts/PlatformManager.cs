@@ -43,6 +43,8 @@ public class PlatformManager : MonoBehaviour
     public string bootSceneName;
     public string setupSceneName;
     public string mainSceneName;
+    public string exitSceneName;
+
     [SerializeField, ReadOnly] private PlatformState currentState;
 
     protected void Awake()

@@ -13,5 +13,7 @@ namespace WebGLIntegration
         public const string JUMP_SHOOT_GAME = "jump-and-shoot";
         public const string WAVE_GAME       = "wave";
         public const string NUMBERS_GAME    = "twenty-fourty-eight";
+
+        public const string EXIT_TITLE_CONDITION = "Exiting";
     }
 }
