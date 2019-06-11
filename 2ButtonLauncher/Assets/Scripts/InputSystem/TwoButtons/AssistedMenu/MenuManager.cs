@@ -71,6 +71,7 @@ namespace AccessibilityInputSystem
 
             public void ShowMenu(bool startMoving = true)
             {
+                Cleanup();
                 if (controller?.menuContainer != null)
                 {
                     controller.menuContainer.SetActive(true);
@@ -79,6 +80,7 @@ namespace AccessibilityInputSystem
             }
             public void HideMenu()
             {
+                Cleanup();
                 if (controller?.menuContainer != null)
                 {
                     controller.menuContainer.SetActive(false);
@@ -90,8 +92,6 @@ namespace AccessibilityInputSystem
             {
                 if (indicate)
                 {
-                    //Debug.Log(controller?.name + " " + controller?.buttonParent);
-
                     if (controller.itemSelectIndicator != null) controller.itemSelectIndicator.gameObject.SetActive(true);
                     if (controller.itemSelectTimer != null) controller.itemSelectTimer.gameObject.SetActive(true);
 

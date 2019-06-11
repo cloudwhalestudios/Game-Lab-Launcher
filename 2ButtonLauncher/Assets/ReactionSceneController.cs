@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ReactionSceneController : MonoBehaviour
 {
@@ -83,28 +84,29 @@ public class ReactionSceneController : MonoBehaviour
 
     public TextMeshProUGUI dialogText;
 
-    public List<InputConfigImage> inputPrompts;
+    public InputConfigImage inputPrompt;
 
     public GameObject confirmationMenu;
-    public GameObject startMenu;
 
-    public int calibrationAmount = 5;
+    public int calibrationAmount = 3;
     public float retryTimeMultiplier = 4f;
     public float currentReactionSpeed;
     public float defaultReactionSpeed = 2f;
+    public float minWaitTime = 2f;
+    public float maxWaitTime = 4f;
+    public float reactionSpeedMultiplier = 2f;
 
-    public string welcomeText = "Do you want to calibrate your reaction speed?";
-    public string tutorialTextA = "When the process starts, after a short time an input prompt will appear.";
-    public string tutorialTextB = "When it appears, please try to use your primary button as soon as you can.";
-    public string tutorialTextC = "For better accuracy, this process will repeat a few times.";
-    public string promptText = "Press the Primary Button!";
+    public string introText = "Please press the primary button when you see the circle appear.";
+    public string promptText = "Press the primary button!";
     public string confirmText = "Do you feel comfortable with this reaction speed?";
     public string redoExtraText = "Lets try that again!<br>";
     public string warningText = "Please wait until a prompt shows up.";
 
     bool enableMenuInput = false;
+    bool enableReact = false;
 
     List<float> reactionTimes = new List<float>();
+    float startTime;
 
     public void OnEnable()
     {
@@ -116,10 +118,11 @@ public class ReactionSceneController : MonoBehaviour
         PlatformPlayer.SetupSecondary -= PlatformPlayer_SetupSecondary;
         PlatformPlayer.SetupPrimary -= PlatformPlayer_SetupPrimary;
     }
+    
     private void PlatformPlayer_SetupPrimary()
     {
         if (enableMenuInput) MenuManager.Instance.SelectItem();
-        else
+        else if (enableReact)
         {
             React();
         }
@@ -132,45 +135,70 @@ public class ReactionSceneController : MonoBehaviour
 
     public void Start()
     {
-        List<float> reactionTimes = new List<float>();
-        ShowConfirmationDialog(false);
-
-        foreach (var prompt in inputPrompts)
-        {
-            SetButtonMappingText(prompt);
-        }
-
-        StartCoroutine(TutorialRoutine(2f));
+        ResetCalibration();
     }
-
 
     void SetButtonMappingText(InputConfigImage input, string key = "")
     {
         input.keyMapping.text = key;
     }
 
-    IEnumerator TutorialRoutine(float welcomeMessageTime)
+    IEnumerator CalibrationRoutine()
     {
         AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Select);
-        // 1 Do you want to calibrate?
+        // 1 Intro calibration
+        SetPromptState(InputConfigImage.ConfigState.Highlighted);
+        dialogText.text = introText;
+        yield return new WaitForSecondsRealtime(defaultReactionSpeed);
 
-        // 2 Do part A
+        // 2 Reaction test
+        for (int i = 0; i < retryTimeMultiplier; i++)
+        {
+            yield return ReactionPrompt();
+        }
+        CalculateReactionSpeed();
 
-        // 3 Do part B
-
-        // 4 Do part C
-
-        // 5 Understood? Start : Back to 1
-
+        // 3 Completed? Start : Back to 1
+        ShowConfirmationDialog();
 
         yield break;
     }
 
-    IEnumerator SwitchElementsRoutine(string text, int index, InputConfigImage.ConfigState primaryState, float transitionTime = 0f)
+    void SetPromptState(InputConfigImage.ConfigState state)
     {
-        dialogText.text = text;
-        inputPrompts[index].State = primaryState;
-        yield break;
+        inputPrompt.State = state;
+    }
+
+    IEnumerator ReactionPrompt()
+    {
+        // hide
+        SetPromptState(InputConfigImage.ConfigState.Hidden);
+        dialogText.text = "";
+
+        // wait for random time
+        var waitTime = Random.Range(minWaitTime, maxWaitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
+
+        // show prompt
+        SetPromptState(InputConfigImage.ConfigState.Highlighted);
+        dialogText.text = promptText;
+
+        // wait for reaction
+        enableReact = true;
+        startTime = Time.time;
+        while (enableReact)
+        {
+            yield return null;
+        }
+
+        SetPromptState(InputConfigImage.ConfigState.HighlightSelected);
+
+        var time = Time.time - startTime;
+
+        reactionTimes.Add(time);
+        dialogText.text = "Speed: " + time;
+
+        yield return new WaitForSeconds(defaultReactionSpeed);
     }
 
     IEnumerator SetupCompleteRoutine(float completeMessageTime)
@@ -189,14 +217,13 @@ public class ReactionSceneController : MonoBehaviour
         }
         else
         {
-            CalculateReactionSpeed();
             MenuManager.Instance.ShowMenu();
         }
     }
 
     private void React()
     {
-        throw new NotImplementedException();
+        enableReact = false;
     }
 
     public void RedoSetup()
@@ -206,7 +233,17 @@ public class ReactionSceneController : MonoBehaviour
 
         PlatformPreferences.Current.MenuProgressionTimer = defaultReactionSpeed;
 
+        ResetCalibration();
+    }
+
+    public void ResetCalibration()
+    {
+        List<float> reactionTimes = new List<float>();
         ShowConfirmationDialog(false);
+
+        SetButtonMappingText(inputPrompt);
+
+        StartCoroutine(CalibrationRoutine());
     }
 
     public void ConfirmSetup()
@@ -221,6 +258,56 @@ public class ReactionSceneController : MonoBehaviour
 
     private void CalculateReactionSpeed()
     {
-        throw new NotImplementedException();
+        var averageSpeed = CalculateAverageSpeed();
+        var minSpeed = GetFastestTime();
+        var maxSpeed = GetSlowestTime();
+
+        Debug.Log("Average: " + averageSpeed);
+        Debug.Log("Fastest: " + minSpeed);
+        Debug.Log("Slowest: " + maxSpeed);
+
+        var difference = maxSpeed - minSpeed;
+        var reactionSpeed = averageSpeed * reactionSpeedMultiplier;
+        reactionSpeed = Mathf.Round(reactionSpeed * 100f) / 100f;
+
+        dialogText.text = "Comfortable Reaction Speed: " + reactionSpeed;
+        currentReactionSpeed = reactionSpeed;
+        PlatformPreferences.Current.MenuProgressionTimer = currentReactionSpeed;
+    }
+
+    private float CalculateAverageSpeed()
+    {
+        var totalTime = 0f;
+
+        foreach (var time in reactionTimes)
+        {
+            totalTime += time;
+        }
+
+        return totalTime / reactionTimes.Count;
+    }
+
+    private float GetFastestTime()
+    {
+        var fastest = Mathf.Infinity;
+
+        foreach (var time in reactionTimes)
+        {
+            if (time < fastest) fastest = time;
+        }
+
+        return fastest;
+    }
+
+    private float GetSlowestTime()
+    {
+        var slowest = 0f;
+
+        foreach (var time in reactionTimes)
+        {
+            if (time > slowest) slowest = time;
+        }
+
+        return slowest;
     }
 }
