@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Marce\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Marce\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_2ButtonLauncher.1125029528.00" t="ExcludeRecursive" />
-    <e p="F:\Cloudwhale\Unity\Game-Lab-Launcher\2ButtonLauncher" t="IncludeRecursive">
+    <e p="C:\Users\Marce\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_2ButtonLauncher.297530284.00" t="ExcludeRecursive" />
+    <e p="D:\School\Year 2\Design\Game-Lab-Launcher\2ButtonLauncher" t="IncludeRecursive">
       <e p="2ButtonLauncher.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Fonts" t="Include">
@@ -22,14 +23,61 @@
             </e>
           </e>
         </e>
+        <e p="ReactionSceneController.cs" t="Include" />
         <e p="Scripts" t="Include">
+          <e p="AudioManager.cs" t="Include" />
+          <e p="BootController.cs" t="Include" />
+          <e p="BootLoader.cs" t="Include" />
+          <e p="ExitController.cs" t="Include" />
+          <e p="InputSystem" t="Include">
+            <e p="ActiveInputHandler.cs" t="Include" />
+            <e p="BaseInputController.cs" t="Include" />
+            <e p="BasePlayer.cs" t="Include" />
+            <e p="BasePlayerManager.cs" t="Include" />
+            <e p="CustomAttributes" t="Include">
+              <e p="EnumActionAttribute.cs" t="Include" />
+              <e p="ReadOnlyAttribute.cs" t="Include" />
+              <e p="UnityEventDrawer.cs" t="Include" />
+            </e>
+            <e p="TwoButtons" t="Include">
+              <e p="AssistedMenu" t="Include">
+                <e p="BaseMenuController.cs" t="Include" />
+                <e p="BaseStateMenuController.cs" t="Include" />
+                <e p="GameMenuController.cs" t="Include" />
+                <e p="LauncherMenuController.cs" t="Include" />
+                <e p="MainMenuController.cs" t="Include" />
+                <e p="MenuManager.cs" t="Include" />
+                <e p="NewPlayerDialog.cs" t="Include" />
+                <e p="PlayerPlaceholderUI.cs" t="Include" />
+                <e p="StateMenuManager.cs" t="Include" />
+              </e>
+              <e p="TwoButtonInputController.cs" t="Include" />
+              <e p="TwoButtonPlayer.cs" t="Include" />
+              <e p="TwoButtonPlayerManager.cs" t="Include" />
+            </e>
+          </e>
+          <e p="MainSceneController.cs" t="Include" />
+          <e p="Parallax.cs" t="Include" />
+          <e p="PlatformManager.cs" t="Include" />
+          <e p="PlatformPlayer.cs" t="Include" />
+          <e p="PlatformPreferences.cs" t="Include" />
+          <e p="PlayerPreferences" t="Include">
+            <e p="Editor" t="Include">
+              <e p="Utility.cs" t="Include" />
+            </e>
+            <e p="PlayerPreferenceManager.cs" t="Include" />
+          </e>
+          <e p="SetupController.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="ScrollImage.cs" t="Include" />
+            <e p="TextResizer.cs" t="Include" />
           </e>
+          <e p="UserProgress.cs" t="Include" />
           <e p="WebGL" t="Include">
-            <e p="Testing" t="Include">
-              <e p="TestWebGL.cs" t="Include" />
-            </e>
+            <e p="Config.cs" t="Include" />
+            <e p="JSLib.cs" t="Include" />
+            <e p="WebGLRedirect.cs" t="Include" />
+            <e p="WebGLSite.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">
