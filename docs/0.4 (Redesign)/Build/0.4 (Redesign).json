@@ -1,0 +1,13 @@
+{
+"companyName": "Cloudwhale",
+"productName": "CloudwhaleLauncher",
+"dataUrl": "0.4 (Redesign).data.unityweb",
+"wasmCodeUrl": "0.4 (Redesign).wasm.code.unityweb",
+"wasmFrameworkUrl": "0.4 (Redesign).wasm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#325D79",
+"cacheControl": {"default": "must-revalidate"}
+}
