@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &458600200
 RectTransform:
   m_ObjectHideFlags: 0
@@ -202,10 +202,10 @@ RectTransform:
   m_Father: {fileID: 2146490594}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 669.9705, y: -523.3334}
+  m_SizeDelta: {x: 1339.941, y: 493.33334}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &458600201
 MonoBehaviour:
@@ -263,7 +263,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
+  m_BackGroundColor: {r: 0.19607845, g: 0.3647059, b: 0.47450984, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -433,7 +433,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 303c9df51768ffb4aa5b2f26d14bc5c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1aca76c2ffae3d4409e4419c30a6ee48, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -936,6 +936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bootSceneName: Boot
   setupSceneName: SetupInput
+  reactionSceneName: 
   mainSceneName: Main
   exitSceneName: Exit
   currentState: 0
