@@ -176,7 +176,7 @@ public class SetupController : MonoBehaviour
         AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.GameSelected);
         Debug.Log("Finished setup");
         PlatformPreferences.Current.CompletedSetup = true;
-        SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
+        SceneManager.LoadScene(PlatformManager.Instance.reactionSceneName);
     }
 
     private void BasePlayerManager_PlayerRemoved(int newCount)

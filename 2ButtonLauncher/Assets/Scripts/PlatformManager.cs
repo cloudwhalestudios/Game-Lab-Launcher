@@ -42,6 +42,7 @@ public class PlatformManager : MonoBehaviour
     [Header("Scene Control")]
     public string bootSceneName;
     public string setupSceneName;
+    public string reactionSceneName;
     public string mainSceneName;
     public string exitSceneName;
 
@@ -102,7 +103,7 @@ public class PlatformManager : MonoBehaviour
         {
             CurrentState = PlatformState.Boot;
         }
-        else if (sceneName.Equals(setupSceneName))
+        else if (sceneName.Equals(setupSceneName) || sceneName.Equals(reactionSceneName))
         {
             CurrentState = PlatformState.Setup;
         }
