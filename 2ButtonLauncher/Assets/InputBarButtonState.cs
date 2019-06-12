@@ -19,6 +19,9 @@ public class InputBarButtonState : MonoBehaviour
 
     [ReadOnly] public bool shouldIndicate = false;
 
+    List<Button> buttons;
+    int selectedIndex;
+
     public void SetActiveState()
     {
         ObtainButtonStateFocus?.Invoke(this);
@@ -40,16 +43,26 @@ public class InputBarButtonState : MonoBehaviour
     private void InputBarController_TimerStarted()
     {
         // Reset selection
+        buttons = new List<Button>(buttonsParent.GetComponentsInChildren<Button>());
+        selectedIndex = buttons.IndexOf(defaultSelection);
     }
 
     private void InputBarController_TimerElapsed()
     {
+        selectedIndex = (selectedIndex + 1) % buttons.Count;
         // Move indicator
+        MoveIndicator();
     }
 
     private void InputBarController_TimerStopped()
     {
         // Stop 
+        shouldIndicate = false;
+    }
+
+    void MoveIndicator()
+    {
+        selectionIndicator.SetParent(buttons[selectedIndex].transform);
     }
 
     public void Select()
@@ -59,6 +72,6 @@ public class InputBarButtonState : MonoBehaviour
 
     public void AltSelect()
     {
-        throw new NotImplementedException();
+
     }
 }

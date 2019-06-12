@@ -18,10 +18,8 @@ namespace AccessibilityInputSystem
 
             public void Invoke(KeyCode key = KeyCode.None)
             {
-                //Debug.Log("Invoking " + key.ToString());
                 if (key == KeyCode.None || key == Key)
                 {
-                    //Debug.Log("Input event is null: " + InputEvent == null);
                     InputEvent?.Invoke(key);
                 }
             }
@@ -33,7 +31,6 @@ namespace AccessibilityInputSystem
         {
             foreach (var inputKeyEvent in inputKeyEvents)
             {
-                //Debug.Log("Checking Input");
                 if (Input.GetKeyDown(inputKeyEvent.Key))
                 {
                     inputKeyEvent.Invoke();

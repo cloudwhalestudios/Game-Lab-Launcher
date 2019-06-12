@@ -26,16 +26,19 @@ namespace AccessibilityInputSystem
 
             public override void SetControls(params KeyCode[] keys)
             {
-                if (keys?.Length < 2)
+                inputKeyEvents = new List<InputKeyEvent>();
+
+                if (keys.Length > 0)
                 {
-                    throw new System.ArgumentNullException(nameof(keys));
+                    primary.Key = keys[0];
+                    if (keys[0] != KeyCode.None) inputKeyEvents.Add(primary);
                 }
 
-                primary.Key = keys[0];
-                secondary.Key = keys[1];
-
-                inputKeyEvents.Add(primary);
-                inputKeyEvents.Add(secondary);
+                if (keys.Length > 1)
+                {
+                    secondary.Key = keys[1];
+                    if (keys[1] != KeyCode.None) inputKeyEvents.Add(secondary);
+                }
             }
         }
     }

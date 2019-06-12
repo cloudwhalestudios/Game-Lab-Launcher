@@ -39,7 +39,7 @@ public class InputBarController : MonoBehaviour
     [Header("Text Prompt", order = 1)]
     public TextMeshProUGUI textPrompt;
 
-    [Header("Default Button State", order = 1)]
+    [Header("Default Button State", order = 2)]
     public InputBarButtonState defaultButtonState;
 
     InputBarButtonState activeButtonState;
@@ -104,8 +104,6 @@ public class InputBarController : MonoBehaviour
         InputBarButtonState.ObtainButtonStateFocus += InputBarButtonState_ObtainButtonStateFocus;
     }
 
-
-
     public void OnDisable()
     {
         PlatformPlayer.Primary -= PlatformPlayer_MainPrimary;
@@ -124,7 +122,16 @@ public class InputBarController : MonoBehaviour
     }
     private void InputBarButtonState_ObtainButtonStateFocus(InputBarButtonState focusState)
     {
-        
+        if (activeButtonState != null)
+        {
+            activeButtonState.shouldIndicate = false;
+            activeButtonState.gameObject.SetActive(false);
+        }
+
+
+        activeButtonState = focusState;
+        activeButtonState.gameObject.SetActive(true);
+        activeButtonState.shouldIndicate = true;
     }
 
     private void UseAlternative()
@@ -196,9 +203,11 @@ public class InputBarController : MonoBehaviour
             case FillMode.AlphaFill:
                 color.a = Mathf.Lerp(0f, 1f, percentage);
                 break;
+
             case FillMode.AlphaFade:
                 color.a = Mathf.Lerp(1f, 0f, percentage);
                 break;
+
             default:
                 break;
         }
@@ -243,7 +252,7 @@ public class InputBarController : MonoBehaviour
                 color.a = 0;
                 break;
             case FillMode.AlphaFade:
-                color.a = 1;
+                color.a = 1f;
                 break;
             default:
                 break;
