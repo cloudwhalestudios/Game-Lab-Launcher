@@ -16,11 +16,9 @@ namespace AccessibilityInputSystem
             {
                 twoButtonControls.primary.InputEvent += TBPrimary_InputEvent;
                 twoButtonControls.secondary.InputEvent += TBSecondary_InputEvent;
-                //Debug.Log("Registerd two button handlers");
             }
-
-            //Debug.Log("Finished attaching handles");
         }
+
         protected virtual void OnDisable()
         {
             if (controller is TwoButtons.TwoButtonInputController twoButtonControls)

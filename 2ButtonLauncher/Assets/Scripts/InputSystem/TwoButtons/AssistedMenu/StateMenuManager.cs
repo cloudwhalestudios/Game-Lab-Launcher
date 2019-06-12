@@ -191,11 +191,11 @@ namespace AccessibilityInputSystem
 
                     if (controller.stateSelectTimer != null)
                     {
-                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(controller.stateSelectTimer, PlatformPreferences.Current.MenuProgressionTimer));
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(controller.stateSelectTimer, PlatformPreferences.Current.ReactionTime));
                     }
                     else
                     {
-                        yield return new WaitForSecondsRealtime(PlatformPreferences.Current.MenuProgressionTimer);
+                        yield return new WaitForSecondsRealtime(PlatformPreferences.Current.ReactionTime);
                     }
 
                     selectedStateIndex = (selectedStateIndex + controller.stateMenus.Count + direction) % controller.stateMenus.Count;

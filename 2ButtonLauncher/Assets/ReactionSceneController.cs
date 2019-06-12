@@ -110,13 +110,13 @@ public class ReactionSceneController : MonoBehaviour
 
     public void OnEnable()
     {
-        PlatformPlayer.SetupSecondary += PlatformPlayer_SetupSecondary;
-        PlatformPlayer.SetupPrimary += PlatformPlayer_SetupPrimary;
+        PlatformPlayer.Secondary += PlatformPlayer_SetupSecondary;
+        PlatformPlayer.Primary += PlatformPlayer_SetupPrimary;
     }
     public void OnDisable()
     {
-        PlatformPlayer.SetupSecondary -= PlatformPlayer_SetupSecondary;
-        PlatformPlayer.SetupPrimary -= PlatformPlayer_SetupPrimary;
+        PlatformPlayer.Secondary -= PlatformPlayer_SetupSecondary;
+        PlatformPlayer.Primary -= PlatformPlayer_SetupPrimary;
     }
     
     private void PlatformPlayer_SetupPrimary()
@@ -231,7 +231,7 @@ public class ReactionSceneController : MonoBehaviour
         AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Abort);
         List<float> reactionTimes = new List<float>();
 
-        PlatformPreferences.Current.MenuProgressionTimer = defaultReactionSpeed;
+        PlatformPreferences.Current.ReactionTime = defaultReactionSpeed;
 
         ResetCalibration();
     }
@@ -251,7 +251,7 @@ public class ReactionSceneController : MonoBehaviour
         AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.GameSelected);
         Debug.Log("Finished calibration");
 
-        PlatformPreferences.Current.MenuProgressionTimer = currentReactionSpeed;
+        PlatformPreferences.Current.ReactionTime = currentReactionSpeed;
 
         SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
     }
@@ -272,7 +272,7 @@ public class ReactionSceneController : MonoBehaviour
 
         dialogText.text = "Comfortable Reaction Speed: " + reactionSpeed;
         currentReactionSpeed = reactionSpeed;
-        PlatformPreferences.Current.MenuProgressionTimer = currentReactionSpeed;
+        PlatformPreferences.Current.ReactionTime = currentReactionSpeed;
     }
 
     private float CalculateAverageSpeed()

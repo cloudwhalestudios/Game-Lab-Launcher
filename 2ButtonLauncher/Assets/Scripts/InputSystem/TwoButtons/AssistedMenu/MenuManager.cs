@@ -194,11 +194,11 @@ namespace AccessibilityInputSystem
                     if (controller.itemSelectTimer != null)
                     {
 
-                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(PlatformPreferences.Current.MenuProgressionTimer));
+                        yield return timerUpdateRoutine = StartCoroutine(UpdateTimerProgress(PlatformPreferences.Current.ReactionTime));
                     }
                     else
                     {
-                        yield return new WaitForSecondsRealtime(PlatformPreferences.Current.MenuProgressionTimer);
+                        yield return new WaitForSecondsRealtime(PlatformPreferences.Current.ReactionTime);
                     }
 
                     HighlightButton(selectedButton, true);

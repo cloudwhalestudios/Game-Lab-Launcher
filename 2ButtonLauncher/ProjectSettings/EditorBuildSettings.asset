@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Exit.unity
     guid: 5408c006a8386044aa16e6fcd645d9cd
+  - enabled: 1
+    path: Assets/!Redesign/Scenes/InputSetup.unity
+    guid: b93ed7c753d80974f8c03a871f7fed73
+  - enabled: 1
+    path: Assets/!Redesign/Scenes/Main.unity
+    guid: 27fa9cfc927df9140a5698d0d36ac6fe
   m_configObjects: {}

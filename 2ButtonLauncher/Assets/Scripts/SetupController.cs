@@ -99,8 +99,8 @@ public class SetupController : MonoBehaviour
         BasePlayerManager.NewPlayerAdded += BasePlayerManager_NewPlayerAdded;
         BasePlayerManager.PlayerRemoved += BasePlayerManager_PlayerRemoved;
 
-        PlatformPlayer.SetupSecondary += PlatformPlayer_SetupSecondary;
-        PlatformPlayer.SetupPrimary += PlatformPlayer_SetupPrimary;
+        PlatformPlayer.Secondary += PlatformPlayer_SetupSecondary;
+        PlatformPlayer.Primary += PlatformPlayer_SetupPrimary;
     }
     public void OnDisable()
     {
@@ -109,8 +109,8 @@ public class SetupController : MonoBehaviour
         BasePlayerManager.NewPlayerAdded -= BasePlayerManager_NewPlayerAdded;
         BasePlayerManager.PlayerRemoved -= BasePlayerManager_PlayerRemoved;
 
-        PlatformPlayer.SetupSecondary -= PlatformPlayer_SetupSecondary;
-        PlatformPlayer.SetupPrimary -= PlatformPlayer_SetupPrimary;
+        PlatformPlayer.Secondary -= PlatformPlayer_SetupSecondary;
+        PlatformPlayer.Primary -= PlatformPlayer_SetupPrimary;
     }
 
     public void Start()

@@ -32,7 +32,7 @@ public class PlatformPreferences
 
     public KeyCode[] Keys { get => keys; set { keys = value; Save(); } }
 
-    public float MenuProgressionTimer { get => menuProgressionTimer; set { menuProgressionTimer = value; Save(); } }
+    public float ReactionTime { get => menuProgressionTimer; set { menuProgressionTimer = value; Save(); } }
 
 
     public static void Save()

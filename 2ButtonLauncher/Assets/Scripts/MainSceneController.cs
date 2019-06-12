@@ -39,14 +39,14 @@ public class MainSceneController : MonoBehaviour
 
     private void OnEnable()
     {
-        PlatformPlayer.MainPrimary += PlatformPlayer_MainPrimary;
-        PlatformPlayer.MainSecondary += PlatformPlayer_MainSecondary;
+        PlatformPlayer.Primary += PlatformPlayer_MainPrimary;
+        PlatformPlayer.Secondary += PlatformPlayer_MainSecondary;
     }
 
     private void OnDisable()
     {
-        PlatformPlayer.MainPrimary += PlatformPlayer_MainPrimary;
-        PlatformPlayer.MainSecondary += PlatformPlayer_MainSecondary;
+        PlatformPlayer.Primary += PlatformPlayer_MainPrimary;
+        PlatformPlayer.Secondary += PlatformPlayer_MainSecondary;
     }
 
     private void Start()
