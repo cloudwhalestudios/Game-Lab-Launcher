@@ -1720,7 +1720,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1573650254}
+      objectReference: {fileID: 0}
     - target: {fileID: 6047335689282638949, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1890,7 +1890,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1573650254}
+      objectReference: {fileID: 0}
     - target: {fileID: 4394021306519304569, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2048,18 +2048,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27a2525f6b7567a46b435c6c1a83e823, type: 3}
---- !u!114 &1104976717 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4394021306774384523, guid: 27a2525f6b7567a46b435c6c1a83e823,
-    type: 3}
-  m_PrefabInstance: {fileID: 1104976716}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc1955bb939d30449799ab2d5d182a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1126763478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2615,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1573650254}
+      objectReference: {fileID: 0}
     - target: {fileID: 6047335689089286487, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2792,7 +2780,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1573650254}
+      objectReference: {fileID: 0}
     - target: {fileID: 4394021306578431051, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2885,18 +2873,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27a2525f6b7567a46b435c6c1a83e823, type: 3}
---- !u!114 &1462050542 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4394021306774384523, guid: 27a2525f6b7567a46b435c6c1a83e823,
-    type: 3}
-  m_PrefabInstance: {fileID: 1462050541}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc1955bb939d30449799ab2d5d182a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1469546698 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1611774803226637954, guid: 66281735832fc944eb59015833bd8e70,
@@ -2912,7 +2888,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1573650252}
-  - component: {fileID: 1573650254}
+  - component: {fileID: 1573650253}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -2934,7 +2910,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1573650254
+--- !u!114 &1573650253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2943,57 +2919,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1573650251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27157c21ecd1eb842985b38fc5c9235d, type: 3}
+  m_Script: {fileID: 11500000, guid: 56e00770e5d0313428fc04afa2b536ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textScreenPrompt: {fileID: 758330429}
-  textInputBarPrompt: {fileID: 2032535642}
-  primaryButtonHighlight: {fileID: 1296609933}
-  primaryButtonSelected: {fileID: 1935832738}
-  secondaryButtonHighlight: {fileID: 971559765}
-  secondaryButtonSelected: {fileID: 243058621}
-  primaryConfirmButtonState: {fileID: 1462050542}
-  secondaryButtonConfirmState: {fileID: 1104976717}
-  introTextTime: 6
-  introText:
-  - Welcome and thank you for using the Cloudwhale Platform! Please setup your controls
-    by following the shown instructions.
-  resetText:
-  - Please remember to follow the shown instructions to set up your input successfully.
-  introLocation: 0
-  introMaxFillTimes: -1
-  pSetupTime: 5
-  pSetupText:
-  - Please now press the button you are most comfortable using
-  - It's the button you are going to be using the most
-  pSetupLocation: 1
-  pSetupMaxFillTimes: 1
-  pConfirmTime: 5
-  pConfirmText:
-  - Are you happy with your choice? If so please press it again to continue.
-  - Or you can wait to retry and set it to a different button.
-  pConfirmLocation: 0
-  pConfirmMaxFillTimes: 1
-  sSetupTime: 6
-  sSetupText:
-  - Now please press another button that you can use
-  - You will only need it to immediatly use the bottom right option
-  sNoticeText:
-  - The button you used is already your primary button
-  - Please press another to use as an alternative
-  sSetupLocation: 1
-  sSetupMaxFillTimes: 1
-  sConfirmTime: 6
-  sConfirmText:
-  - Are you comfortable with your button setup?
-  - Please answer by selecting one of the options below.
-  sConfirmLocation: 0
-  sConfirmMaxFillTimes: 1
-  waitingForNextInput: 0
-  primaryKey: 0
-  confirmPrimaryKey: 0
-  secondaryKey: 0
-  confirmSecondaryKey: 0
+  transitionTime: 0.3
+  dialogText: {fileID: 0}
+  inputPrompt:
+    state: 0
+    unselected: {fileID: 0}
+    selected: {fileID: 0}
+    highlighted: {fileID: 0}
+    keyMapping: {fileID: 0}
+  confirmationMenu: {fileID: 0}
+  calibrationAmount: 3
+  retryTimeMultiplier: 4
+  currentReactionSpeed: 0
+  defaultReactionSpeed: 2
+  minWaitTime: 2
+  maxWaitTime: 4
+  reactionSpeedMultiplier: 2
+  introText: Please press the primary button when you see the circle appear.
+  promptText: Press the primary button!
+  confirmText: Do you feel comfortable with this reaction speed?
+  redoExtraText: Lets try that again!<br>
+  warningText: Please wait until a prompt shows up.
 --- !u!1 &1581350316
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,18 +3514,6 @@ Transform:
   m_Father: {fileID: 1930412571}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2032535642 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1611774803600883218, guid: 66281735832fc944eb59015833bd8e70,
-    type: 3}
-  m_PrefabInstance: {fileID: 1611774801874531912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2053764258
 GameObject:
   m_ObjectHideFlags: 0
@@ -3825,6 +3762,6 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultAlternativeAction.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1573650254}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66281735832fc944eb59015833bd8e70, type: 3}

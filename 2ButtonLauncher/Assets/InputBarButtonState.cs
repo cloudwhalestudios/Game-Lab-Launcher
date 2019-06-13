@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InputBarButtonState : MonoBehaviour
@@ -13,9 +14,13 @@ public class InputBarButtonState : MonoBehaviour
     public RectTransform buttonsParent;
     public Button defaultSelection;
     public RectTransform selectionIndicator;
+    public RectTransform indicatorLocalPositon;
 
     [Header("Alternative Configuration", order = 1)]
     public Button alternative;
+    public UnityEvent alternativeEvents;
+    public bool HasAlternatives() => (alternative != null && alternative.onClick != null) 
+            || (alternativeEvents != null && alternativeEvents.GetPersistentEventCount() > 0);
 
     [ReadOnly] public bool shouldIndicate = false;
 
@@ -24,6 +29,9 @@ public class InputBarButtonState : MonoBehaviour
 
     public void SetActiveState()
     {
+        buttons = new List<Button>(buttonsParent.GetComponentsInChildren<Button>());
+        selectedIndex = buttons.IndexOf(defaultSelection);
+        MoveIndicator();
         ObtainButtonStateFocus?.Invoke(this);
     }
 
@@ -43,35 +51,43 @@ public class InputBarButtonState : MonoBehaviour
     private void InputBarController_TimerStarted()
     {
         // Reset selection
-        buttons = new List<Button>(buttonsParent.GetComponentsInChildren<Button>());
         selectedIndex = buttons.IndexOf(defaultSelection);
+        MoveIndicator();
     }
 
     private void InputBarController_TimerElapsed()
     {
+        // Move to next item
         selectedIndex = (selectedIndex + 1) % buttons.Count;
-        // Move indicator
         MoveIndicator();
     }
 
     private void InputBarController_TimerStopped()
     {
-        // Stop 
+        // Stop indicating
         shouldIndicate = false;
     }
 
     void MoveIndicator()
     {
         selectionIndicator.SetParent(buttons[selectedIndex].transform);
+        selectionIndicator.localPosition = indicatorLocalPositon.localPosition;
     }
 
     public void Select()
     {
-        
+        buttons[selectedIndex]?.onClick?.Invoke();
     }
 
     public void AltSelect()
     {
-
+        if (alternative != null)
+        {
+            Debug.Log("Invoking onCLick alt");
+            alternative?.onClick?.Invoke();
+            return;
+        }
+        Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
+        alternativeEvents?.Invoke();
     }
 }

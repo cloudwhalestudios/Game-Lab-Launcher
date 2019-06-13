@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using AccessibilityInputSystem;
+using UnityEngine.Events;
 
 public class InputBarController : MonoBehaviour
 {
@@ -42,11 +43,13 @@ public class InputBarController : MonoBehaviour
     [Header("Default Button State", order = 2)]
     public InputBarButtonState defaultButtonState;
 
+    [Header("Alternative Control")]
+    public int timerFillsBeforeAlternative = 4;
+    public UnityEvent defaultAlternativeAction;
+    public static event Action CurrentAlternativeAction;
+
     InputBarButtonState activeButtonState;
-
     Coroutine activeTimerRoutine;
-
-    bool controlSetup = false;
 
     public BarMode ActiveMode
     {
@@ -77,7 +80,7 @@ public class InputBarController : MonoBehaviour
         textPrompt?.gameObject.SetActive(!buttonsActive);
     }
 
-    public void ActivateTimer(bool activate, float fillTimeOverride = -1f)
+    public void ActivateTimer(bool activate, float fillTimeOverride = -1f, int barFillsOverride = -1)
     {
         if (activeTimerRoutine != null)
         {
@@ -88,7 +91,7 @@ public class InputBarController : MonoBehaviour
         }
         if (activate)
         {
-            activeTimerRoutine = StartCoroutine(TimerRoutine(fillTimeOverride));
+            activeTimerRoutine = StartCoroutine(TimerRoutine(fillTimeOverride, barFillsOverride));
         }
     }
 
@@ -128,22 +131,37 @@ public class InputBarController : MonoBehaviour
             activeButtonState.gameObject.SetActive(false);
         }
 
-
         activeButtonState = focusState;
         activeButtonState.gameObject.SetActive(true);
         activeButtonState.shouldIndicate = true;
+
+        ActiveMode = BarMode.Buttons;
     }
 
     private void UseAlternative()
     {
-        if (activeButtonState != null)
+        if (activeButtonState != null && activeButtonState.isActiveAndEnabled)
         {
-            activeButtonState?.AltSelect();
+            if (activeButtonState.HasAlternatives())
+            {
+                activeButtonState.AltSelect();
+                return;
+            }
         }
-        else
+        
+        if (CurrentAlternativeAction != null)
         {
-            // Default exit prompt
+            Debug.LogWarning("Invoking current alt");
+            CurrentAlternativeAction?.Invoke();
+            return;
         }
+
+        if (defaultAlternativeAction == null)
+            throw new Exception("No default alternative has been set!");
+
+        Debug.LogError("Invoking default alt");
+        defaultAlternativeAction?.Invoke();
+        
     }
 
     private void UseSelection()
@@ -154,13 +172,14 @@ public class InputBarController : MonoBehaviour
         }
     }
 
-    private IEnumerator TimerRoutine(float fillTime)
+    private IEnumerator TimerRoutine(float fillTime, int overrideMaxFills)
     {
         TimerStarted?.Invoke();
 
+        var maxTimerFills = overrideMaxFills > 0 ? overrideMaxFills : timerFillsBeforeAlternative;
         fillTime = fillTime <= 0 ? PlatformPreferences.Current.ReactionTime : fillTime;
 
-        while (true)
+        for (int i = 0; i < maxTimerFills; i++)
         {
             ResetTimer();
             var elapsedTime = 0f;
@@ -169,16 +188,19 @@ public class InputBarController : MonoBehaviour
             {
                 yield return null;
 
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.unscaledDeltaTime;
 
                 // Update timer fill
+                ResetTimer();
                 UpdateTimerDisplay(elapsedTime / fillTime);
             }
 
             TimerElapsed?.Invoke();
-
+            //Debug.LogWarning("timer fill: " + (i + 1) + " of " + maxTimerFills);
             yield return null;
         }
+
+        UseAlternative();
     }
 
     private void UpdateTimerDisplay(float percentage)
@@ -221,7 +243,10 @@ public class InputBarController : MonoBehaviour
     {
         var pivot = timerBar.pivot;
         var scale = timerBar.localScale;
+        scale.x = 1f;
+
         var color = timerBar.GetComponent<Image>().color;
+        color.a = 1f;
         switch (timerFillMode)
         {
             case FillMode.LeftFill:
@@ -230,7 +255,6 @@ public class InputBarController : MonoBehaviour
                 break;
             case FillMode.LeftCollapse:
                 pivot.x = 1f;
-                scale.x = 1f;
                 break;
             case FillMode.CenterFill:
                 pivot.x = .5f;
@@ -238,7 +262,6 @@ public class InputBarController : MonoBehaviour
                 break;
             case FillMode.CenterCollapse:
                 pivot.x = .5f;
-                scale.x = 1f;
                 break;
             case FillMode.RightFill:
                 pivot.x = 0;
@@ -246,7 +269,6 @@ public class InputBarController : MonoBehaviour
                 break;
             case FillMode.RightCollapse:
                 pivot.x = 0;
-                scale.x = 1f;
                 break;
             case FillMode.AlphaFill:
                 color.a = 0;

@@ -19,10 +19,7 @@ public class TextResizer : MonoBehaviour
                 var sizeDelta = tmpText.rectTransform.sizeDelta;
                 sizeDelta.x = tmpText.preferredWidth;
                 tmpText.rectTransform.sizeDelta = sizeDelta;
-                print("hey listen");
             }
-            print("hey buddy");
-
         }
     }
 
