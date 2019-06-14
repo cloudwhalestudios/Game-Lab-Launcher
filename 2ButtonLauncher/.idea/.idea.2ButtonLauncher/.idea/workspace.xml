@@ -74,14 +74,14 @@
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="320">
-              <caret line="20" column="60" lean-forward="true" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+              <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
               <folding>
-                <marker date="1560260062373" expanded="true" signature="6:146" ph="..." />
-                <marker date="1560260062373" expanded="true" signature="188:866" ph="{...}" />
-                <marker date="1560260062373" expanded="true" signature="290:785" ph="{...}" />
-                <marker date="1560260062373" expanded="true" signature="397:779" ph="{...}" />
-                <marker date="1560260062373" expanded="true" signature="491:736" ph="{...}" />
-                <marker date="1560260062373" expanded="true" signature="843:864" ph="{...}" />
+                <marker date="1560506031653" expanded="true" signature="6:146" ph="..." />
+                <marker date="1560506031653" expanded="true" signature="188:796" ph="{...}" />
+                <marker date="1560506031653" expanded="true" signature="290:715" ph="{...}" />
+                <marker date="1560506031653" expanded="true" signature="397:709" ph="{...}" />
+                <marker date="1560506031653" expanded="true" signature="491:699" ph="{...}" />
+                <marker date="1560506031653" expanded="true" signature="773:794" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -111,7 +111,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-52" />
     <option name="y" value="131" />
     <option name="width" value="1936" />
@@ -212,7 +212,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26599148" />
@@ -271,14 +271,14 @@
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
-          <caret line="20" column="60" lean-forward="true" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
           <folding>
-            <marker date="1560260062373" expanded="true" signature="6:146" ph="..." />
-            <marker date="1560260062373" expanded="true" signature="188:866" ph="{...}" />
-            <marker date="1560260062373" expanded="true" signature="290:785" ph="{...}" />
-            <marker date="1560260062373" expanded="true" signature="397:779" ph="{...}" />
-            <marker date="1560260062373" expanded="true" signature="491:736" ph="{...}" />
-            <marker date="1560260062373" expanded="true" signature="843:864" ph="{...}" />
+            <marker date="1560506031653" expanded="true" signature="6:146" ph="..." />
+            <marker date="1560506031653" expanded="true" signature="188:796" ph="{...}" />
+            <marker date="1560506031653" expanded="true" signature="290:715" ph="{...}" />
+            <marker date="1560506031653" expanded="true" signature="397:709" ph="{...}" />
+            <marker date="1560506031653" expanded="true" signature="491:699" ph="{...}" />
+            <marker date="1560506031653" expanded="true" signature="773:794" ph="{...}" />
           </folding>
         </state>
       </provider>
