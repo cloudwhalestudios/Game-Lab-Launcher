@@ -1605,7 +1605,7 @@ PrefabInstance:
     - target: {fileID: 4394021308128119524, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 30.359726
+      value: 30.35968
       objectReference: {fileID: 0}
     - target: {fileID: 4394021308128119524, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
@@ -2512,7 +2512,7 @@ PrefabInstance:
     - target: {fileID: 4394021308128119524, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 30.359726
+      value: 30.35968
       objectReference: {fileID: 0}
     - target: {fileID: 4394021308128119524, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
@@ -3251,6 +3251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Music: {fileID: 2053764259}
+  playOnStart: 1
   Abort: {fileID: 243534943}
   Accept: {fileID: 211751901}
   GameSelected: {fileID: 288663934}

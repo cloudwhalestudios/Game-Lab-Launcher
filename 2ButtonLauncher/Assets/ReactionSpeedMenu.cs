@@ -19,7 +19,7 @@ public class ReactionSpeedMenu : MonoBehaviour
     int currentOptionIndex;
     List<Image> optionImages;
 
-    public void ShowMenu(List<float> reactionSpeedPresets, bool allowManual, char unitName, UnityAction<int> callback)
+    public void ShowMenu(List<float> reactionSpeedPresets, bool allowManual, char unitName, UnityAction<int> callback, int defaultSelection)
     {
         var maxOptionIndex = reactionSpeedPresets.Count + (allowManual ? 1 : 0);
 
@@ -48,7 +48,7 @@ public class ReactionSpeedMenu : MonoBehaviour
                 optionImages.Add(newOption.GetComponent<Image>());
             }
         }
-        UpdateSelectionDisplay(0);
+        UpdateSelectionDisplay(defaultSelection);
 
         gameObject.SetActive(true);
     }

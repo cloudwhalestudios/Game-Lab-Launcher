@@ -121,6 +121,11 @@ public class InputSetupController : MonoBehaviour
         StartInputSetup();
     }
 
+    private void OnDestroy()
+    {
+        InputBarController.CurrentAlternativeAction -= currentAlternativeAction;
+    }
+
     void ChangeAlternativeAction(Action altAction)
     {
         InputBarController.CurrentAlternativeAction -= currentAlternativeAction;
@@ -130,6 +135,7 @@ public class InputSetupController : MonoBehaviour
 
     public void StartInputSetup()
     {
+        StopAllCoroutines();
         // Debug.Log("Starting Input Setup");
         currentSetupRoutine = StartCoroutine(StartInputSetupRoutine());
     }
@@ -270,7 +276,7 @@ public class InputSetupController : MonoBehaviour
         PlatformPreferences.Current.Keys = new KeyCode[] {primaryKey, secondaryKey};
         PlatformPreferences.Current.CompletedSetup = true;
 
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.GameSelected);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.GameSelected);
         // Debug.Log("Finished input setup");
         SceneManager.LoadScene(PlatformManager.Instance.reactionSceneName);
     }
@@ -312,6 +318,7 @@ public class InputSetupController : MonoBehaviour
 
         for (int i = 0; i < textStrings.Count; i++)
         {
+            AudioManager.Instance?.PlaySound(AudioManager.Instance.Select);
             textField.text = textStrings[i];
             yield return new WaitForSecondsRealtime(displayTime);
         }
@@ -349,9 +356,6 @@ public class InputSetupController : MonoBehaviour
 
         secondaryButtonConfirmState.gameObject.SetActive(false);
 
-        textInputBarPrompt.gameObject.SetActive(false);
-        textScreenPrompt.gameObject.SetActive(false);
-
         StopTextDisplayUpdate();
 
         ShowSecondary(false);
@@ -362,6 +366,9 @@ public class InputSetupController : MonoBehaviour
     {
         textInputBarPrompt.text = "";
         textScreenPrompt.text = "";
+
+        textInputBarPrompt.gameObject.SetActive(false);
+        textScreenPrompt.gameObject.SetActive(false);
 
         barController.ActivateTimer(false);
 

@@ -164,7 +164,8 @@ public class InputBarController : MonoBehaviour
                 return;
             }
         }
-        
+
+        AudioManager.Instance?.PlaySound(AudioManager.Instance.Launch);
         if (CurrentAlternativeAction != null)
         {
             Debug.LogWarning("Invoking current alt");
@@ -208,7 +209,7 @@ public class InputBarController : MonoBehaviour
                 ResetTimer();
                 UpdateTimerDisplay(elapsedTime / currentFillTime);
             }
-
+            AudioManager.Instance?.PlaySound(AudioManager.Instance.Select);
             TimerElapsed?.Invoke();
             //Debug.LogWarning("timer fill: " + (i + 1) + " of " + maxTimerFills);
             yield return null;

@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
     [Header("Music input")]
     public AudioSource Music;
+    public bool playOnStart = false;
 
     [Header("SFX input")]
     public AudioSource Abort;
@@ -30,6 +31,14 @@ public class AudioManager : MonoBehaviour
         else
         {
             DestroyImmediate(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (playOnStart)
+        {
+            PlaySoundNormally(Music);
         }
     }
 

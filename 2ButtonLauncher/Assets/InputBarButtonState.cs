@@ -82,11 +82,13 @@ public class InputBarButtonState : MonoBehaviour
 
     public void Select()
     {
+        AudioManager.Instance?.PlaySound(AudioManager.Instance.Accept);
         buttons[selectedIndex]?.onClick?.Invoke();
     }
 
     public void AltSelect()
     {
+        AudioManager.Instance?.PlaySound(AudioManager.Instance.Abort);
         if (alternative != null)
         {
             Debug.Log("Invoking onCLick alt");
