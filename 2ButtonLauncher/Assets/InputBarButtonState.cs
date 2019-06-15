@@ -82,6 +82,7 @@ public class InputBarButtonState : MonoBehaviour
 
     public void Select()
     {
+        if (!isActiveAndEnabled) return;
         AudioManager.Instance?.PlaySound(AudioManager.Instance.Accept);
         buttons[selectedIndex]?.onClick?.Invoke();
     }

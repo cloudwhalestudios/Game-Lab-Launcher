@@ -199,10 +199,14 @@ public class ReactionSetupController : MonoBehaviour
         ShowCalibrationPrompt(true);
         yield return new WaitForSecondsRealtime(mIntroTimePerText);
         ShowCalibrationPrompt(true, true);
-        yield return new WaitForSecondsRealtime(mIntroTimePerText * 2);
+        yield return new WaitForSecondsRealtime(mIntroTimePerText);
+        ShowCalibrationPrompt(false, false);
+
+        yield return new WaitForSecondsRealtime(mIntroTimePerText);
 
         StopTextDisplayUpdate();
         calibrationButtonState.SetActiveState();
+        calibrationButtonState.gameObject.SetActive(false);
 
         // Beginn calibration
         for (int i = 0; i < calibrationAttempts; i++)
@@ -219,11 +223,13 @@ public class ReactionSetupController : MonoBehaviour
             ShowCalibrationPrompt(true);
 
             enableReact = true;
+            calibrationButtonState.gameObject.SetActive(true);
             var startTime = Time.realtimeSinceStartup;
             while (enableReact)
             {
                 yield return null;
             }
+            calibrationButtonState.gameObject.SetActive(false);
 
             var time = Time.realtimeSinceStartup - startTime;
             manualReactionTimes.Add(time);
