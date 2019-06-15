@@ -24,6 +24,12 @@ public class ReactionSetupController : MonoBehaviour
     public GameObject calibrationScreenObject;
     public GameObject calibrationScreenObjectSelected;
 
+    [Space]
+    public InputBarButtonState popupDialogState;
+    public GameObject popupDialogObject;
+    public float idleDialogTimer = 10f;
+    [TextArea] public string timeoutText = "Returning to input setup shortly.";
+
     [Header("Reaction Speed Options", order = 0)]
     public bool allowManual = true;
     public char unitName = 's';
@@ -112,6 +118,20 @@ public class ReactionSetupController : MonoBehaviour
         InputBarController.CurrentAlternativeAction += currentAlternativeAction;
     }
 
+    public void DefaultIdleTimeout()
+    {
+        previousSetupRoutine = currentSetupRoutine;
+        currentSetupRoutine = null;
+
+        StopAllCoroutines();
+
+        // Show popup
+        popupDialogObject.SetActive(true);
+        popupDialogState.SetActiveState();
+        barController.ActivateTimer(true, idleDialogTimer, 1);
+        popupDialogObject.GetComponentInChildren<TextMeshProUGUI>().text = timeoutText;
+    }
+
     // Intro
     public void StartReactionSetup()
     {
@@ -136,11 +156,11 @@ public class ReactionSetupController : MonoBehaviour
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(SpeedSelectionRoutine());
         StopCoroutine(previousSetupRoutine);
+        ChangeAlternativeAction(StartReactionSetup);
     }
 
     private IEnumerator SpeedSelectionRoutine()
     {
-        ChangeAlternativeAction(StartReactionSetup);
         ResetSpeedSelection();
 
         // Show menu
@@ -237,7 +257,7 @@ public class ReactionSetupController : MonoBehaviour
             var formattedTime = Mathf.Round(time * 100f) / 100f;
             var timeText = new List<string>() { mCalibrationSelectedText[0] + formattedTime + mCalibrationSelectedText[1]};
 
-            UpdateTextDisplay(mCalibrationTextStayTime, timeText);
+            UpdateTextDisplay(mCalibrationTextStayTime + formattedTime, timeText);
 
             yield return new WaitForSecondsRealtime(mCalibrationTextStayTime);
         }
@@ -300,10 +320,9 @@ public class ReactionSetupController : MonoBehaviour
     public void CompleteSetup()
     {
         PlatformPreferences.Current.ReactionTime = reactionSpeed;
-        AudioManager.Instance.PlaySound(AudioManager.Instance.GameSelected);
 
         // Debug.Log("Finished reaction setup");
-        SceneManager.LoadScene(PlatformManager.Instance.librarySceneName);
+        PlatformManager.Instance.ChangeScene(PlatformManager.Instance.librarySceneName);
     }
 
     private void InputBarController_TimerElapsed()
@@ -318,6 +337,10 @@ public class ReactionSetupController : MonoBehaviour
     private void ResetSetup()
     {
         ResetSpeedSelection();
+        currentOptionIndex = 0;
+        popupDialogObject.SetActive(false);
+        popupDialogState.gameObject.SetActive(false);
+        barController.ActivateTimer(false);
     }
 
     private void ResetSpeedSelection()
@@ -431,5 +454,16 @@ public class ReactionSetupController : MonoBehaviour
         }
 
         return slowest;
+    }
+
+    public void ResumeReactionSetup()
+    {
+        StopAllCoroutines();
+        StartReactionSetup();
+    }
+
+    public void ReturnToLastScene()
+    {
+        PlatformManager.Instance.ReturnToLastScene();
     }
 }

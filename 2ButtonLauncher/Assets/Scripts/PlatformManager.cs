@@ -47,6 +47,9 @@ public class PlatformManager : MonoBehaviour
     public string exitSceneName;
 
     [SerializeField, ReadOnly] private PlatformState currentState;
+    [SerializeField, ReadOnly] private string lastSceneName = "";
+    [SerializeField, ReadOnly] private string currentSceneName = "";
+    [SerializeField, ReadOnly] public bool canReturn = false;
 
     protected void Awake()
     {
@@ -71,29 +74,20 @@ public class PlatformManager : MonoBehaviour
 
     private void OnEnable()
     {
-        BasePlayerManager.NewPlayerAdded += BasePlayerManager_NewPlayerAdded;
-        BasePlayerManager.PlayerRemoved += BasePlayerManager_PlayerRemoved;
-
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
     }
 
     private void OnDisable()
     {
-        BasePlayerManager.NewPlayerAdded -= BasePlayerManager_NewPlayerAdded;
-        BasePlayerManager.PlayerRemoved -= BasePlayerManager_PlayerRemoved;
-
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-    }
-
-    private void BasePlayerManager_PlayerRemoved(int remainingPlayerCount) { }
-
-    private void BasePlayerManager_NewPlayerAdded(BasePlayer newPlayer)
-    {
-        PlatformPreferences.Current.Keys = newPlayer.Keys;
     }
 
     private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
     {
+        AudioManager.Instance.PlaySound(AudioManager.Instance.GameSelected);
+
+        lastSceneName = currentSceneName;
+        currentSceneName = newScene.name;
         UpdatePlatformState(newScene.name);
     }
 
@@ -110,6 +104,25 @@ public class PlatformManager : MonoBehaviour
         else if (sceneName.Equals(librarySceneName))
         {
             CurrentState = PlatformState.Main;
+        }
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        if (sceneName != librarySceneName) canReturn = true;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void ReturnToLastScene()
+    {
+        if (canReturn)
+        {
+            canReturn = false;
+            SceneManager.LoadScene(lastSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(exitSceneName);
         }
     }
 

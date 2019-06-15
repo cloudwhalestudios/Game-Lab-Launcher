@@ -30,6 +30,14 @@ public class InputSetupController : MonoBehaviour
     public InputBarButtonState primaryConfirmButtonState;
     public InputBarButtonState secondaryButtonConfirmState;
 
+    [Space]
+    public InputBarButtonState popupDialogState;
+    public GameObject popupDialogObject;
+    public float idleDialogTimer = 10f;
+    [TextArea] public string timeoutText = "Canceling setup shortly.";
+    [TextArea] public string timeoutQuitText = "Quitting application shortly.";
+
+
 
     [Header("Dialog Configuration", order = 0)]
     [Header("Introduction", order = 1)]
@@ -133,6 +141,30 @@ public class InputSetupController : MonoBehaviour
         InputBarController.CurrentAlternativeAction += currentAlternativeAction;
     }
 
+    public void DefaultIdleTimeout()
+    {
+        previousSetupRoutine = currentSetupRoutine;
+        currentSetupRoutine = null;
+
+        StopAllCoroutines();
+
+        // Show popup
+        popupDialogObject.SetActive(true);
+        popupDialogState.SetActiveState();
+        barController.ActivateTimer(true, idleDialogTimer, 1);
+
+        var dialogText = PlatformManager.Instance.canReturn ? timeoutText : timeoutQuitText;
+        popupDialogObject.GetComponentInChildren<TextMeshProUGUI>().text = dialogText;
+
+        StartCoroutine(AnyKeyRoutine());
+    }
+
+    private IEnumerator AnyKeyRoutine()
+    {
+        while (GetKeyInput() == KeyCode.None) yield return null;
+        ResumeInputSetup();
+    }
+
     public void StartInputSetup()
     {
         StopAllCoroutines();
@@ -170,12 +202,12 @@ public class InputSetupController : MonoBehaviour
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(PrimarySetupRoutine());
         StopCoroutine(previousSetupRoutine);
+        ChangeAlternativeAction(DefaultIdleTimeout);
 
     }
 
     IEnumerator PrimarySetupRoutine()
     {
-        ChangeAlternativeAction(StartInputSetup);
         ResetPrimarySetup();
 
         // First button
@@ -196,11 +228,11 @@ public class InputSetupController : MonoBehaviour
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(PrimaryConfirmRoutine());
         StopCoroutine(previousSetupRoutine);
+        ChangeAlternativeAction(StartPrimarySetup);
     }
 
     IEnumerator PrimaryConfirmRoutine()
     {
-        ChangeAlternativeAction(StartPrimarySetup);
 
         // Confirm - Wait for input bar interaction using primary
         ShowPrimary(true, true);
@@ -222,11 +254,11 @@ public class InputSetupController : MonoBehaviour
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(SecondarySetupRoutine());
         StopCoroutine(previousSetupRoutine);
+        ChangeAlternativeAction(StartPrimarySetup);
     }
 
     IEnumerator SecondarySetupRoutine()
     {
-        ChangeAlternativeAction(StartPrimarySetup);
         ResetSecondarySetup();
 
         // Second Button
@@ -250,11 +282,11 @@ public class InputSetupController : MonoBehaviour
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(SecondaryConfirmRoutine());
         StopCoroutine(previousSetupRoutine);
+        ChangeAlternativeAction(StartSecondarySetup);
     }
 
     IEnumerator SecondaryConfirmRoutine()
     {
-        ChangeAlternativeAction(StartSecondarySetup);
 
         // Confirm - Wait for specific button selection
         ShowSecondary(true, true);
@@ -276,9 +308,7 @@ public class InputSetupController : MonoBehaviour
         PlatformPreferences.Current.Keys = new KeyCode[] {primaryKey, secondaryKey};
         PlatformPreferences.Current.CompletedSetup = true;
 
-        AudioManager.Instance.PlaySound(AudioManager.Instance.GameSelected);
-        // Debug.Log("Finished input setup");
-        SceneManager.LoadScene(PlatformManager.Instance.reactionSceneName);
+        PlatformManager.Instance.ChangeScene(PlatformManager.Instance.reactionSceneName);
     }
 
     public void ConfirmPrimaryKey()
@@ -331,6 +361,9 @@ public class InputSetupController : MonoBehaviour
         {
             isReset = true;
         }
+        popupDialogObject.SetActive(false);
+        popupDialogState.gameObject.SetActive(false);
+        barController.ActivateTimer(false);
     }
 
     private void ResetPrimarySetup()
@@ -434,5 +467,16 @@ public class InputSetupController : MonoBehaviour
             }
         }
         return KeyCode.None;
+    }
+
+    public void ResumeInputSetup()
+    {
+        StopAllCoroutines();
+        StartInputSetup();
+    }
+
+    public void ReturnToLastScene()
+    {
+        PlatformManager.Instance.ReturnToLastScene();
     }
 }

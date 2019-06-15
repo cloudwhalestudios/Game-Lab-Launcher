@@ -299,4 +299,9 @@ public class InputBarController : MonoBehaviour
         timerBar.localScale = scale;
         timerBar.GetComponent<Image>().color = color;
     }
+
+    public void CheckPlayerExit()
+    {
+        // TODO give player exit prompt
+    }
 }
