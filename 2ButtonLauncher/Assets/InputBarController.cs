@@ -51,6 +51,9 @@ public class InputBarController : MonoBehaviour
     InputBarButtonState activeButtonState;
     Coroutine activeTimerRoutine;
 
+    float currentFillTime;
+    int currentTimerFills;
+
     public BarMode ActiveMode
     {
         get
@@ -80,8 +83,11 @@ public class InputBarController : MonoBehaviour
         textPrompt?.gameObject.SetActive(!buttonsActive);
     }
 
-    public void ActivateTimer(bool activate, float fillTimeOverride = -1f, int barFillsOverride = -1)
+    public void ActivateTimer(bool activate, float fillTimeOverride = -1f, int timerFillsOverride = -1)
     {
+        ChangeFillTime(fillTimeOverride);
+        ChangeMaxTimerFills(timerFillsOverride);
+
         if (activeTimerRoutine != null)
         {
             StopCoroutine(activeTimerRoutine);
@@ -91,8 +97,18 @@ public class InputBarController : MonoBehaviour
         }
         if (activate)
         {
-            activeTimerRoutine = StartCoroutine(TimerRoutine(fillTimeOverride, barFillsOverride));
+            activeTimerRoutine = StartCoroutine(TimerRoutine());
         }
+    }
+
+    public void ChangeFillTime(float fillTimeOverride)
+    {
+        currentFillTime = fillTimeOverride > 0 ? fillTimeOverride : PlatformPreferences.Current.ReactionTime;
+    }
+
+    public void ChangeMaxTimerFills(int timerFillsOverride)
+    {
+        currentTimerFills = timerFillsOverride > 0 ? timerFillsOverride : timerFillsBeforeAlternative;
     }
 
     public void Awake()
@@ -172,19 +188,17 @@ public class InputBarController : MonoBehaviour
         }
     }
 
-    private IEnumerator TimerRoutine(float fillTime, int overrideMaxFills)
+    private IEnumerator TimerRoutine()
     {
         TimerStarted?.Invoke();
 
-        var maxTimerFills = overrideMaxFills > 0 ? overrideMaxFills : timerFillsBeforeAlternative;
-        fillTime = fillTime <= 0 ? PlatformPreferences.Current.ReactionTime : fillTime;
-
-        for (int i = 0; i < maxTimerFills; i++)
+        for (int i = 0; i < currentTimerFills; i++)
         {
             ResetTimer();
+
             var elapsedTime = 0f;
 
-            while (elapsedTime < fillTime)
+            while (elapsedTime < currentFillTime)
             {
                 yield return null;
 
@@ -192,7 +206,7 @@ public class InputBarController : MonoBehaviour
 
                 // Update timer fill
                 ResetTimer();
-                UpdateTimerDisplay(elapsedTime / fillTime);
+                UpdateTimerDisplay(elapsedTime / currentFillTime);
             }
 
             TimerElapsed?.Invoke();

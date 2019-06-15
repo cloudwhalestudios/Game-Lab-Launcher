@@ -253,7 +253,7 @@ public class ReactionSceneController : MonoBehaviour
 
         PlatformPreferences.Current.ReactionTime = currentReactionSpeed;
 
-        SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
+        SceneManager.LoadScene(PlatformManager.Instance.librarySceneName);
     }
 
     private void CalculateReactionSpeed()

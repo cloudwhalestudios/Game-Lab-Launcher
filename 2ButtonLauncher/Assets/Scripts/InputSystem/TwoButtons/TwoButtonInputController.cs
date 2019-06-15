@@ -9,6 +9,7 @@ namespace AccessibilityInputSystem
         public class TwoButtonInputController : BaseInputController
         {
             public bool overrideControls = false;
+            public bool disableAutoLoad = false;
 
             public KeyCode primaryOverride;
             public KeyCode secondaryOverride;
@@ -21,6 +22,10 @@ namespace AccessibilityInputSystem
                 if (overrideControls)
                 {
                     SetControls(primaryOverride, secondaryOverride);
+                } 
+                else if (!disableAutoLoad)
+                {
+                    SetControls(PlatformPreferences.Current.Keys);
                 }
             }
 

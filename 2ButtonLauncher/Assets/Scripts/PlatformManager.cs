@@ -43,7 +43,7 @@ public class PlatformManager : MonoBehaviour
     public string bootSceneName;
     public string setupSceneName;
     public string reactionSceneName;
-    public string mainSceneName;
+    public string librarySceneName;
     public string exitSceneName;
 
     [SerializeField, ReadOnly] private PlatformState currentState;
@@ -107,7 +107,7 @@ public class PlatformManager : MonoBehaviour
         {
             CurrentState = PlatformState.Setup;
         }
-        else if (sceneName.Equals(mainSceneName))
+        else if (sceneName.Equals(librarySceneName))
         {
             CurrentState = PlatformState.Main;
         }

@@ -19,13 +19,15 @@ public class InputBarButtonState : MonoBehaviour
     [Header("Alternative Configuration", order = 1)]
     public Button alternative;
     public UnityEvent alternativeEvents;
-    public bool HasAlternatives() => (alternative != null && alternative.onClick != null) 
-            || (alternativeEvents != null && alternativeEvents.GetPersistentEventCount() > 0);
+    public bool HasAlternatives() => 
+        (alternative != null && alternative.onClick != null && alternative.onClick.GetPersistentEventCount() > 0) 
+        || (alternativeEvents != null && alternativeEvents.GetPersistentEventCount() > 0);
 
     [ReadOnly] public bool shouldIndicate = false;
 
     List<Button> buttons;
     int selectedIndex;
+    bool singleButtonState = false;
 
     public void SetActiveState()
     {
@@ -33,6 +35,7 @@ public class InputBarButtonState : MonoBehaviour
         selectedIndex = buttons.IndexOf(defaultSelection);
         MoveIndicator();
         ObtainButtonStateFocus?.Invoke(this);
+        singleButtonState = buttons.Count < 2;
     }
 
     private void OnEnable()
@@ -70,8 +73,11 @@ public class InputBarButtonState : MonoBehaviour
 
     void MoveIndicator()
     {
-        selectionIndicator.SetParent(buttons[selectedIndex].transform);
-        selectionIndicator.localPosition = indicatorLocalPositon.localPosition;
+        if (!singleButtonState)
+        {
+            selectionIndicator.SetParent(buttons[selectedIndex].transform);
+            selectionIndicator.localPosition = indicatorLocalPositon.localPosition;
+        }
     }
 
     public void Select()

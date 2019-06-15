@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideControls: 0
+  disableAutoLoad: 1
   primaryOverride: 97
   secondaryOverride: 100
   primary:
@@ -1004,9 +1005,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bootSceneName: Boot
-  setupSceneName: SetupInput
-  reactionSceneName: SetupReaction
-  mainSceneName: Main
+  setupSceneName: InputSetup
+  reactionSceneName: ReactionSetup
+  librarySceneName: Main
   exitSceneName: Exit
   currentState: 0
 --- !u!4 &587162506

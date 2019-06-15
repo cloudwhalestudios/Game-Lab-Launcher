@@ -2642,12 +2642,12 @@ PrefabInstance:
     - target: {fileID: 5598970322304255694, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}
       propertyPath: m_Name
-      value: TestPlatformPlayer
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5598970322304255694, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5598970322304255695, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}
@@ -2707,7 +2707,7 @@ PrefabInstance:
     - target: {fileID: 5598970322304255692, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}
       propertyPath: overrideControls
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5598970322304255692, guid: f2a8a587af293244ab0f27b1e789ef74,
         type: 3}

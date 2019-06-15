@@ -34,11 +34,13 @@ public class InputSetupController : MonoBehaviour
     [Header("Dialog Configuration", order = 0)]
     [Header("Introduction", order = 1)]
     public float introTextTime = 3f;
+    [TextArea]
     public List<string> introText = new List<string>
     {
         "Hello and welcome to the Cloudwhale Platform!",
         "Please setup your controls by following the instructions.",
     };
+    [TextArea]
     public List<string> resetText = new List<string>
     {
         "Lets try that again!",
@@ -49,6 +51,7 @@ public class InputSetupController : MonoBehaviour
 
     [Header("Primary Button", order = 2)]
     public float pSetupTime = 10f;
+    [TextArea]
     public List<string> pSetupText = new List<string>
     {
         "Please now press the button you are most comfortable using"
@@ -58,6 +61,7 @@ public class InputSetupController : MonoBehaviour
 
     [Header("Primary Confirm", order = 3)]
     public float pConfirmTime = 10f;
+    [TextArea]
     public List<string> pConfirmText = new List<string>
     {
         "Are you comfortable with your primary button?" + "\nPlease press it to continue",
@@ -67,10 +71,12 @@ public class InputSetupController : MonoBehaviour
 
     [Header("Secondary Button", order = 4)]
     public float sSetupTime = 10f;
+    [TextArea]
     public List<string> sSetupText = new List<string>
     {
         "Please now press your alternative button"
     };
+    [TextArea]
     public List<string> sNoticeText = new List<string>
     {
         "The button you used is already your primary button",
@@ -81,6 +87,7 @@ public class InputSetupController : MonoBehaviour
 
     [Header("Setup Confirm", order = 6)]
     public float sConfirmTime = 10f;
+    [TextArea]
     public List<string> sConfirmText = new List<string>
     {
         "Are you comfortable with your button setup?",
@@ -121,9 +128,9 @@ public class InputSetupController : MonoBehaviour
         InputBarController.CurrentAlternativeAction += currentAlternativeAction;
     }
 
-    void StartInputSetup()
+    public void StartInputSetup()
     {
-        Debug.Log("Starting Setup");
+        // Debug.Log("Starting Input Setup");
         currentSetupRoutine = StartCoroutine(StartInputSetupRoutine());
     }
 
@@ -153,7 +160,7 @@ public class InputSetupController : MonoBehaviour
 
     public void StartPrimarySetup()
     {
-        Debug.Log("Starting P1");
+        // Debug.Log("Starting P1");
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(PrimarySetupRoutine());
         StopCoroutine(previousSetupRoutine);
@@ -179,7 +186,7 @@ public class InputSetupController : MonoBehaviour
 
     void StartPrimaryConfirm()
     {
-        Debug.Log("Starting P2");
+        // Debug.Log("Starting P2");
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(PrimaryConfirmRoutine());
         StopCoroutine(previousSetupRoutine);
@@ -205,7 +212,7 @@ public class InputSetupController : MonoBehaviour
 
     public void StartSecondarySetup()
     {
-        Debug.Log("Starting S1");
+        // Debug.Log("Starting S1");
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(SecondarySetupRoutine());
         StopCoroutine(previousSetupRoutine);
@@ -233,7 +240,7 @@ public class InputSetupController : MonoBehaviour
 
     void StartSecondaryConfirm()
     {
-        Debug.Log("Starting S2");
+        // Debug.Log("Starting S2");
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(SecondaryConfirmRoutine());
         StopCoroutine(previousSetupRoutine);
@@ -255,7 +262,6 @@ public class InputSetupController : MonoBehaviour
             yield return null;
         }
 
-        // Confirm entire setup?
         CompleteSetup();
     }
 
@@ -265,7 +271,7 @@ public class InputSetupController : MonoBehaviour
         PlatformPreferences.Current.CompletedSetup = true;
 
         AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.GameSelected);
-        Debug.Log("Finished setup");
+        // Debug.Log("Finished input setup");
         SceneManager.LoadScene(PlatformManager.Instance.reactionSceneName);
     }
 
@@ -357,11 +363,11 @@ public class InputSetupController : MonoBehaviour
         textInputBarPrompt.text = "";
         textScreenPrompt.text = "";
 
+        barController.ActivateTimer(false);
+
         if (textDisplayRoutine == null) return;
         StopCoroutine(textDisplayRoutine);
         textDisplayRoutine = null;
-
-        barController.ActivateTimer(false);
     }
 
     public void RestartSetup()

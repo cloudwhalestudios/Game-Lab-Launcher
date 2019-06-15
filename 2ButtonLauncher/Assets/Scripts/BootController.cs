@@ -69,7 +69,7 @@ public class BootController : MonoBehaviour
         if (userIsSetup)
         {
             BootLoader.LoadPlatformPlayer();
-            SceneManager.LoadScene(PlatformManager.Instance.mainSceneName);
+            SceneManager.LoadScene(PlatformManager.Instance.librarySceneName);
         }
         else
         {
