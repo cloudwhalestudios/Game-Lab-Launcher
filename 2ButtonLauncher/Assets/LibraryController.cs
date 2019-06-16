@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LibraryController : MonoBehaviour
 {
+    public static LibraryController Instance { get; private set; }
+
     public enum ScreenState
     {
         CategorySelect,
@@ -13,8 +15,13 @@ public class LibraryController : MonoBehaviour
         GameInfo
     }
 
-    [SerializeField, ReadOnly] private ScreenState lastState;
     [SerializeField, ReadOnly] private ScreenState currentState;
+
+    [Header("Screen Controllers")]
+    [SerializeField] GameInfoController gameInfoController;
+    [SerializeField] GameSelectController gameSelectController;
+    //[SerializeField] SubCategorySelectController subCategorySelectController;
+    //[SerializeField] CategorySelectController categorySelectController;
 
     public ScreenState CurrentState
     {
@@ -25,9 +32,61 @@ public class LibraryController : MonoBehaviour
         }
     }
 
-    public void ReturnToLastScreen()
+    protected void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
+    }
 
+    public void ViewGameInfo(GameInfo game)
+    {
+        gameInfoController.OpenGameInfoScreen(game);
+        CurrentState = ScreenState.GameInfo;
+
+    }
+
+    public void ViewGameSelection(List<GameInfo> games)
+    {
+        gameSelectController.OpenGameSelectScreen(games);
+        CurrentState = ScreenState.GameSelect;
+
+    }
+
+    public void ReturnToPreviousScreen()
+    {
+        switch (currentState)
+        {
+            case ScreenState.CategorySelect:
+
+                break;
+            case ScreenState.SubCategorySelect: // TODO add sub category select
+                currentState = ScreenState.CategorySelect;
+                ReturnToPreviousScreen();
+                break;
+
+            case ScreenState.GameSelect:
+                // Open Category Select
+                gameSelectController.CloseGameInfoScreen(true);
+                // categorySelectController.ReopenCategoryScreen();
+                currentState = ScreenState.CategorySelect;
+                break;
+
+            case ScreenState.GameInfo:
+                // Open Game Select
+                gameInfoController.CloseGameInfoScreen();
+                gameSelectController.ReopenGameSelectScreen();
+                CurrentState = ScreenState.GameSelect;
+                break;
+
+            default:
+                break;
+        }
     }
 
     public void QuitLauncher()

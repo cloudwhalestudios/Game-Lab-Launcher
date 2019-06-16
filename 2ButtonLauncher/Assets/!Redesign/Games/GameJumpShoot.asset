@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c350617c9bb21314988302d1bc3327b8, type: 3}
+  m_Name: GameJumpShoot
+  m_EditorClassIdentifier: 
+  identifier: 1
+  developer: Cloudwhale
+  title: Jump and Shoot
+  cover: {fileID: 21300000, guid: 6042fda2120ee3541bc6fe0d2548c76a, type: 3}
+  tutorial: {fileID: 32900000, guid: 4694067a7dbdc2044825e59868a4ef4d, type: 3}
+  tutorialUrl: 

@@ -17,7 +17,7 @@ public class InputBarButtonState : MonoBehaviour
     public Button defaultSelection;
     public RectTransform selectionIndicator;
     public RectTransform indicatorLocalPositon;
-    public int loops = 1;
+    public int loopCount = 1;
 
     [Header("Alternative Configuration", order = 1)]
     public Button alternative;
@@ -26,7 +26,7 @@ public class InputBarButtonState : MonoBehaviour
         (alternative != null && alternative.onClick != null && alternative.onClick.GetPersistentEventCount() > 0)
         || (alternativeEvents != null && alternativeEvents.GetPersistentEventCount() > 0);
     public int ButtonCount => buttons != null ? buttons.Count : -1;
-    public int TimerIterationCount => ButtonCount * loops;
+    public int TimerIterationCount => ButtonCount * loopCount;
     List<Button> buttons;
     int selectedIndex;
     bool singleButtonState = false;
@@ -56,7 +56,7 @@ public class InputBarButtonState : MonoBehaviour
     {
         var btn = buttons[selectedIndex];
 
-        Debug.Log("Name " + btn.name + " | Text " + displayText + "; Icon " + icon);
+        //Debug.Log("Name " + btn.name + " | Text " + displayText + "; Icon " + icon);
         btn.GetComponentInChildren<TextMeshProUGUI>().text = displayText;
         if (icon != null) btn.GetComponentInChildren<Image>().sprite = icon;
         TextResizer.AdjustSizeDelta(btn.GetComponentInChildren<TextMeshProUGUI>());
@@ -97,9 +97,10 @@ public class InputBarButtonState : MonoBehaviour
 
     void MoveIndicator()
     {
+        selectionIndicator.gameObject.SetActive(true);
+
         if (!singleButtonState)
         {
-            selectionIndicator.gameObject.SetActive(true);
 
             selectionIndicator.SetParent(buttons[selectedIndex].transform);
             selectionIndicator.localPosition = indicatorLocalPositon.localPosition;

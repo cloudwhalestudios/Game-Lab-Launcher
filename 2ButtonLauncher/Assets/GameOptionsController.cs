@@ -31,10 +31,9 @@ public class GameOptionsController : MonoBehaviour
     public void Open()
     {
         menu.ShowMenu();
-        gameOptionsButtonState.loops = menu.Options.Count * gameOptionsButtonState.loops;
+        gameOptionsButtonState.loopCount *= menu.Options.Count;
         gameOptionsButtonState.SetActive();
         gameOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
-
     }
 
 
@@ -48,7 +47,6 @@ public class GameOptionsController : MonoBehaviour
     {
         menu.UseSelectedOption();
     }
-
 
     public void ToggleFavorite()
     {

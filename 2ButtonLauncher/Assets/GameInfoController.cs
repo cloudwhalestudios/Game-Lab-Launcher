@@ -13,10 +13,16 @@ public class GameInfoController : MonoBehaviour
     InputBarController barController;
     [ReadOnly] public PlatformManager.GameName selectedGame;
 
-    private void Awake()
+    private void Start()
     {
         barController = GameObject.FindGameObjectWithTag("InputBar").GetComponent<InputBarController>();
+        gameOptionsController.Close();
         //infoControllerButtonState.SetActive();
+    }
+
+    public void OpenGameInfoScreen(GameInfo game)
+    {
+        OpenGameInfoScreen(game.identifier, game.developer, game.title, game.cover, game.tutorial, game.tutorialUrl);
     }
 
     public void OpenGameInfoScreen(PlatformManager.GameName name, string developerTitle, string gameTitle, Sprite gameCover, VideoClip clip,  string clipUrl = "")
@@ -36,6 +42,7 @@ public class GameInfoController : MonoBehaviour
     public void CloseGameInfoScreen()
     {
         selectedGame = PlatformManager.GameName.None;
+        gameOptionsController.Close();
         screen.HideInfo();
         infoControllerButtonState.SetActive(false);
     }
@@ -49,11 +56,12 @@ public class GameInfoController : MonoBehaviour
     {
         if (screen.IsVideoPlaying) screen.PauseVideo();
         else screen.PlayVideo();
+
+        ToggleGameOptionsPopup();
     }
 
     public void ToggleGameOptionsPopup()
     {
-        Debug.Log("I am being pressed: " + gameOptionsController.IsOpen);
         if (gameOptionsController.IsOpen)
         {
             gameOptionsController.Close();
