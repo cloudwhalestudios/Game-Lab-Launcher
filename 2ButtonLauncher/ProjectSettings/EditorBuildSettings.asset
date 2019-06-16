@@ -27,6 +27,6 @@ EditorBuildSettings:
     path: Assets/!Redesign/Scenes/ReactionSetup.unity
     guid: 1e3ba0fe2adcc5a418203529f1801835
   - enabled: 1
-    path: Assets/!Redesign/Scenes/Main.unity
+    path: Assets/!Redesign/Scenes/Library.unity
     guid: 27fa9cfc927df9140a5698d0d36ac6fe
   m_configObjects: {}

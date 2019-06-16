@@ -1632,12 +1632,12 @@ MonoBehaviour:
   bootSceneName: Boot
   setupSceneName: InputSetup
   reactionSceneName: ReactionSetup
-  librarySceneName: Main
+  librarySceneName: Library
   exitSceneName: Exit
   currentState: 0
   lastSceneName: 
   currentSceneName: 
-  returning: 0
+  canReturn: 0
 --- !u!4 &587162506
 Transform:
   m_ObjectHideFlags: 0
