@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ddd45eed373a55e4aae3a6cd5d841d91
+guid: da14546f5dca7dd428f4032c5879b823
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: gameObject/power
-    400000: gameObject/power/Transform
-    21200000: gameObject/power/SpriteRenderer
+    100000: gameObject/zoom-in
+    400000: gameObject/zoom-in/Transform
+    21200000: gameObject/zoom-in/SpriteRenderer
     21300000: sprite
     100100000: gameObject
   externalObjects: {}
@@ -51,5 +51,5 @@ ScriptedImporter:
         y: 0
         width: 0
         height: 0
-      spriteID: abf7c432581ce1f4799651c9557a2407
+      spriteID: 2974d443b33ce2446a72eb4fba05a0b7
     PhysicsOutlines: []

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 76f9a49088f44934eba9c2d2a2bd63f7
+guid: 01d3fd0d7fd201a4ba4778b3cee5c731
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: gameObject/home
-    400000: gameObject/home/Transform
-    21200000: gameObject/home/SpriteRenderer
+    100000: gameObject/chevron-right
+    400000: gameObject/chevron-right/Transform
+    21200000: gameObject/chevron-right/SpriteRenderer
     21300000: sprite
     100100000: gameObject
   externalObjects: {}
@@ -51,5 +51,5 @@ ScriptedImporter:
         y: 0
         width: 0
         height: 0
-      spriteID: 3e40d443539653b4dbf3a4c5ed478221
+      spriteID: a78962deea15f6747807b0a8e4150522
     PhysicsOutlines: []

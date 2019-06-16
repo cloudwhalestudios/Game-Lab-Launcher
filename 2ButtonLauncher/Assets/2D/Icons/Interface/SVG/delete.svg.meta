@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 20b13772f74e09a42aa06213f4922026
+guid: 3fbc9700a0ca36a4c9d7f4919e285a4e
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: gameObject/pause
-    400000: gameObject/pause/Transform
-    21200000: gameObject/pause/SpriteRenderer
+    100000: gameObject/delete
+    400000: gameObject/delete/Transform
+    21200000: gameObject/delete/SpriteRenderer
     21300000: sprite
     100100000: gameObject
   externalObjects: {}
@@ -51,5 +51,5 @@ ScriptedImporter:
         y: 0
         width: 0
         height: 0
-      spriteID: ab857c5f795335a4e8da49f039d1bdcb
+      spriteID: 7bb8a9e04124fe54b9d4d7a1fd9a566f
     PhysicsOutlines: []
