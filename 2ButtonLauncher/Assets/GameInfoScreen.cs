@@ -20,21 +20,35 @@ public class GameInfoScreen : MonoBehaviour
     public RawImage rawImageGameTutorial;
     public bool playVideosOnLoad = false;
 
-    public void SetDisplayInfo(string developerTitle, string gameTitle, Sprite gameCover, string tutorialClipUrl, bool playOnLoad)
+    public bool IsVideoPlaying => videoGameTutorial.isPrepared && videoGameTutorial.isPlaying;
+
+    public void ShowInfo(string developerTitle, string gameTitle, Sprite gameCover, string tutorialClipUrl, bool playOnLoad)
     {
         playVideosOnLoad = playOnLoad;
         SetupSimpleContent(developerTitle, gameTitle, gameCover);
+
+        gameObject.SetActive(true);
 
         // Load and set content gallery
         SetupContentPreviewGallery(null, tutorialClipUrl);
     }
-    public void SetDisplayInfo(string developerTitle, string gameTitle, Sprite gameCover, VideoClip tutorialClip, bool playOnLoad)
+    public void ShowInfo(string developerTitle, string gameTitle, Sprite gameCover, VideoClip tutorialClip, bool playOnLoad)
     {
         playVideosOnLoad = playOnLoad;
         SetupSimpleContent(developerTitle, gameTitle, gameCover);
 
+        gameObject.SetActive(true);
+
         // Loading and playing previews/tutorials
         SetupContentPreviewGallery(tutorialClip);
+    }
+
+    public void HideInfo()
+    {
+        playVideosOnLoad = false;
+        videoGameTutorial.Stop();
+        gameObject.SetActive(false);
+
     }
 
     void SetupSimpleContent(string developerTitle, string gameTitle, Sprite gameCover)
@@ -67,22 +81,17 @@ public class GameInfoScreen : MonoBehaviour
                 Debug.LogWarning("Expected tutorial video or it's url, but got nothing instead!");
                 return;
             }
-            SetupVideoFromUrl(tutorialClipURL, rawImageGameTutorial);
+            videoGameTutorial.url = tutorialClipURL;
         }
         else
         {
-            StartCoroutine(LoadVideoRoutine(tutorialClip));
+            videoGameTutorial.clip = tutorialClip;
         }
+        StartCoroutine(LoadVideoRoutine());
     }
 
-    private void SetupVideoFromUrl(string tutorialClipURL, RawImage rawImageGameTutorial)
+    IEnumerator LoadVideoRoutine()
     {
-        throw new NotImplementedException();
-    }
-
-    IEnumerator LoadVideoRoutine(VideoClip clip)
-    {
-        videoGameTutorial.clip = clip;
         videoGameTutorial.Prepare();
 
         while(!videoGameTutorial.isPrepared)
@@ -92,6 +101,24 @@ public class GameInfoScreen : MonoBehaviour
 
         rawImageGameTutorial.texture = videoGameTutorial.texture;
 
-        if (playVideosOnLoad) videoGameTutorial.Play();
+        videoGameTutorial.isLooping = true;
+        videoGameTutorial.Play();
+        if (!playVideosOnLoad) videoGameTutorial.Pause();
+    }
+
+    public void PlayVideo()
+    {
+        if (!videoGameTutorial.isPlaying)
+        {
+            if (videoGameTutorial.isPrepared) videoGameTutorial.Play();
+            else playVideosOnLoad = true;
+        }
+    }
+    public void PauseVideo()
+    {
+        if (!videoGameTutorial.isPaused)
+        {
+            videoGameTutorial.Pause();
+        }
     }
 }

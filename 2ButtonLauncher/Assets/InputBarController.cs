@@ -65,10 +65,10 @@ public class InputBarController : MonoBehaviour
             switch (value)
             {
                 case BarMode.Prompt:
-                    ToggleVisibility(false);
+                    ShowButtonState(false);
                     break;
                 case BarMode.Buttons:
-                    ToggleVisibility(true);
+                    ShowButtonState(true);
                     break;
                 default:
                     break;
@@ -77,13 +77,13 @@ public class InputBarController : MonoBehaviour
         }
     }
 
-    void ToggleVisibility(bool buttonsActive)
+    void ShowButtonState(bool buttonsActive)
     {
         activeButtonState?.gameObject.SetActive(buttonsActive);
         textPrompt?.gameObject.SetActive(!buttonsActive);
     }
 
-    public void ActivateTimer(bool activate, float fillTimeOverride = -1f, int timerFillsOverride = -1)
+    public void StartTimer(bool activate, float fillTimeOverride = -1f, int timerFillsOverride = -1)
     {
         ChangeFillTime(fillTimeOverride);
         ChangeMaxTimerFills(timerFillsOverride);
@@ -121,6 +121,7 @@ public class InputBarController : MonoBehaviour
         PlatformPlayer.Primary += PlatformPlayer_MainPrimary;
         PlatformPlayer.Secondary += PlatformPlayer_MainSecondary;
         InputBarButtonState.ObtainButtonStateFocus += InputBarButtonState_ObtainButtonStateFocus;
+        InputBarButtonState.LooseButtonStateFocus += InputBarButtonState_LooseButtonStateFocus;
     }
 
     public void OnDisable()
@@ -143,22 +144,30 @@ public class InputBarController : MonoBehaviour
     {
         if (activeButtonState != null)
         {
-            activeButtonState.shouldIndicate = false;
-            activeButtonState.gameObject.SetActive(false);
+            activeButtonState.SetActive(false);
         }
 
         activeButtonState = focusState;
-        activeButtonState.gameObject.SetActive(true);
-        activeButtonState.shouldIndicate = true;
-
+        StartTimer(true, -1, activeButtonState.TimerIterationCount);
         ActiveMode = BarMode.Buttons;
+    }
+
+    private void InputBarButtonState_LooseButtonStateFocus(InputBarButtonState dropState)
+    {
+        if (activeButtonState == dropState)
+        {
+            activeButtonState = null;
+            StartTimer(false);
+            ActiveMode = BarMode.Prompt;
+        }
+            
     }
 
     private void UseAlternative()
     {
         if (activeButtonState != null && activeButtonState.isActiveAndEnabled)
         {
-            if (activeButtonState.HasAlternatives())
+            if (activeButtonState.HasAlternatives)
             {
                 activeButtonState.AltSelect();
                 return;

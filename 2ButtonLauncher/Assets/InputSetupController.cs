@@ -150,8 +150,8 @@ public class InputSetupController : MonoBehaviour
 
         // Show popup
         popupDialogObject.SetActive(true);
-        popupDialogState.SetActiveState();
-        barController.ActivateTimer(true, idleDialogTimer, 1);
+        popupDialogState.SetActive();
+        barController.StartTimer(true, idleDialogTimer, 1);
 
         var dialogText = PlatformManager.Instance.canReturn ? timeoutText : timeoutQuitText;
         popupDialogObject.GetComponentInChildren<TextMeshProUGUI>().text = dialogText;
@@ -239,7 +239,7 @@ public class InputSetupController : MonoBehaviour
         UpdateTextDisplay(pConfirmTime, pConfirmLocation, pConfirmText, pConfirmTime * pConfirmText.Count, pConfirmMaxFillTimes);
         inputController.SetControls(primaryKey);
 
-        primaryConfirmButtonState.SetActiveState();
+        primaryConfirmButtonState.SetActive();
         while (!confirmPrimaryKey)
         {
             yield return null;
@@ -294,7 +294,7 @@ public class InputSetupController : MonoBehaviour
         UpdateTextDisplay(sConfirmTime, sConfirmLocation, sConfirmText, -1, sConfirmMaxFillTimes);
         inputController.SetControls(primaryKey, secondaryKey);
 
-        secondaryButtonConfirmState.SetActiveState();
+        secondaryButtonConfirmState.SetActive();
         while (!confirmSecondaryKey)
         {
             yield return null;
@@ -326,7 +326,7 @@ public class InputSetupController : MonoBehaviour
         barFillTime = barFillTime <= 0 ? displayTime : barFillTime;
 
         StopTextDisplayUpdate();
-        barController.ActivateTimer(true, barFillTime, barFillsOverride);
+        barController.StartTimer(true, barFillTime, barFillsOverride);
         textDisplayRoutine = StartCoroutine(TextUpdateRoutine(displayTime, textLocation, textStrings));
     }
 
@@ -363,7 +363,7 @@ public class InputSetupController : MonoBehaviour
         }
         popupDialogObject.SetActive(false);
         popupDialogState.gameObject.SetActive(false);
-        barController.ActivateTimer(false);
+        barController.StartTimer(false);
     }
 
     private void ResetPrimarySetup()
@@ -403,7 +403,7 @@ public class InputSetupController : MonoBehaviour
         textInputBarPrompt.gameObject.SetActive(false);
         textScreenPrompt.gameObject.SetActive(false);
 
-        barController.ActivateTimer(false);
+        barController.StartTimer(false);
 
         if (textDisplayRoutine == null) return;
         StopCoroutine(textDisplayRoutine);

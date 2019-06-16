@@ -127,8 +127,8 @@ public class ReactionSetupController : MonoBehaviour
 
         // Show popup
         popupDialogObject.SetActive(true);
-        popupDialogState.SetActiveState();
-        barController.ActivateTimer(true, idleDialogTimer, 1);
+        popupDialogState.SetActive();
+        barController.StartTimer(true, idleDialogTimer, 1);
         popupDialogObject.GetComponentInChildren<TextMeshProUGUI>().text = timeoutText;
     }
 
@@ -165,13 +165,13 @@ public class ReactionSetupController : MonoBehaviour
 
         // Show menu
         popupMenu.ShowMenu(reactionSpeedPresets, allowManual, unitName, SelectSpeedOption, currentOptionIndex);
-        popupButtonState.SetActiveState();
+        popupButtonState.SetActive();
 
         // Start selection
         waitingForSelection = true;
 
         InputBarController.TimerElapsed += InputBarController_TimerElapsed;
-        barController.ActivateTimer(true, reactionSpeedPresets[0], menuLoopCount * optionCount);
+        barController.StartTimer(true, reactionSpeedPresets[0], menuLoopCount * optionCount);
 
         yield return null;
     }
@@ -225,7 +225,7 @@ public class ReactionSetupController : MonoBehaviour
         yield return new WaitForSecondsRealtime(mIntroTimePerText);
 
         StopTextDisplayUpdate();
-        calibrationButtonState.SetActiveState();
+        calibrationButtonState.SetActive();
         calibrationButtonState.gameObject.SetActive(false);
 
         // Beginn calibration
@@ -292,7 +292,7 @@ public class ReactionSetupController : MonoBehaviour
         UpdateTextDisplay(reactionSpeed / rConfirmText.Count, rConfirmText, reactionSpeed);
         barController.ChangeMaxTimerFills(1);
 
-        confirmSpeedButtonState.SetActiveState();
+        confirmSpeedButtonState.SetActive();
         while(!confirmSpeed)
         {
             yield return null;
@@ -340,7 +340,7 @@ public class ReactionSetupController : MonoBehaviour
         currentOptionIndex = 0;
         popupDialogObject.SetActive(false);
         popupDialogState.gameObject.SetActive(false);
-        barController.ActivateTimer(false);
+        barController.StartTimer(false);
     }
 
     private void ResetSpeedSelection()
@@ -377,7 +377,7 @@ public class ReactionSetupController : MonoBehaviour
         barFillTime = barFillTime <= 0 ? displayTime : barFillTime;
 
         StopTextDisplayUpdate();
-        barController.ActivateTimer(true, barFillTime);
+        barController.StartTimer(true, barFillTime);
         textDisplayRoutine = StartCoroutine(TextUpdateRoutine(displayTime, textStrings));
     }
 
@@ -386,7 +386,7 @@ public class ReactionSetupController : MonoBehaviour
         textScreenPrompt.text = "";
         textScreenPrompt.gameObject.SetActive(false);
 
-        barController.ActivateTimer(false);
+        barController.StartTimer(false);
 
         if (textDisplayRoutine == null) return;
         StopCoroutine(textDisplayRoutine);

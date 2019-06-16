@@ -12,7 +12,8 @@ public class GameInfoTest : MonoBehaviour
     [TextArea] public string gameTitle = "Cloudwhale: A Game Placeholder";
 
     public Sprite gameCover;
-    public VideoClip tutorialClip;
+    public VideoClip tutClip;
+    public string tutUrl;
 
     public bool playVideoOnLoad = true;
 
@@ -23,7 +24,8 @@ public class GameInfoTest : MonoBehaviour
             validateTest = false;
 
             var screen = GetComponent<GameInfoScreen>();
-            screen.SetDisplayInfo(devTitle, gameTitle, gameCover, tutorialClip, playVideoOnLoad);
+            if (tutClip != null) screen.ShowInfo(devTitle, gameTitle, gameCover, tutClip, playVideoOnLoad);
+            else screen.ShowInfo(devTitle, gameTitle, gameCover, tutUrl, playVideoOnLoad);
         }
     }
 }
