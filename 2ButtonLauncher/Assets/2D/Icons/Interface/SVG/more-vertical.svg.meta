@@ -2,24 +2,21 @@ fileFormatVersion: 2
 guid: 7884004b072d44642bd01067b7e4b1e6
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: gameObject/more-vertical
-    400000: gameObject/more-vertical/Transform
-    21200000: gameObject/more-vertical/SpriteRenderer
+    2800000: tex
     21300000: sprite
-    100100000: gameObject
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
-  svgType: 0
+  svgType: 1
   texturedSpriteMeshType: 0
-  svgPixelsPerUnit: 100
+  svgPixelsPerUnit: 128
   gradientResolution: 128
   alignment: 0
   customPivot: {x: 0, y: 0}
   generatePhysicsShape: 0
-  preserveViewport: 0
+  preserveViewport: 1
   advancedMode: 0
   predefinedResolutionIndex: 1
   targetResolution: 1080
@@ -31,25 +28,25 @@ ScriptedImporter:
   maxTangentAngleEnabled: 0
   maxTangentAngle: 5
   keepTextureAspectRatio: 1
-  textureSize: 256
+  textureSize: 1024
   textureWidth: 256
   textureHeight: 256
-  wrapMode: 0
-  filterMode: 1
-  sampleCount: 4
+  wrapMode: 1
+  filterMode: 2
+  sampleCount: 8
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: 
+      name: more-vertical
       originalName: 
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       alignment: 0
       border: {x: 0, y: 0, z: 0, w: 0}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 0
-        height: 0
+        width: 256
+        height: 256
       spriteID: fbab9ae270923914dbb24ab95d49ddeb
     PhysicsOutlines: []

@@ -144,7 +144,14 @@ public class PlatformManager : MonoBehaviour
 
     public void Exit()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
         // For now it's just refresh
         WebGLRedirect.OpenLauncher();
+
+#elif UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

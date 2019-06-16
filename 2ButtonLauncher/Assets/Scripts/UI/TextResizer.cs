@@ -16,16 +16,15 @@ public class TextResizer : MonoBehaviour
         {
             foreach (var tmpText in btn.GetComponentsInChildren<TextMeshProUGUI>())
             {
-                var sizeDelta = tmpText.rectTransform.sizeDelta;
-                sizeDelta.x = tmpText.preferredWidth;
-                tmpText.rectTransform.sizeDelta = sizeDelta;
+                AdjustSizeDelta(tmpText);
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void AdjustSizeDelta(TextMeshProUGUI tmpText)
     {
-        
+        var sizeDelta = tmpText.rectTransform.sizeDelta;
+        sizeDelta.x = tmpText.preferredWidth;
+        tmpText.rectTransform.sizeDelta = sizeDelta;
     }
 }
