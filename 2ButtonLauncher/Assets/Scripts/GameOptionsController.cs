@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOptionsController : MonoBehaviour
 {
@@ -12,12 +13,12 @@ public class GameOptionsController : MonoBehaviour
     public Sprite pauseVideoSprite;
     public Sprite resumeVideoSprite;
     [ReadOnly] public bool isPaused = false;
-
+    */
     [Space]
-    public Sprite muteAudioSprite;
-    public Sprite unmuteAudioSprite;
-    [ReadOnly] public bool isMuted = false;
-
+    public Image targetAudioImage;
+    public Sprite mutedAudioSprite;
+    public Sprite unmutedAudioSprite;
+    /*
     [Space]
     public Sprite favoriteSprite;
     public Sprite unfavoriteSprite;
@@ -50,12 +51,19 @@ public class GameOptionsController : MonoBehaviour
     public void Open()
     {
         menu.ShowMenu();
+        UpdateMenuImages();
+
         baseLoopCount = gameOptionsButtonState.LoopCount;
         gameOptionsButtonState.LoopCount *= menu.Options.Count;
         gameOptionsButtonState.SetActive();
+
         gameOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
     }
 
+    void UpdateMenuImages()
+    {
+        targetAudioImage.sprite = PlatformPreferences.Current.GameMute ? mutedAudioSprite : unmutedAudioSprite;
+    }
 
     public void Close()
     {
@@ -77,12 +85,13 @@ public class GameOptionsController : MonoBehaviour
             
         }
     }
-
+    */
     public void ToggleAudio()
     {
-
+        PlatformPreferences.Current.GameMute = !PlatformPreferences.Current.GameMute;
+        UpdateMenuImages();
     }
-
+    /*
     public void ToggleFavorite()
     {
 

@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LauncherOptionsController : MonoBehaviour
 {
     public PopupMenu menu;
     public InputBarButtonState launcherOptionsButtonState;
+
+    [Space]
+    public Image targetAudioImage;
+    public Sprite mutedAudioSprite;
+    public Sprite unmutedAudioSprite;
 
     public bool IsOpen => menu.gameObject.activeInHierarchy;
 
@@ -34,12 +40,18 @@ public class LauncherOptionsController : MonoBehaviour
     {
         menu.ShowMenu();
 
+        UpdateMenuImages();
+
         baseLoopCount = launcherOptionsButtonState.LoopCount;
         launcherOptionsButtonState.LoopCount *= menu.Options.Count;
         launcherOptionsButtonState.SetActive();
         launcherOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
     }
 
+    void UpdateMenuImages()
+    {
+        targetAudioImage.sprite = PlatformPreferences.Current.PlatformMute ? mutedAudioSprite : unmutedAudioSprite;
+    }
 
     public void Close()
     {
@@ -51,5 +63,19 @@ public class LauncherOptionsController : MonoBehaviour
     public void SelectMenuOption()
     {
         menu.UseSelectedOption();
+    }
+
+    public void ToggleAudio()
+    {
+        if (PlatformPreferences.Current.PlatformMute)
+        {
+            targetAudioImage.sprite = unmutedAudioSprite;
+            AudioManager.Instance.UnmuteAudio();
+        }
+        else
+        {
+            targetAudioImage.sprite = mutedAudioSprite;
+            AudioManager.Instance.MuteAudio();
+        }
     }
 }
