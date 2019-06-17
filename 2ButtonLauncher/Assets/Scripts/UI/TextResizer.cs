@@ -11,13 +11,10 @@ public class TextResizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var buttons = canvas.GetComponentsInChildren<Button>();
+        var buttons = canvas.GetComponentsInChildren<Button>(true);
         foreach (var btn in buttons)
         {
-            foreach (var tmpText in btn.GetComponentsInChildren<TextMeshProUGUI>())
-            {
-                AdjustSizeDelta(tmpText);
-            }
+            FindAndAdjustSizeDeltas(btn.GetComponent<RectTransform>());
         }
     }
 
@@ -27,4 +24,13 @@ public class TextResizer : MonoBehaviour
         sizeDelta.x = tmpText.preferredWidth;
         tmpText.rectTransform.sizeDelta = sizeDelta;
     }
+
+    public static void FindAndAdjustSizeDeltas(RectTransform container)
+    {
+        foreach (var tmpText in container.GetComponentsInChildren<TextMeshProUGUI>())
+        {
+            AdjustSizeDelta(tmpText);
+        }
+    }
+
 }

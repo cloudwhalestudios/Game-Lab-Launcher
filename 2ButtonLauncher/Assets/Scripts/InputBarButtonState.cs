@@ -57,7 +57,7 @@ public class InputBarButtonState : MonoBehaviour
 
             ObtainButtonStateFocus?.Invoke(this);
             gameObject.SetActive(true);
-           
+            TextResizer.FindAndAdjustSizeDeltas(GetComponent<RectTransform>());
         }
         else
         {
@@ -76,15 +76,9 @@ public class InputBarButtonState : MonoBehaviour
     {
         if (button == null && button != Alternative && !Buttons.Contains(button)) return;
 
-        print("overriding button " + button.name + " " + name + " | removing listeners " + removeListeners);
         if (removeListeners) button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => callback());
-
         if (button == alternative) alternativeIsOverridden = true;
-        /*{
-            if (removeListeners) alternativeEvents.RemoveAllListeners();
-            alternativeEvents.AddListener(() => callback());
-        }*/
 
         ChangeButtonDisplay(button, displayText, icon);
     }

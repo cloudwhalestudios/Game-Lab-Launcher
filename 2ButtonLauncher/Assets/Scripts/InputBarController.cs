@@ -169,7 +169,6 @@ public class InputBarController : MonoBehaviour
         }
 
         activeButtonState = focusState;
-        Debug.Log(activeButtonState.name + ": " + activeButtonState.TimerIterationCount);
         StartTimer(true, -1, activeButtonState.TimerIterationCount);
         ActiveMode = BarMode.Buttons;
     }
