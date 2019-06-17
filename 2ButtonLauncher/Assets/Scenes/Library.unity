@@ -12341,8 +12341,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1866979069}
-        m_MethodName: 
+      - m_Target: {fileID: 1866979071}
+        m_MethodName: ToggleAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16126,7 +16126,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 36251866}
-        m_MethodName: ToggleGameAudio
+        m_MethodName: ToggleAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

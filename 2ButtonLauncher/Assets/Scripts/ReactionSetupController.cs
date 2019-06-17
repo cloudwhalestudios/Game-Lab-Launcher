@@ -140,7 +140,6 @@ public class ReactionSetupController : MonoBehaviour
     public void StartReactionSetup()
     {
         StopAllCoroutines();
-        // Debug.Log("Starting Reaction Setup");
         currentSetupRoutine = StartCoroutine(StartReactionSetupRoutine());
     }
 
@@ -368,6 +367,8 @@ public class ReactionSetupController : MonoBehaviour
     private void ResetManualSetup()
     {
         enableReact = false;
+        manualReactionTimes = new List<float>();
+
         ShowCalibrationPrompt(false);
         StopTextDisplayUpdate();
     }
