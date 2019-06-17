@@ -47,8 +47,6 @@ public class GameSelectScreen : MonoBehaviour
 
         if (listedGames == null || listedGames.Count == 0)
         {
-            SetupLayout(games.Count * loopCount);
-
             listedGames = new List<GameObject>();
 
             for (int i = 0; i < games.Count * loopCount; i++)
@@ -64,6 +62,9 @@ public class GameSelectScreen : MonoBehaviour
 
                 listedGames.Add(listedGame);
             }
+
+            SetupLayout(games.Count * loopCount);
+
         }
         else
         {

@@ -49,8 +49,6 @@ public class CategorySelectScreen : MonoBehaviour
 
         if (listedCategories == null || listedCategories.Count == 0)
         {
-            SetupLayout(categories.Count * loopCount);
-
             listedCategories = new List<GameObject>();
 
             for (int i = 0; i < categories.Count * loopCount; i++)
@@ -65,6 +63,8 @@ public class CategorySelectScreen : MonoBehaviour
                 listedCategory.GetComponent<Button>().onClick.AddListener(() => callback(_i, category));
                 listedCategories.Add(listedCategory);
             }
+
+            SetupLayout(categories.Count * loopCount);
         }
         else
         {
@@ -116,8 +116,8 @@ public class CategorySelectScreen : MonoBehaviour
         layout.padding.top = 0;
         layout.padding.bottom = 0;
 
-        var totalWidth = totalElements * layout.spacing + (totalElements - 1) * categoryRowHeight;
-        categoryContainer.sizeDelta = new Vector2(totalWidth, categoryContainer.sizeDelta.y);
+        var totalHeight = totalElements * layout.spacing + (totalElements - 1) * categoryRowHeight;
+        categoryContainer.sizeDelta = new Vector2(categoryContainer.sizeDelta.x, totalHeight);
 
         UpdateDisplay();
     }
@@ -126,9 +126,9 @@ public class CategorySelectScreen : MonoBehaviour
     {
         var offset = categoryRowHeight / 2f;
 
-        var yPos = categoryContainer.sizeDelta.x / 2 - offset;
+        var yPos = categoryContainer.sizeDelta.y / 2 - offset;
         yPos -= selectedIndex * (categoryRowHeight + layout.spacing);
-        yPos = transition == CategorySelectTransition.BottomToTop ? -yPos : yPos;
+        yPos = transition == CategorySelectTransition.BottomToTop ? yPos : -yPos;
 
         startPosition = new Vector3(0, yPos, 0);
 
@@ -138,13 +138,13 @@ public class CategorySelectScreen : MonoBehaviour
     public void SelectNextCategory()
     {
         selectedIndex = (selectedIndex + 1) % listedCategories.Count;
-        UpdatePosition();
+        UpdateDisplay();
     }
 
     public void SelectPreviousCategory()
     {
         selectedIndex = (selectedIndex - 1 + listedCategories.Count) % listedCategories.Count;
-        UpdatePosition();
+        UpdateDisplay();
     }
 
     public void ExpandSelectedCategory()

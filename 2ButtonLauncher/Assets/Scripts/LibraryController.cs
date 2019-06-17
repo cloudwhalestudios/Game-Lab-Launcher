@@ -72,6 +72,7 @@ public class LibraryController : MonoBehaviour
         promptPopup.SetActive(true);
         promptButtonState.SetActive();
         InputBarController.Instance.ChangeFillTime(PlatformPreferences.Current.ReactionTime * promptStayTimeMultiplier);
+        InputBarController.Instance.ChangeMaxTimerFills(1);
     }
 
     public void HidePrompt()
