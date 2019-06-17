@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946475b49fab4bd4bbbd52b06fc08794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBootDelay: 3
+  minBootDelay: 2
   timeIndicator: {fileID: 1485816522}
   forceFullScreen: 0
   resetPlayerPrefs: 0
