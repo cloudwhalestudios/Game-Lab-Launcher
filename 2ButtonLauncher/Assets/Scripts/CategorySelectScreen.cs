@@ -30,14 +30,6 @@ public class CategorySelectScreen : MonoBehaviour
     Vector3 startPosition;
     int selectedIndex;
 
-    private void Awake()
-    {
-        foreach (Transform child in categoryContainer.transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
-
     public void ShowCategories(int selection)
     {
         ShowCategories(null, -1, null, selection);
@@ -49,6 +41,11 @@ public class CategorySelectScreen : MonoBehaviour
 
         if (listedCategories == null || listedCategories.Count == 0)
         {
+            foreach (Transform child in categoryContainer.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
             listedCategories = new List<GameObject>();
 
             for (int i = 0; i < categories.Count * loopCount; i++)
@@ -56,11 +53,14 @@ public class CategorySelectScreen : MonoBehaviour
                 var category = categories[i % categories.Count];
                 var _i = i;
                 var listedCategory = Instantiate(categoryPrefab, categoryContainer);
+                listedCategory.name = "Category" + category.title;
 
                 var container = listedCategory.GetComponent<CategoryContainer>();
                 container.SetCategory(category);
 
-                listedCategory.GetComponent<Button>().onClick.AddListener(() => callback(_i, category));
+                var btn = listedCategory.GetComponent<Button>();
+                btn.onClick.AddListener(() => callback(_i, category));
+
                 listedCategories.Add(listedCategory);
             }
 
@@ -70,6 +70,7 @@ public class CategorySelectScreen : MonoBehaviour
         {
             UpdateDisplay();
         }
+
         gameObject.SetActive(true);
     }
 

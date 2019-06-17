@@ -28,14 +28,6 @@ public class GameSelectScreen : MonoBehaviour
     Vector3 startPosition;
     int selectedIndex;
 
-    private void Awake()
-    {
-        foreach (Transform child in gameContainer.transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
-
     public void ShowGames(int selection)
     {
         ShowGames(null, -1, null, selection);
@@ -47,6 +39,11 @@ public class GameSelectScreen : MonoBehaviour
 
         if (listedGames == null || listedGames.Count == 0)
         {
+            foreach (Transform child in gameContainer.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
             listedGames = new List<GameObject>();
 
             for (int i = 0; i < games.Count * loopCount; i++)

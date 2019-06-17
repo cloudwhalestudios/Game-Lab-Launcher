@@ -81,7 +81,6 @@ public class LibraryController : MonoBehaviour
         promptPopup.SetActive(false);
     }
 
-
     public void ViewCategorySelection()
     {
         // TODO Fetch categories
@@ -89,16 +88,16 @@ public class LibraryController : MonoBehaviour
         CurrentState = ScreenState.CategorySelect;
     }
 
-    public void ViewGameInfo(GameInfo game)
-    {
-        gameInfoController.OpenGameInfoScreen(game);
-        CurrentState = ScreenState.GameInfo;
-    }
-
     public void ViewGameSelection(GameCategory category)
     {
         gameSelectController.OpenGameSelectScreen(category);
         CurrentState = ScreenState.GameSelect;
+    }
+
+    public void ViewGameInfo(GameInfo game)
+    {
+        gameInfoController.OpenGameInfoScreen(game);
+        CurrentState = ScreenState.GameInfo;
     }
 
     public void ReturnToPreviousScreen()
