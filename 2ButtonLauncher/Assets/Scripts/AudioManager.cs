@@ -1,10 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
+
+    [Header("Volume Control")]
+    public AudioMixer mixer;
+    [Range(-80f, 20f)]
+    public float lowestVolumeLevel = -80f;
+    [Range(-80f, 20f)]
+    public float highestVolumeLevel = 20f;
+
+    [Space]
+    public float muteVolume = 0f;
+    public float lowVolume = 0.4f;
+    public float normalVolume = 0.8f;
+    public float highVolume = 1f;
+
     [Header("Music input")]
     public AudioSource Music;
     public bool playOnStart = false;
@@ -19,7 +34,6 @@ public class AudioManager : MonoBehaviour
     [Header("Sound effects")]
     public float lowPitchRange = 0.75f;
     public float highPitchRange = 1.25f;
-    public float volumeValue;
 
     void Awake()
     {
@@ -27,6 +41,7 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+            mixer.SetFloat("MasterVolume", PlatformPreferences.Current.PlatformVolumeLevel);
         }
         else
         {
@@ -62,4 +77,18 @@ public class AudioManager : MonoBehaviour
         sound.Play(0);
     }
 
+    public void UnmuteAudio()
+    {
+
+    }
+
+    public void MuteAudio()
+    {
+
+    }
+
+    void SetAudioLevel(float volumePercentage)
+    {
+        
+    }
 }

@@ -10,10 +10,10 @@ public class PlatformPreferences
     static PlatformPreferences current;
 
     [SerializeField] bool completedSetup;
-
     [SerializeField] KeyCode[] keys;
-
     [SerializeField] float menuProgressionTimer = 2f;
+    [SerializeField] float platformVolumeLevel = .2f;
+    [SerializeField] float gameVolumeLevel = .2f;
 
     public static PlatformPreferences Current
     {
@@ -29,13 +29,12 @@ public class PlatformPreferences
     }
 
     public bool CompletedSetup { get => completedSetup; set { completedSetup = value; Save(); } }
-
     public KeyCode[] Keys { get => keys; set { keys = value; Save(); } }
-
     public float ReactionTime { get => menuProgressionTimer; set { menuProgressionTimer = value; Save(); } }
+    public float PlatformVolumeLevel { get => platformVolumeLevel; set { platformVolumeLevel = value; Save(); } }
+    public float GameVolumeLevel { get => gameVolumeLevel; set { gameVolumeLevel = value; Save(); } }
 
-
-    public static void Save()
+public static void Save()
     {
         PlayerPreferenceManager.Save(current);
     }
