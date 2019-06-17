@@ -16,5 +16,5 @@ MonoBehaviour:
   developer: Cloudwhale
   title: 2048
   cover: {fileID: 21300000, guid: cd6b26f5b378172468d1c184fd8a5cfe, type: 3}
-  tutorial: {fileID: 32900000, guid: 7d0a270778b0839469eb269b8ba44d71, type: 3}
+  tutorial: {fileID: 32900000, guid: 2dad72fb8e9df6c4499945857bfee886, type: 3}
   tutorialUrl: 

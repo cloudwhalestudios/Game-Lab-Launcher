@@ -16,5 +16,5 @@ MonoBehaviour:
   developer: Cloudwhale
   title: Waverider
   cover: {fileID: 21300000, guid: c6c159ce5f1446548b61ee1c9c83cd37, type: 3}
-  tutorial: {fileID: 32900000, guid: f8c786162cfdc514190322edaf6ff022, type: 3}
+  tutorial: {fileID: 32900000, guid: 1cc370918befdad408624a746f096dcd, type: 3}
   tutorialUrl: 
