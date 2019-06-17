@@ -18,7 +18,7 @@ public class GameSelectController : MonoBehaviour
     [SerializeField, ReadOnly] int lastIndex;
     InputBarController barController;
 
-    public bool IsOpen => screen.gameObject.activeInHierarchy;
+    public bool IsOpen => screen.gameObject.activeInHierarchy && selectControllerButtonState.isActiveAndEnabled;
 
     private void Start()
     {

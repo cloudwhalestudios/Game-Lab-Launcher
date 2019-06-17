@@ -139,6 +139,9 @@ public class PlatformManager : MonoBehaviour
             case GameName.TwentyFourtyEight:
                 WebGLRedirect.OpenGame(Config.NUMBERS_GAME);
                 break;
+            default:
+                WebGLRedirect.OpenLauncher();
+                break;
         }
     }
 

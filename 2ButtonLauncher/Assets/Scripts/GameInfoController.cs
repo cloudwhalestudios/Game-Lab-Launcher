@@ -13,6 +13,8 @@ public class GameInfoController : MonoBehaviour
     InputBarController barController;
     [ReadOnly] public PlatformManager.GameName selectedGame;
 
+    public bool IsOpen => screen.gameObject.activeInHierarchy && infoControllerButtonState.isActiveAndEnabled;
+
     private void Start()
     {
         barController = GameObject.FindGameObjectWithTag("InputBar").GetComponent<InputBarController>();
@@ -66,10 +68,12 @@ public class GameInfoController : MonoBehaviour
         {
             gameOptionsController.Close();
             infoControllerButtonState.SetActive();
+            screen.PlayVideo();
         }
         else
         {
             gameOptionsController.Open();
+            screen.PauseVideo();
         }
     }
 }

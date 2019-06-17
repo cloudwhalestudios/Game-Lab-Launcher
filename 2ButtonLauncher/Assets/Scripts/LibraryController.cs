@@ -29,7 +29,8 @@ public class LibraryController : MonoBehaviour
     [SerializeField] GameObject promptPopup;
     [SerializeField] InputBarButtonState promptButtonState;
     [SerializeField] float promptStayTimeMultiplier = 2f;
-    [SerializeField, TextArea] string promptQuitMessage = "The launcher will close shortly. Press main button to abort.";
+    [SerializeField, TextArea] string promptQuitMessage = "The launcher will close shortly. Press your main button to cancel.";
+    [SerializeField, TextArea] string promptSetupMessage = "You will be taken back to the setup procedure shortly. Press your main button to cancel.";
 
 
     [Header("Temporary")]
@@ -71,8 +72,12 @@ public class LibraryController : MonoBehaviour
 
         promptPopup.SetActive(true);
         promptButtonState.SetActive();
+
         InputBarController.Instance.ChangeFillTime(PlatformPreferences.Current.ReactionTime * promptStayTimeMultiplier);
         InputBarController.Instance.ChangeMaxTimerFills(1);
+
+        promptButtonState.OverriderButton(promptButtonState.Buttons[0], "Cancel", null, mainAction);
+        promptButtonState.OverriderButton(promptButtonState.Alternative, "Proceed", null, alternativeAction);
     }
 
     public void HidePrompt()
@@ -154,7 +159,7 @@ public class LibraryController : MonoBehaviour
 
     public void RedoSetup()
     {
-        ShowPrompt(ResumeCurrentState, () => PlatformManager.Instance.ChangeScene(PlatformManager.Instance.setupSceneName));
+        ShowPrompt(ResumeCurrentState, () => PlatformManager.Instance.ChangeScene(PlatformManager.Instance.setupSceneName), promptSetupMessage);
     }
 
     public void OpenHomeScreen()
