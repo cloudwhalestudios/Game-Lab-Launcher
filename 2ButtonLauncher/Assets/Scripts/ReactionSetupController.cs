@@ -259,7 +259,7 @@ public class ReactionSetupController : MonoBehaviour
 
             UpdateTextDisplay(mCalibrationTextStayTime + formattedTime, timeText);
 
-            yield return new WaitForSecondsRealtime(mCalibrationTextStayTime);
+            yield return new WaitForSecondsRealtime(mCalibrationTextStayTime + formattedTime);
         }
 
         calibrationButtonState.gameObject.SetActive(false);
@@ -289,6 +289,7 @@ public class ReactionSetupController : MonoBehaviour
     private IEnumerator SpeedConfirmRoutine()
     {
         // Confirm - Ensure the user is comfortable with the setup
+        ShowCalibrationPrompt(false);
         UpdateTextDisplay(reactionSpeed / rConfirmText.Count, rConfirmText, reactionSpeed);
         barController.ChangeMaxTimerFills(1);
 
@@ -319,7 +320,7 @@ public class ReactionSetupController : MonoBehaviour
 
     public void CompleteSetup()
     {
-        PlatformPreferences.Current.ReactionTime = reactionSpeed;
+        PlatformPreferences.Current.ReactionTime = Mathf.Round(reactionSpeed * 100f) / 100f;
 
         // Debug.Log("Finished reaction setup");
         PlatformManager.Instance.ChangeScene(PlatformManager.Instance.librarySceneName);

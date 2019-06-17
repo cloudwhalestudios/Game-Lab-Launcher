@@ -4180,13 +4180,13 @@ MonoBehaviour:
     your own manually.
   mIntroTimePerText: 7
   mIntroText:
-  - Welcome to manual calibration. In a bit, the circle below will disappear and then
+  - Welcome to manual calibration. In a bit, the icon below will disappear and then
     reappear after some time.
   - When it reappears, please press your main button as soon as you notice it. This
-    process will repeat a few times.
-  - If you want to quit manual calibration early, you can simply wait for the timer
-    to run out (or use your alternative button).
-  mCalibrationAppearText: Please press the button now.
+    way we can estimate how fast you can comfortably react.
+  - This process will repeat a few times. If you want to quit manual calibration early,
+    you can simply wait for the timer to run out (or use your alternative button).
+  mCalibrationAppearText: Please press the <b>main button</b> now.
   mCalibrationTextStayTime: 1
   mCalibrationSelectedText:
   - 'Great! It took you '
@@ -6076,7 +6076,7 @@ PrefabInstance:
     - target: {fileID: 1036803881211863100, guid: 11df81f348b7a714bb50a83eaddf7b3f,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1036803881211863103, guid: 11df81f348b7a714bb50a83eaddf7b3f,
         type: 3}
