@@ -12684,7 +12684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d655587e683793e41aad46a36308d60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideControls: 1
+  overrideControls: 0
   disableAutoLoad: 0
   primaryOverride: 97
   secondaryOverride: 100
