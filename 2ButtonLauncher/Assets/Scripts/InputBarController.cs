@@ -108,6 +108,9 @@ public class InputBarController : MonoBehaviour
         ChangeFillTime(fillTimeOverride);
         ChangeMaxTimerFills(timerFillsOverride);
 
+        print(activeButtonState?.name + " Time:" + currentFillTime);
+
+
         if (activeTimerRoutine != null)
         {
             StopCoroutine(activeTimerRoutine);
@@ -222,7 +225,6 @@ public class InputBarController : MonoBehaviour
     private IEnumerator TimerRoutine()
     {
         TimerStarted?.Invoke();
-
         for (int i = 0; i < currentTimerFills; i++)
         {
             ResetTimerDisplay();

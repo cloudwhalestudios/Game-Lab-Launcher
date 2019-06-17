@@ -7,17 +7,6 @@ using UnityEngine.Serialization;
 
 public class TextResizer : MonoBehaviour
 {
-    public GameObject canvas;
-    // Start is called before the first frame update
-    void Start()
-    {
-        var buttons = canvas.GetComponentsInChildren<Button>(true);
-        foreach (var btn in buttons)
-        {
-            FindAndAdjustSizeDeltas(btn.GetComponent<RectTransform>());
-        }
-    }
-
     public static void AdjustSizeDelta(TextMeshProUGUI tmpText)
     {
         var sizeDelta = tmpText.rectTransform.sizeDelta;

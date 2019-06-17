@@ -109,6 +109,7 @@ public class ReactionSetupController : MonoBehaviour
     private void OnDisable()
     {
         InputBarController.CurrentAlternativeAction -= currentAlternativeAction;
+        InputBarController.TimerElapsed -= InputBarController_TimerElapsed;
     }
 
     void ChangeAlternativeAction(Action altAction)

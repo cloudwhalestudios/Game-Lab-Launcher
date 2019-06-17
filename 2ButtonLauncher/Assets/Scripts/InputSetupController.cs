@@ -254,7 +254,7 @@ public class InputSetupController : MonoBehaviour
         previousSetupRoutine = currentSetupRoutine;
         currentSetupRoutine = StartCoroutine(SecondarySetupRoutine());
         StopCoroutine(previousSetupRoutine);
-        ChangeAlternativeAction(StartPrimarySetup);
+        ChangeAlternativeAction(StartSecondarySetup);
     }
 
     IEnumerator SecondarySetupRoutine()
@@ -324,6 +324,8 @@ public class InputSetupController : MonoBehaviour
     private void UpdateTextDisplay(float displayTime, TextLocation textLocation, List<string> textStrings, float barFillTime = -1f, int barFillsOverride = -1)
     {
         barFillTime = barFillTime <= 0 ? displayTime : barFillTime;
+
+        Debug.Log(displayTime + "<>" + barFillTime);
 
         StopTextDisplayUpdate();
         barController.StartTimer(true, barFillTime, barFillsOverride);
