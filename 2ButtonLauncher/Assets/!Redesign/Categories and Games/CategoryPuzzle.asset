@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 929fc5fdfd2bb9e469fc112824a83605, type: 3}
-  m_Name: CatAll
+  m_Name: CategoryPuzzle
   m_EditorClassIdentifier: 
-  title: All
+  title: Puzzle
   games:
   - {fileID: 11400000, guid: 73a617f4694e9d143a8c77e73464b0a7, type: 2}
   - {fileID: 11400000, guid: 9a18bcc4a41a0da47933e51dcd5aa856, type: 2}

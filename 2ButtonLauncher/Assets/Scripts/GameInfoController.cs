@@ -54,10 +54,10 @@ public class GameInfoController : MonoBehaviour
 
     public void ToggleVideoPlayback()
     {
+        ToggleGameOptionsPopup();
+
         if (screen.IsVideoPlaying) screen.PauseVideo();
         else screen.PlayVideo();
-
-        ToggleGameOptionsPopup();
     }
 
     public void ToggleGameOptionsPopup()

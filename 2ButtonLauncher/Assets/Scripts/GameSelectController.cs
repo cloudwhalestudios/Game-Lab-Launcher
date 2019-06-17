@@ -71,7 +71,7 @@ public class GameSelectController : MonoBehaviour
         selectControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
     }
 
-    public void CloseGameInfoScreen(bool cleanupList = false)
+    public void CloseGameSelectScreen(bool cleanupList = false)
     {
         if (cleanupList) lastIndex = 0;
         screen.HideGames(cleanupList);
@@ -85,7 +85,7 @@ public class GameSelectController : MonoBehaviour
 
     public void SelectGame(int listingIndex, GameInfo game)
     {
-        CloseGameInfoScreen();
+        CloseGameSelectScreen();
         lastIndex = listingIndex;
         selectControllerButtonState.SetActive(false);
         LibraryController.Instance.ViewGameInfo(game);

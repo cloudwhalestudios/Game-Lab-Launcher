@@ -9,6 +9,9 @@ using UnityEngine.Events;
 
 public class InputBarController : MonoBehaviour
 {
+    public static InputBarController Instance { get; private set; }
+
+
     public static event Action TimerStarted;
     public static event Action TimerElapsed;
     public static event Action TimerStopped;
@@ -53,6 +56,7 @@ public class InputBarController : MonoBehaviour
 
     float currentFillTime;
     int currentTimerFills;
+    private float elapsedTime;
 
     public BarMode ActiveMode
     {
@@ -67,14 +71,30 @@ public class InputBarController : MonoBehaviour
                 case BarMode.Prompt:
                     ShowButtonState(false);
                     break;
+
                 case BarMode.Buttons:
                     ShowButtonState(true);
                     break;
+
                 default:
                     break;
             }
             activeMode = value;
         }
+    }
+
+    protected void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
+
+        activeButtonState = defaultButtonState;
     }
 
     void ShowButtonState(bool buttonsActive)
@@ -101,19 +121,20 @@ public class InputBarController : MonoBehaviour
         }
     }
 
+    public void ResetTimer()
+    {
+        elapsedTime = 0f;
+    }
+
     public void ChangeFillTime(float fillTimeOverride)
     {
+        ResetTimer();
         currentFillTime = fillTimeOverride > 0 ? fillTimeOverride : PlatformPreferences.Current.ReactionTime;
     }
 
     public void ChangeMaxTimerFills(int timerFillsOverride)
     {
         currentTimerFills = timerFillsOverride > 0 ? timerFillsOverride : timerFillsBeforeAlternative;
-    }
-
-    public void Awake()
-    {
-        activeButtonState = defaultButtonState;
     }
 
     public void OnEnable()
@@ -204,9 +225,9 @@ public class InputBarController : MonoBehaviour
 
         for (int i = 0; i < currentTimerFills; i++)
         {
-            ResetTimer();
+            ResetTimerDisplay();
 
-            var elapsedTime = 0f;
+            elapsedTime = 0f;
 
             while (elapsedTime < currentFillTime)
             {
@@ -215,7 +236,7 @@ public class InputBarController : MonoBehaviour
                 elapsedTime += Time.unscaledDeltaTime;
 
                 // Update timer fill
-                ResetTimer();
+                ResetTimerDisplay();
                 UpdateTimerDisplay(elapsedTime / currentFillTime);
             }
             AudioManager.Instance?.PlaySound(AudioManager.Instance.Select);
@@ -263,7 +284,7 @@ public class InputBarController : MonoBehaviour
         timerBar.GetComponent<Image>().color = color;
     }
 
-    private void ResetTimer()
+    private void ResetTimerDisplay()
     {
         var pivot = timerBar.pivot;
         var scale = timerBar.localScale;
