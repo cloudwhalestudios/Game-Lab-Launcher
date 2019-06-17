@@ -137,11 +137,11 @@ public class InputBarButtonState : MonoBehaviour
         AudioManager.Instance?.PlaySound(AudioManager.Instance.Abort);
         if (Alternative != null)
         {
-            Debug.Log("Invoking onCLick alt");
+            //Debug.Log("Invoking onCLick alt");
             Alternative?.onClick?.Invoke();
             return;
         }
-        Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
+        //Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
         alternativeEvents?.Invoke();
     }
 }

@@ -34,7 +34,7 @@ public class InputSetupController : MonoBehaviour
     public InputBarButtonState popupDialogState;
     public GameObject popupDialogObject;
     public float idleDialogTimer = 10f;
-    [TextArea] public string timeoutText = "Canceling setup shortly.";
+    [TextArea] public string timeoutReturnText = "Canceling setup shortly.";
     [TextArea] public string timeoutQuitText = "Quitting application shortly.";
 
 
@@ -153,7 +153,7 @@ public class InputSetupController : MonoBehaviour
         popupDialogState.SetActive();
         barController.StartTimer(true, idleDialogTimer, 1);
 
-        var dialogText = PlatformManager.Instance.canReturn ? timeoutText : timeoutQuitText;
+        var dialogText = PlatformManager.Instance.canReturn ? timeoutReturnText : timeoutQuitText;
         popupDialogObject.GetComponentInChildren<TextMeshProUGUI>().text = dialogText;
 
         StartCoroutine(AnyKeyRoutine());
