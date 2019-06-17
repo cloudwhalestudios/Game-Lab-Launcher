@@ -64,7 +64,6 @@ public class GameSelectController : MonoBehaviour
 
     public void OpenGameSelectScreen(List<GameInfo> games)
     {
-        Debug.Log(games.Count);
         lastIndex = 0;
         screen.ShowGames(games, selectControllerButtonState.loopCount, SelectGame, lastIndex);
         selectControllerButtonState.loopCount *= games.Count;

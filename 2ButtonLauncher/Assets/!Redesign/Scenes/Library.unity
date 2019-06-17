@@ -7098,9 +7098,10 @@ MonoBehaviour:
   promptPopup: {fileID: 230326051}
   promptButtonState: {fileID: 1224999321}
   promptStayTimeMultiplier: 2
-  promptQuitMessage: The launcher will close shortly. Press your main button to cancel.
-  promptSetupMessage: You will be taken back to the setup procedure shortly. Press
-    your main button to cancel.
+  promptQuitMessage: The launcher will close shortly. <b>Press your main button to
+    cancel.</b>
+  promptSetupMessage: You will be taken back to the setup procedure shortly. <b>Press
+    your main button to cancel.</b>
   launcherCategories:
   - {fileID: 11400000, guid: b6566feddac001940880fd28edc2db49, type: 2}
   - {fileID: 11400000, guid: b2247ecd2829b524b8c7fcd73d6574d1, type: 2}

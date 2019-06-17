@@ -109,13 +109,16 @@ public class InputBarButtonState : MonoBehaviour
     
     private void InputBarController_TimerStopped()
     {
+        if (selectionIndicator == null) return;
+
         // Stop indicating
-        selectionIndicator.gameObject.SetActive(false);
+        selectionIndicator?.gameObject.SetActive(false);
     }
 
     void MoveIndicator()
     {
-        selectionIndicator.gameObject.SetActive(true);
+        if (selectionIndicator == null) return;
+        selectionIndicator?.gameObject.SetActive(true);
 
         if (!singleButtonState)
         {

@@ -378,18 +378,6 @@ MonoBehaviour:
     _key: 0
   secondary:
     _key: 0
---- !u!114 &120515513 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4394021306774384523, guid: 27a2525f6b7567a46b435c6c1a83e823,
-    type: 3}
-  m_PrefabInstance: {fileID: 439758302}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc1955bb939d30449799ab2d5d182a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &170039604
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,7 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9490197, g: 0.42352945, b: 0.19607845, a: 1}
+  m_Color: {r: 0.90900004, g: 0.5913976, b: 0.39426503, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1002,6 +990,11 @@ PrefabInstance:
       propertyPath: indicatorLocalPositon
       value: 
       objectReference: {fileID: 978587836}
+    - target: {fileID: 4394021306774384523, guid: 27a2525f6b7567a46b435c6c1a83e823,
+        type: 3}
+      propertyPath: selectionIndicator
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4394021306774383732, guid: 27a2525f6b7567a46b435c6c1a83e823,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2318,7 +2311,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1483053357}
+    m_TransformParent: {fileID: 4394021307518800486}
     m_Modifications:
     - target: {fileID: 5333408964070266100, guid: d155d20bf9d8d894d954e8c210a1df22,
         type: 3}
@@ -4197,12 +4190,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1611774801874531912}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1483053357 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4394021307886469048, guid: 27a2525f6b7567a46b435c6c1a83e823,
-    type: 3}
-  m_PrefabInstance: {fileID: 439758302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1573650251
 GameObject:
   m_ObjectHideFlags: 0
@@ -4254,14 +4241,15 @@ MonoBehaviour:
   secondaryButtonSelected: {fileID: 243058621}
   primaryConfirmButtonState: {fileID: 1462050542}
   secondaryButtonConfirmState: {fileID: 1104976717}
-  popupDialogState: {fileID: 120515513}
+  popupDialogState: {fileID: 4394021306677248597}
   popupDialogObject: {fileID: 587664447}
   idleDialogTimer: 10
   timeoutReturnText: It seems you haven't done anything in a while and we assume you
-    don't want to redo your setup. You will shortly return to your library. Press
-    any button to cancel this.
+    don't want to redo your setup. You will shortly return to your library. <b>Press
+    any button to cancel this.</b>
   timeoutQuitText: It seems you haven't done anything in a while and we assume you
-    want to quit. The application will close shortly. Press any button to cancel this.
+    want to quit. The application will close shortly. <b>Press any button to cancel
+    this.</b>
   introTextTime: 6
   introText:
   - Welcome and thank you for using the Cloudwhale Platform! Please setup your controls
@@ -4876,7 +4864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607845, g: 0.3647059, b: 0.47450984, a: 1}
+  m_Color: {r: 0.5131452, g: 0.795375, b: 0.90900004, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5381,3 +5369,21 @@ PrefabInstance:
       objectReference: {fileID: 1573650254}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66281735832fc944eb59015833bd8e70, type: 3}
+--- !u!114 &4394021306677248597 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4394021306774384523, guid: 27a2525f6b7567a46b435c6c1a83e823,
+    type: 3}
+  m_PrefabInstance: {fileID: 439758302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc1955bb939d30449799ab2d5d182a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &4394021307518800486 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4394021307886469048, guid: 27a2525f6b7567a46b435c6c1a83e823,
+    type: 3}
+  m_PrefabInstance: {fileID: 439758302}
+  m_PrefabAsset: {fileID: 0}

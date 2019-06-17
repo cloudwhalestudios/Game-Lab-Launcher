@@ -106,7 +106,7 @@ public class ReactionSetupController : MonoBehaviour
         StartReactionSetup();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         InputBarController.CurrentAlternativeAction -= currentAlternativeAction;
     }
@@ -115,7 +115,8 @@ public class ReactionSetupController : MonoBehaviour
     {
         InputBarController.CurrentAlternativeAction -= currentAlternativeAction;
         currentAlternativeAction = altAction;
-        InputBarController.CurrentAlternativeAction += currentAlternativeAction;
+        if (isActiveAndEnabled)
+            InputBarController.CurrentAlternativeAction += currentAlternativeAction;
     }
 
     public void DefaultIdleTimeout()
