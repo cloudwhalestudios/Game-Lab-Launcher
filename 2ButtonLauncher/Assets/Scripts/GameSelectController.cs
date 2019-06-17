@@ -54,7 +54,11 @@ public class GameSelectController : MonoBehaviour
     public void ReopenGameSelectScreen()
     {
         screen.ShowGames(lastIndex);
+
+        baseLoopCount = selectControllerButtonState.LoopCount;
+        selectControllerButtonState.LoopCount = screen.listedGames.Count * baseLoopCount;
         selectControllerButtonState.SetActive();
+
         selectControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
     }
 
@@ -66,17 +70,21 @@ public class GameSelectController : MonoBehaviour
     public void OpenGameSelectScreen(List<GameInfo> games)
     {
         lastIndex = 0;
-        screen.ShowGames(games, selectControllerButtonState.loopCount, SelectGame, lastIndex);
-        baseLoopCount = selectControllerButtonState.loopCount;
-        selectControllerButtonState.loopCount *= games.Count;
+        screen.ShowGames(games, selectControllerButtonState.LoopCount, SelectGame, lastIndex);
+
+        baseLoopCount = selectControllerButtonState.LoopCount;
+        selectControllerButtonState.LoopCount *= games.Count;
         selectControllerButtonState.SetActive();
+
         selectControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
     }
 
     public void CloseGameSelectScreen(bool cleanupList = false)
     {
         if (cleanupList) lastIndex = 0;
-        if (baseLoopCount > 0) selectControllerButtonState.loopCount = baseLoopCount;
+
+        if (baseLoopCount > 0) selectControllerButtonState.LoopCount = baseLoopCount;
+
         screen.HideGames(cleanupList);
         selectControllerButtonState.SetActive(false);
     }

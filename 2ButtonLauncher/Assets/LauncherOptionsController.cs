@@ -34,8 +34,8 @@ public class LauncherOptionsController : MonoBehaviour
     {
         menu.ShowMenu();
 
-        baseLoopCount = launcherOptionsButtonState.loopCount;
-        launcherOptionsButtonState.loopCount *= menu.Options.Count;
+        baseLoopCount = launcherOptionsButtonState.LoopCount;
+        launcherOptionsButtonState.LoopCount *= menu.Options.Count;
         launcherOptionsButtonState.SetActive();
         launcherOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
     }
@@ -43,7 +43,7 @@ public class LauncherOptionsController : MonoBehaviour
 
     public void Close()
     {
-        if (baseLoopCount > 0 ) launcherOptionsButtonState.loopCount = baseLoopCount;
+        if (baseLoopCount > 0 ) launcherOptionsButtonState.LoopCount = baseLoopCount;
         menu.ShowMenu(false);
         launcherOptionsButtonState.SetActive(false);
     }

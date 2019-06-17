@@ -54,17 +54,23 @@ public class CategorySelectController : MonoBehaviour
     public void ReopenCategorySelectScreen()
     {
         screen.ShowCategories(lastIndex);
+
+        baseLoopCount = categoryControllerButtonState.LoopCount;
+        categoryControllerButtonState.LoopCount = screen.listedCategories.Count * baseLoopCount;
         categoryControllerButtonState.SetActive();
+
         categoryControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
     }
 
     public void OpenCategorySelectScreen(List<GameCategory> categories)
     {
         lastIndex = 0;
-        screen.ShowCategories(categories, categoryControllerButtonState.loopCount, SelectCategory, lastIndex);
-        baseLoopCount = categoryControllerButtonState.loopCount;
-        categoryControllerButtonState.loopCount *= categories.Count;
+        screen.ShowCategories(categories, categoryControllerButtonState.LoopCount, SelectCategory, lastIndex);
+
+        baseLoopCount = categoryControllerButtonState.LoopCount;
+        categoryControllerButtonState.LoopCount *= categories.Count;
         categoryControllerButtonState.SetActive();
+
         categoryControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
     }
 
@@ -72,7 +78,7 @@ public class CategorySelectController : MonoBehaviour
     {
 
         if (cleanupList) lastIndex = 0;
-        if (baseLoopCount > 0) categoryControllerButtonState.loopCount = baseLoopCount;
+        if (baseLoopCount > 0) categoryControllerButtonState.LoopCount = baseLoopCount;
         launcherOptionsController.Close();
 
         screen.HideCategories(cleanupList);

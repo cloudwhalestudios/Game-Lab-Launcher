@@ -50,8 +50,8 @@ public class GameOptionsController : MonoBehaviour
     public void Open()
     {
         menu.ShowMenu();
-        baseLoopCount = gameOptionsButtonState.loopCount;
-        gameOptionsButtonState.loopCount *= menu.Options.Count;
+        baseLoopCount = gameOptionsButtonState.LoopCount;
+        gameOptionsButtonState.LoopCount *= menu.Options.Count;
         gameOptionsButtonState.SetActive();
         gameOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
     }
@@ -59,7 +59,7 @@ public class GameOptionsController : MonoBehaviour
 
     public void Close()
     {
-        if (baseLoopCount > 0) gameOptionsButtonState.loopCount = baseLoopCount;
+        if (baseLoopCount > 0) gameOptionsButtonState.LoopCount = baseLoopCount;
         menu.ShowMenu(false);
         gameOptionsButtonState.SetActive(false);
     }

@@ -48,7 +48,7 @@ public class CategorySelectScreen : MonoBehaviour
 
             listedCategories = new List<GameObject>();
 
-            for (int i = 0; i < categories.Count * loopCount; i++)
+            for (int i = 0; i < categories.Count; i++)
             {
                 var category = categories[i % categories.Count];
                 var _i = i;
@@ -64,7 +64,7 @@ public class CategorySelectScreen : MonoBehaviour
                 listedCategories.Add(listedCategory);
             }
 
-            SetupLayout(categories.Count * loopCount);
+            SetupLayout(categories.Count);
         }
         else
         {

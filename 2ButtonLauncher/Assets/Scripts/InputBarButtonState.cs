@@ -17,7 +17,7 @@ public class InputBarButtonState : MonoBehaviour
     public Button defaultSelection;
     public RectTransform selectionIndicator;
     public RectTransform indicatorLocalPositon;
-    public int loopCount = 1;
+    [SerializeField] private int loopCount = 1;
 
     [Header("Alternative Configuration", order = 1)]
     [SerializeField] private Button alternative;
@@ -27,10 +27,18 @@ public class InputBarButtonState : MonoBehaviour
         || (Alternative.onClick != null && Alternative.onClick.GetPersistentEventCount() > 0)))
         || (alternativeEvents != null && alternativeEvents.GetPersistentEventCount() > 0);
     public int ButtonCount => Buttons != null ? Buttons.Count : -1;
-    public int TimerIterationCount => ButtonCount * loopCount;
+    public int TimerIterationCount => ButtonCount * LoopCount;
 
     public List<Button> Buttons { get => buttons; private set => buttons = value; }
     public Button Alternative { get => alternative; set => alternative = value; }
+    public int LoopCount
+    {
+        get => loopCount;
+        set
+        {
+            loopCount = value;
+        }
+    }
 
     List<Button> buttons;
     int selectedIndex;
@@ -148,11 +156,11 @@ public class InputBarButtonState : MonoBehaviour
         AudioManager.Instance?.PlaySound(AudioManager.Instance.Abort);
         if (Alternative != null)
         {
-            Debug.Log("Invoking onCLick alt");
+            //Debug.Log("Invoking onCLick alt");
             Alternative?.onClick?.Invoke();
             return;
         }
-        Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
+        //Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
         alternativeEvents?.Invoke();
     }
 }
