@@ -16,5 +16,5 @@ MonoBehaviour:
   developer: Cloudwhale
   title: Jump and Shoot
   cover: {fileID: 21300000, guid: 6042fda2120ee3541bc6fe0d2548c76a, type: 3}
-  tutorial: {fileID: 32900000, guid: 93af2b9c4876be74784e1e90ad3b904c, type: 3}
-  tutorialUrl: 
+  tutorial: {fileID: 0}
+  tutorialUrl: https://cloudwhale.nl/launcher/videos/JumpShootTut-1920x1080.mp4

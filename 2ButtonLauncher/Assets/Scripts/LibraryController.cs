@@ -1,4 +1,5 @@
 ﻿using AccessibilityInputSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -62,7 +63,16 @@ public class LibraryController : MonoBehaviour
 
     private void Start()
     {
+        HideAllScreens();
+
         ViewCategorySelection();
+    }
+
+    private void HideAllScreens()
+    {
+        categorySelectController.screen.HideCategories();
+        gameSelectController.screen.HideGames();
+        gameInfoController.screen.HideInfo();
     }
 
     public void ShowPrompt(UnityAction mainAction, UnityAction alternativeAction, string message = "")

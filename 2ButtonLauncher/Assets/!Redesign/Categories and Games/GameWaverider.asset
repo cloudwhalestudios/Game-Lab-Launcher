@@ -16,5 +16,5 @@ MonoBehaviour:
   developer: Cloudwhale
   title: Waverider
   cover: {fileID: 21300000, guid: c6c159ce5f1446548b61ee1c9c83cd37, type: 3}
-  tutorial: {fileID: 32900000, guid: 1cc370918befdad408624a746f096dcd, type: 3}
-  tutorialUrl: 
+  tutorial: {fileID: 0}
+  tutorialUrl: https://cloudwhale.nl/launcher/videos/WaveRiderTut-1920x1080.mp4

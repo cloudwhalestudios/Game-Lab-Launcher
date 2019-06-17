@@ -17,4 +17,4 @@ MonoBehaviour:
   title: 2048
   cover: {fileID: 21300000, guid: cd6b26f5b378172468d1c184fd8a5cfe, type: 3}
   tutorial: {fileID: 0}
-  tutorialUrl: https://cloudwhale.nl/launcher/videos/2048tut-1920x1080.ogv
+  tutorialUrl: https://cloudwhale.nl/launcher/videos/2048tut-1920x1080.mp4

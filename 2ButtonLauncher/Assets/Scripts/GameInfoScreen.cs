@@ -19,6 +19,7 @@ public class GameInfoScreen : MonoBehaviour
     public VideoPlayer videoGameTutorial;
     public RawImage rawImageGameTutorial;
     public bool playVideosOnLoad = false;
+    public GameObject loadingIndicator;
 
     public bool IsVideoPlaying => videoGameTutorial.isPrepared && videoGameTutorial.isPlaying;
 
@@ -93,11 +94,12 @@ public class GameInfoScreen : MonoBehaviour
     IEnumerator LoadVideoRoutine()
     {
         videoGameTutorial.Prepare();
-
+        loadingIndicator?.SetActive(true);
         while(!videoGameTutorial.isPrepared)
         {
             yield return null;
         }
+        loadingIndicator?.SetActive(false);
 
         rawImageGameTutorial.texture = videoGameTutorial.texture;
 

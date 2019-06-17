@@ -16,5 +16,5 @@ MonoBehaviour:
   developer: Cloudwhale
   title: 'Cloudwhale: A Game Placeholder'
   cover: {fileID: 21300000, guid: bd05213249bc92c4396c02613df15f89, type: 3}
-  tutorial: {fileID: 32900000, guid: b4717594eef614c45a29bd23d357d136, type: 3}
-  tutorialUrl: 
+  tutorial: {fileID: 0}
+  tutorialUrl: https://cloudwhale.nl/launcher/videos/JumpShootTut-1920x1080.mp4
