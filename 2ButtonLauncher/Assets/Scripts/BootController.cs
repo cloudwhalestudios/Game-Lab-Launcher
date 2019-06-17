@@ -64,7 +64,7 @@ public class BootController : MonoBehaviour
 
         if (interrupt)
         {
-            userIsSetup = false;
+            userIsSetup = PlatformPreferences.Current.CompletedSetup = false;
             PlayerPrefs.DeleteAll();
         }
 

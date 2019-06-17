@@ -130,7 +130,9 @@ public class ReactionSetupController : MonoBehaviour
         // Show popup
         popupDialogObject.SetActive(true);
         popupDialogState.SetActive();
-        barController.StartTimer(true, idleDialogTimer, 1);
+        barController.OverriderFillTime(idleDialogTimer);
+        barController.OverrideMaxTimerFills(1);
+
         popupDialogObject.GetComponentInChildren<TextMeshProUGUI>().text = timeoutText;
     }
 
@@ -292,10 +294,11 @@ public class ReactionSetupController : MonoBehaviour
     {
         // Confirm - Ensure the user is comfortable with the setup
         ShowCalibrationPrompt(false);
-        UpdateTextDisplay(reactionSpeed / rConfirmText.Count, rConfirmText, reactionSpeed);
-        barController.ChangeMaxTimerFills(1);
 
         confirmSpeedButtonState.SetActive();
+        UpdateTextDisplay(reactionSpeed / rConfirmText.Count, rConfirmText, reactionSpeed);
+        barController.OverrideMaxTimerFills(1);
+
         while(!confirmSpeed)
         {
             yield return null;
@@ -334,7 +337,7 @@ public class ReactionSetupController : MonoBehaviour
         popupMenu.UpdateSelectionDisplay(currentOptionIndex);
 
         var fillTime = currentOptionIndex < optionCount - 1 ? reactionSpeedPresets[currentOptionIndex] : reactionSpeedPresets[currentOptionIndex - 1];
-        barController.ChangeFillTime(fillTime);
+        barController.OverriderFillTime(fillTime);
     }
 
     private void ResetSetup()

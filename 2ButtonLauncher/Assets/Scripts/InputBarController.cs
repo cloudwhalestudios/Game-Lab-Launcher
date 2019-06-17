@@ -105,10 +105,10 @@ public class InputBarController : MonoBehaviour
 
     public void StartTimer(bool activate, float fillTimeOverride = -1f, int timerFillsOverride = -1)
     {
-        ChangeFillTime(fillTimeOverride);
-        ChangeMaxTimerFills(timerFillsOverride);
+        OverriderFillTime(fillTimeOverride);
+        OverrideMaxTimerFills(timerFillsOverride);
 
-        print(activeButtonState?.name + " Time:" + currentFillTime);
+        //print(activeButtonState?.name + " New Time:" + currentFillTime);
 
 
         if (activeTimerRoutine != null)
@@ -129,13 +129,15 @@ public class InputBarController : MonoBehaviour
         elapsedTime = 0f;
     }
 
-    public void ChangeFillTime(float fillTimeOverride)
+    public void OverriderFillTime(float fillTimeOverride)
     {
+        //print(activeButtonState?.name + " Current Time:" + currentFillTime + "\n" + activeButtonState?.name + " Override:" + fillTimeOverride);
+
         ResetTimer();
         currentFillTime = fillTimeOverride > 0 ? fillTimeOverride : PlatformPreferences.Current.ReactionTime;
     }
 
-    public void ChangeMaxTimerFills(int timerFillsOverride)
+    public void OverrideMaxTimerFills(int timerFillsOverride)
     {
         currentTimerFills = timerFillsOverride > 0 ? timerFillsOverride : timerFillsBeforeAlternative;
     }

@@ -73,8 +73,8 @@ public class LibraryController : MonoBehaviour
         promptPopup.SetActive(true);
         promptButtonState.SetActive();
 
-        InputBarController.Instance.ChangeFillTime(PlatformPreferences.Current.ReactionTime * promptStayTimeMultiplier);
-        InputBarController.Instance.ChangeMaxTimerFills(1);
+        InputBarController.Instance.OverriderFillTime(PlatformPreferences.Current.ReactionTime * promptStayTimeMultiplier);
+        InputBarController.Instance.OverrideMaxTimerFills(1);
 
         promptButtonState.OverriderButton(promptButtonState.Buttons[0], "Cancel", null, mainAction);
         promptButtonState.OverriderButton(promptButtonState.Alternative, "Proceed", null, alternativeAction);

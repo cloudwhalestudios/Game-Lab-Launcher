@@ -236,10 +236,11 @@ public class InputSetupController : MonoBehaviour
 
         // Confirm - Wait for input bar interaction using primary
         ShowPrimary(true, true);
-        UpdateTextDisplay(pConfirmTime, pConfirmLocation, pConfirmText, pConfirmTime * pConfirmText.Count, pConfirmMaxFillTimes);
-        inputController.SetControls(primaryKey);
 
         primaryConfirmButtonState.SetActive();
+        UpdateTextDisplay(pConfirmTime, pConfirmLocation, pConfirmText, pConfirmTime * pConfirmText.Count, pConfirmMaxFillTimes);
+
+        inputController.SetControls(primaryKey);
         while (!confirmPrimaryKey)
         {
             yield return null;
@@ -291,10 +292,10 @@ public class InputSetupController : MonoBehaviour
         // Confirm - Wait for specific button selection
         ShowSecondary(true, true);
 
-        UpdateTextDisplay(sConfirmTime, sConfirmLocation, sConfirmText, -1, sConfirmMaxFillTimes);
-        inputController.SetControls(primaryKey, secondaryKey);
-
         secondaryButtonConfirmState.SetActive();
+        UpdateTextDisplay(sConfirmTime, sConfirmLocation, sConfirmText, -1, sConfirmMaxFillTimes);
+
+        inputController.SetControls(primaryKey, secondaryKey);
         while (!confirmSecondaryKey)
         {
             yield return null;
@@ -325,7 +326,7 @@ public class InputSetupController : MonoBehaviour
     {
         barFillTime = barFillTime <= 0 ? displayTime : barFillTime;
 
-        Debug.Log(displayTime + "<>" + barFillTime);
+        //Debug.Log(displayTime + "<>" + barFillTime);
 
         StopTextDisplayUpdate();
         barController.StartTimer(true, barFillTime, barFillsOverride);

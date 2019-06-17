@@ -32,6 +32,7 @@ namespace AccessibilityInputSystem
             public override void SetControls(params KeyCode[] keys)
             {
                 inputKeyEvents = new List<InputKeyEvent>();
+                if (keys == null) return;
 
                 if (keys.Length > 0)
                 {
