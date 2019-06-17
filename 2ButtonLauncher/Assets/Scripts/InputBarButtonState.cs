@@ -23,7 +23,8 @@ public class InputBarButtonState : MonoBehaviour
     [SerializeField] private Button alternative;
     public UnityEvent alternativeEvents;
     public bool HasAlternatives =>
-        (Alternative != null && Alternative.onClick != null && Alternative.onClick.GetPersistentEventCount() > 0)
+        (Alternative != null && (alternativeIsOverridden
+        || (Alternative.onClick != null && Alternative.onClick.GetPersistentEventCount() > 0)))
         || (alternativeEvents != null && alternativeEvents.GetPersistentEventCount() > 0);
     public int ButtonCount => Buttons != null ? Buttons.Count : -1;
     public int TimerIterationCount => ButtonCount * loopCount;
@@ -34,6 +35,7 @@ public class InputBarButtonState : MonoBehaviour
     List<Button> buttons;
     int selectedIndex;
     bool singleButtonState = false;
+    bool alternativeIsOverridden = false;
 
     public void SetActive(bool activate = true)
     {
@@ -66,9 +68,15 @@ public class InputBarButtonState : MonoBehaviour
     {
         if (button == null && button != Alternative && !Buttons.Contains(button)) return;
 
-        //print("overriding button " + button.name + " " + name);
+        print("overriding button " + button.name + " " + name + " | removing listeners " + removeListeners);
         if (removeListeners) button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => callback());
+
+        if (button == alternative) alternativeIsOverridden = true;
+        /*{
+            if (removeListeners) alternativeEvents.RemoveAllListeners();
+            alternativeEvents.AddListener(() => callback());
+        }*/
 
         ChangeButtonDisplay(button, displayText, icon);
     }
@@ -140,11 +148,11 @@ public class InputBarButtonState : MonoBehaviour
         AudioManager.Instance?.PlaySound(AudioManager.Instance.Abort);
         if (Alternative != null)
         {
-            //Debug.Log("Invoking onCLick alt");
+            Debug.Log("Invoking onCLick alt");
             Alternative?.onClick?.Invoke();
             return;
         }
-        //Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
+        Debug.Log("Invoking state alt " + alternativeEvents.GetPersistentEventCount());
         alternativeEvents?.Invoke();
     }
 }

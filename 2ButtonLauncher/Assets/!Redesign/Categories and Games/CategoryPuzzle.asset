@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Puzzle
   games:
-  - {fileID: 11400000, guid: 73a617f4694e9d143a8c77e73464b0a7, type: 2}
-  - {fileID: 11400000, guid: 9a18bcc4a41a0da47933e51dcd5aa856, type: 2}
   - {fileID: 11400000, guid: e413c810caeb8a54baf3a2fcac0c56d9, type: 2}
   - {fileID: 11400000, guid: dbe6f235e7f402d438f23a5284eb8af0, type: 2}
+  - {fileID: 11400000, guid: 73a617f4694e9d143a8c77e73464b0a7, type: 2}
+  - {fileID: 11400000, guid: 9a18bcc4a41a0da47933e51dcd5aa856, type: 2}

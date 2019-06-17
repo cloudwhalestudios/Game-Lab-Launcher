@@ -198,7 +198,7 @@ public class InputBarController : MonoBehaviour
         AudioManager.Instance?.PlaySound(AudioManager.Instance.Launch);
         if (CurrentAlternativeAction != null)
         {
-            //Debug.LogWarning("Invoking current alt");
+            Debug.LogWarning("Invoking current alt");
             CurrentAlternativeAction?.Invoke();
             return;
         }
@@ -206,7 +206,7 @@ public class InputBarController : MonoBehaviour
         if (defaultAlternativeAction == null)
             throw new Exception("No default alternative has been set!");
 
-        //Debug.LogError("Invoking default alt");
+        Debug.LogError("Invoking default alt");
         defaultAlternativeAction?.Invoke();
         
     }

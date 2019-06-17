@@ -6,27 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Boot.unity
-    guid: 003f746cf4b8e434e9d87217689442f2
+    path: Assets/!Redesign/Scenes/BootLoader.unity
+    guid: 0b90b10bb2fd1354f815759fd003e539
   - enabled: 1
-    path: Assets/Scenes/SetupInput.unity
-    guid: 4b2fab37630e9384382d4d35b9ecfffb
-  - enabled: 1
-    path: Assets/Scenes/SetupReaction.unity
-    guid: e14cc44b43baf5d44bbce26616431873
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 5ab0a7161b593f5459b3a7be92698051
-  - enabled: 1
-    path: Assets/Scenes/Exit.unity
-    guid: 5408c006a8386044aa16e6fcd645d9cd
+    path: Assets/!Redesign/Scenes/ExitLauncher.unity
+    guid: 31587f5f35db63f4fa655682b05619af
   - enabled: 1
     path: Assets/!Redesign/Scenes/InputSetup.unity
     guid: b93ed7c753d80974f8c03a871f7fed73
   - enabled: 1
-    path: Assets/!Redesign/Scenes/ReactionSetup.unity
-    guid: 1e3ba0fe2adcc5a418203529f1801835
-  - enabled: 1
     path: Assets/!Redesign/Scenes/Library.unity
     guid: 27fa9cfc927df9140a5698d0d36ac6fe
+  - enabled: 1
+    path: Assets/!Redesign/Scenes/ReactionSetup.unity
+    guid: 1e3ba0fe2adcc5a418203529f1801835
   m_configObjects: {}

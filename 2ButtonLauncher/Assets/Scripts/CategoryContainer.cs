@@ -9,6 +9,7 @@ public class CategoryContainer : MonoBehaviour
     public RectTransform previewContainer;
     public TextMeshProUGUI textTitle;
     public GameObject previewPrefab;
+    public int minPreviews = 5;
 
     [Space]
     public GameCategory category;
@@ -30,7 +31,7 @@ public class CategoryContainer : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        for (int i = 0; i < games.Count * 2; i++)
+        for (int i = 0; i < games.Count * minPreviews; i++)
         {
             var gameInfo = games[i%games.Count];
             var preview = Instantiate(previewPrefab, previewContainer);

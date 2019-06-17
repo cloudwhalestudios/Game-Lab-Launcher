@@ -9,6 +9,8 @@ public class LauncherOptionsController : MonoBehaviour
 
     public bool IsOpen => menu.gameObject.activeInHierarchy;
 
+    int baseLoopCount;
+
     private void OnEnable()
     {
         InputBarController.TimerElapsed += InputBarController_TimerElapsed;
@@ -31,6 +33,8 @@ public class LauncherOptionsController : MonoBehaviour
     public void Open()
     {
         menu.ShowMenu();
+
+        baseLoopCount = launcherOptionsButtonState.loopCount;
         launcherOptionsButtonState.loopCount *= menu.Options.Count;
         launcherOptionsButtonState.SetActive();
         launcherOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
@@ -39,6 +43,7 @@ public class LauncherOptionsController : MonoBehaviour
 
     public void Close()
     {
+        if (baseLoopCount > 0 ) launcherOptionsButtonState.loopCount = baseLoopCount;
         menu.ShowMenu(false);
         launcherOptionsButtonState.SetActive(false);
     }

@@ -109,6 +109,7 @@ public class PlatformManager : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
+        Debug.Log("Changing scene " + sceneName);
         if (sceneName != librarySceneName) canReturn = true;
         SceneManager.LoadScene(sceneName);
     }

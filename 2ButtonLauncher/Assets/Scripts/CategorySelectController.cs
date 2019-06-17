@@ -17,6 +17,7 @@ public class CategorySelectController : MonoBehaviour
 
     [SerializeField, ReadOnly] int lastIndex;
     InputBarController barController;
+    int baseLoopCount;
 
     public bool IsOpen => screen.gameObject.activeInHierarchy && categoryControllerButtonState.isActiveAndEnabled;
 
@@ -61,6 +62,7 @@ public class CategorySelectController : MonoBehaviour
     {
         lastIndex = 0;
         screen.ShowCategories(categories, categoryControllerButtonState.loopCount, SelectCategory, lastIndex);
+        baseLoopCount = categoryControllerButtonState.loopCount;
         categoryControllerButtonState.loopCount *= categories.Count;
         categoryControllerButtonState.SetActive();
         categoryControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
@@ -68,8 +70,11 @@ public class CategorySelectController : MonoBehaviour
 
     public void CloseCategorySelectScreen(bool cleanupList = false)
     {
+
         if (cleanupList) lastIndex = 0;
+        if (baseLoopCount > 0) categoryControllerButtonState.loopCount = baseLoopCount;
         launcherOptionsController.Close();
+
         screen.HideCategories(cleanupList);
         categoryControllerButtonState.SetActive(false);
     }

@@ -38,6 +38,7 @@ public class ExitController : MonoBehaviour
                 break;
             }
         }
+        timeIndicator.localScale = new Vector3(0, 1, 1);
 
         PlatformManager.Instance.Exit();
     }

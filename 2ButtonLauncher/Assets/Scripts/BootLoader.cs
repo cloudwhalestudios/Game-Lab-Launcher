@@ -7,6 +7,6 @@ public class BootLoader : MonoBehaviour
 {
     public static void LoadPlatformPlayer()
     {
-        BasePlayerManager.Instance.AddPlayer(PlatformPreferences.Current.Keys);
+        //BasePlayerManager.Instance.AddPlayer(PlatformPreferences.Current.Keys);
     }
 }

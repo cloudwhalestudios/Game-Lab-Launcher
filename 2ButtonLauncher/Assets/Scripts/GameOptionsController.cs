@@ -23,6 +23,9 @@ public class GameOptionsController : MonoBehaviour
     public Sprite unfavoriteSprite;
     [ReadOnly] public bool isFavorite = false;
     */
+    int baseLoopCount;
+
+
     public bool IsOpen => menu.gameObject.activeInHierarchy;
 
     private void OnEnable()
@@ -47,6 +50,7 @@ public class GameOptionsController : MonoBehaviour
     public void Open()
     {
         menu.ShowMenu();
+        baseLoopCount = gameOptionsButtonState.loopCount;
         gameOptionsButtonState.loopCount *= menu.Options.Count;
         gameOptionsButtonState.SetActive();
         gameOptionsButtonState.ChangeCurrentButtonDisplay(menu.GetText(), menu.GetIcon());
@@ -55,6 +59,7 @@ public class GameOptionsController : MonoBehaviour
 
     public void Close()
     {
+        if (baseLoopCount > 0) gameOptionsButtonState.loopCount = baseLoopCount;
         menu.ShowMenu(false);
         gameOptionsButtonState.SetActive(false);
     }

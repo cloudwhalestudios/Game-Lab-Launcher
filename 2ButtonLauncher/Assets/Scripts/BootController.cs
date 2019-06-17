@@ -24,7 +24,7 @@ public class BootController : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlaySoundNormally(AudioManager.Instance.Launch);
+        AudioManager.Instance.PlaySound(AudioManager.Instance.Launch);
         StartCoroutine(StartNextScene());
 
         // Load the platform preferences
@@ -46,14 +46,16 @@ public class BootController : MonoBehaviour
                 var percentage = Mathf.Clamp01(elapsedTime / minBootDelay);
                 timeIndicator.localScale = new Vector3(1 - percentage, 1, 1);
                 yield return new WaitForEndOfFrame();
-                elapsedTime += Time.unscaledDeltaTime;
+                elapsedTime += Time.deltaTime;
             }
             else
             {
-                yield return new WaitForSecondsRealtime(minBootDelay);
+                yield return new WaitForSeconds(minBootDelay);
                 break;
             }
         }
+
+        timeIndicator.localScale = new Vector3(0, 1, 1);
 
         if (!finishedLoading)
         {

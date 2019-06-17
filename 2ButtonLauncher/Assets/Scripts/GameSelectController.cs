@@ -17,6 +17,7 @@ public class GameSelectController : MonoBehaviour
 
     [SerializeField, ReadOnly] int lastIndex;
     InputBarController barController;
+    int baseLoopCount;
 
     public bool IsOpen => screen.gameObject.activeInHierarchy && selectControllerButtonState.isActiveAndEnabled;
 
@@ -66,6 +67,7 @@ public class GameSelectController : MonoBehaviour
     {
         lastIndex = 0;
         screen.ShowGames(games, selectControllerButtonState.loopCount, SelectGame, lastIndex);
+        baseLoopCount = selectControllerButtonState.loopCount;
         selectControllerButtonState.loopCount *= games.Count;
         selectControllerButtonState.SetActive();
         selectControllerButtonState.ChangeCurrentButtonDisplay(selectionPrefix + " " + screen.GetName(), null);
@@ -74,6 +76,7 @@ public class GameSelectController : MonoBehaviour
     public void CloseGameSelectScreen(bool cleanupList = false)
     {
         if (cleanupList) lastIndex = 0;
+        if (baseLoopCount > 0) selectControllerButtonState.loopCount = baseLoopCount;
         screen.HideGames(cleanupList);
         selectControllerButtonState.SetActive(false);
     }

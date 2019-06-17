@@ -159,6 +159,7 @@ public class LibraryController : MonoBehaviour
 
     public void RedoSetup()
     {
+        Debug.Log("Redo setup");
         ShowPrompt(ResumeCurrentState, () => PlatformManager.Instance.ChangeScene(PlatformManager.Instance.setupSceneName), promptSetupMessage);
     }
 
