@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Marce\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Marce\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_2ButtonLauncher.297530284.00" t="ExcludeRecursive" />
-    <e p="D:\School\Year 2\Design\Game-Lab-Launcher\2ButtonLauncher" t="IncludeRecursive">
+    <e p="C:\Users\Marce\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_2ButtonLauncher.1202759039.00" t="ExcludeRecursive" />
+    <e p="F:\Cloudwhale\Game-Lab-Launcher\2ButtonLauncher" t="IncludeRecursive">
       <e p="2ButtonLauncher.sln" t="IncludeFlat" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="2D" t="Include">
+          <e p="Icons" t="Include">
+            <e p="Interface" t="Include">
+              <e p="SVG" t="Include">
+                <e p="!README.txt" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
         <e p="Fonts" t="Include">
           <e p="Bebas Neue" t="Include">
             <e p="bebas_neue" t="Include">
@@ -23,12 +32,27 @@
             </e>
           </e>
         </e>
-        <e p="ReactionSceneController.cs" t="Include" />
+        <e p="LauncherOptionsController.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AudioManager.cs" t="Include" />
           <e p="BootController.cs" t="Include" />
           <e p="BootLoader.cs" t="Include" />
+          <e p="CategoryContainer.cs" t="Include" />
+          <e p="CategorySelectController.cs" t="Include" />
+          <e p="CategorySelectScreen.cs" t="Include" />
           <e p="ExitController.cs" t="Include" />
+          <e p="GameCategory.cs" t="Include" />
+          <e p="GameInfo.cs" t="Include" />
+          <e p="GameInfoContainer.cs" t="Include" />
+          <e p="GameInfoController.cs" t="Include" />
+          <e p="GameInfoScreen.cs" t="Include" />
+          <e p="GameInfoTest.cs" t="Include" />
+          <e p="GameOptionsController.cs" t="Include" />
+          <e p="GameSelectController.cs" t="Include" />
+          <e p="GameSelectScreen.cs" t="Include" />
+          <e p="InputBarButtonState.cs" t="Include" />
+          <e p="InputBarController.cs" t="Include" />
+          <e p="InputSetupController.cs" t="Include" />
           <e p="InputSystem" t="Include">
             <e p="ActiveInputHandler.cs" t="Include" />
             <e p="BaseInputController.cs" t="Include" />
@@ -56,6 +80,11 @@
               <e p="TwoButtonPlayerManager.cs" t="Include" />
             </e>
           </e>
+          <e p="LanguageManager" t="Include">
+            <e p="LanguageLocal.cs" t="Include" />
+            <e p="LanguageManager.cs" t="Include" />
+          </e>
+          <e p="LibraryController.cs" t="Include" />
           <e p="MainSceneController.cs" t="Include" />
           <e p="Parallax.cs" t="Include" />
           <e p="PlatformManager.cs" t="Include" />
@@ -67,6 +96,10 @@
             </e>
             <e p="PlayerPreferenceManager.cs" t="Include" />
           </e>
+          <e p="PopupMenu.cs" t="Include" />
+          <e p="ReactionSceneController.cs" t="Include" />
+          <e p="ReactionSetupController.cs" t="Include" />
+          <e p="ReactionSpeedMenu.cs" t="Include" />
           <e p="SetupController.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="ScrollImage.cs" t="Include" />

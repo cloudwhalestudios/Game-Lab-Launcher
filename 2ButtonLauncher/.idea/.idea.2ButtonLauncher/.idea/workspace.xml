@@ -67,21 +67,62 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1841704516">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cs" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="C#" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="cs" value="123" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="C#" value="123" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageLocal.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+            <state>
               <folding>
-                <marker date="1560506031653" expanded="true" signature="6:146" ph="..." />
-                <marker date="1560506031653" expanded="true" signature="188:796" ph="{...}" />
-                <marker date="1560506031653" expanded="true" signature="290:715" ph="{...}" />
-                <marker date="1560506031653" expanded="true" signature="397:709" ph="{...}" />
-                <marker date="1560506031653" expanded="true" signature="491:699" ph="{...}" />
-                <marker date="1560506031653" expanded="true" signature="773:794" ph="{...}" />
+                <marker date="1563877351936" expanded="false" signature="6:78" ph="..." />
+                <marker date="1563877351936" expanded="true" signature="122:296" ph="{...}" />
+                <marker date="1563877351936" expanded="true" signature="194:215" ph="{...}" />
+                <marker date="1563877351936" expanded="true" signature="273:294" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+              <folding>
+                <marker date="1563878628431" expanded="false" signature="6:78" ph="..." />
+                <marker date="1563878628431" expanded="true" signature="124:284" ph="{...}" />
+                <marker date="1563878628431" expanded="true" signature="221:242" ph="{...}" />
+                <marker date="1563878628431" expanded="true" signature="261:282" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -93,8 +134,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageLocal.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ScrollImage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -102,6 +145,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Interface/interfaceHorizontalScrollUI.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/ScrollImage.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageManager.cs" />
       </list>
     </option>
   </component>
@@ -111,7 +155,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-52" />
     <option name="y" value="131" />
     <option name="width" value="1936" />
@@ -123,6 +167,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="FileSystemExplorer" />
       <pane id="SolutionExplorer">
         <option name="show-all-files" value="false" />
       </pane>
@@ -143,7 +188,6 @@
         </subPane>
         <option name="show-hidden-items" value="false" />
       </pane>
-      <pane id="FileSystemExplorer" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -196,11 +240,13 @@
       <workItem from="1554558588217" duration="2814000" />
       <workItem from="1560259201655" duration="67000" />
       <workItem from="1560259286682" duration="1381000" />
+      <workItem from="1563715963259" duration="6000" />
+      <workItem from="1563877424188" duration="1005000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4518000" />
+    <option name="totallyTimeSpent" value="5529000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -212,10 +258,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26599148" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27132195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -270,15 +316,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/TextResizer.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+        <state relative-caret-position="240">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
           <folding>
-            <marker date="1560506031653" expanded="true" signature="6:146" ph="..." />
-            <marker date="1560506031653" expanded="true" signature="188:796" ph="{...}" />
-            <marker date="1560506031653" expanded="true" signature="290:715" ph="{...}" />
-            <marker date="1560506031653" expanded="true" signature="397:709" ph="{...}" />
-            <marker date="1560506031653" expanded="true" signature="491:699" ph="{...}" />
-            <marker date="1560506031653" expanded="true" signature="773:794" ph="{...}" />
+            <marker date="1562852773975" expanded="false" signature="6:146" ph="..." />
+            <marker date="1562852773975" expanded="true" signature="188:654" ph="{...}" />
+            <marker date="1562852773975" expanded="true" signature="254:422" ph="{...}" />
+            <marker date="1562852773975" expanded="true" signature="495:651" ph="{...}" />
+            <marker date="1562852773975" expanded="true" signature="587:645" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageLocal.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1563877351936" expanded="false" signature="6:78" ph="..." />
+            <marker date="1563877351936" expanded="true" signature="122:296" ph="{...}" />
+            <marker date="1563877351936" expanded="true" signature="194:215" ph="{...}" />
+            <marker date="1563877351936" expanded="true" signature="273:294" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/LanguageManager/LanguageManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+          <folding>
+            <marker date="1563878628431" expanded="false" signature="6:78" ph="..." />
+            <marker date="1563878628431" expanded="true" signature="124:284" ph="{...}" />
+            <marker date="1563878628431" expanded="true" signature="221:242" ph="{...}" />
+            <marker date="1563878628431" expanded="true" signature="261:282" ph="{...}" />
           </folding>
         </state>
       </provider>
