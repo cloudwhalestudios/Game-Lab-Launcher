@@ -6,6 +6,7 @@ public class LanguageManager : MonoBehaviour
 {
     public string selectedLang;
     public string backupLang = "Lan_EN";
+    public 
     
     void Start()
     {
@@ -13,6 +14,15 @@ public class LanguageManager : MonoBehaviour
     }
 
     void Update()
+    {
+        if (selectedLang == null)
+        {
+            selectedLang = backupLang;
+            Translate();
+        }
+    }
+
+    public void Translate()
     {
         
     }
