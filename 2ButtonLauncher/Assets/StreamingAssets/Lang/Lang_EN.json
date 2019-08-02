@@ -1,0 +1,26 @@
+//Language: English
+{
+  "btn_confirm": "Confirm",
+  "btn_options": "Options",
+  "btn_retry": "Retry",
+  "btn_select": "Select",
+  "btn_quit": "Quit",
+  "btn_cancel": "Cancel",
+  "btn_play": "Play",
+  "btn_view": "View",
+  "pro_timeoutReturn": "You haven't done anything in a while. You will return to your library shortly. <b>Press any button to cancel</b>",
+  "pro_timeoutQuit": "You haven't done anything in a while. The application will close shortly. <b>Press any button to cancel</b>",
+  "pro_launcherOptions": "Launcher Options",
+  "pro_inputSetup": 
+  [
+    "Welcome to the Cloudwhale Platform! Please set up your controls by following the instructions", 
+    "Please press the button you are most comfortable using",
+    "Are you happy with your choice? Please use the button again to confirm.", 
+    "Are you comfortable with your button setup?", 
+    "Please press another button that you can use",
+    "You can now set your reaction speed by either selecting a preset, or calibrating manually", 
+    "Select your speed", 
+    "Are you comfortable with this speed? If not, please wait until the timer runs out in order to try again"
+  ],
+  "pro_LauncherClose": "Thank you for using the Cloudwhale Launcher! <b>We hope to see you again soon!</b>"
+}

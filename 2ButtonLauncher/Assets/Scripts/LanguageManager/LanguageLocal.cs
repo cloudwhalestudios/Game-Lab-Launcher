@@ -5,6 +5,12 @@ using TMPro;
 
 public class LanguageLocal : MonoBehaviour
 {
-    public float textLine;
-    public TextMeshPro textSelf;
+    public string key;
+    public int index;
+    public TextMeshProUGUI textSelf;
+
+    private void Awake()
+    {
+        textSelf = GetComponent<TextMeshProUGUI>();
+    }
 }

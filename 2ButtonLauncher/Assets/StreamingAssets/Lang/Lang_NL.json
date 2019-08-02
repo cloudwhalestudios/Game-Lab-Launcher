@@ -1,0 +1,26 @@
+//Language: Dutch
+{
+  "btn_confirm": "Bevestigen",
+  "btn_options": "Opties",
+  "btn_retry": "Herhalen",
+  "btn_select": "Selecteren",
+  "btn_quit": "Stoppen",
+  "btn_cancel": "Annuleren",
+  "btn_play": "Spelen",
+  "btn_view": "Openen",
+  "pro_timeoutReturn": "Je hebt al een tijdje niks gedaan. Over enkele seconden brengen we je terug naar je bibliotheek! <b>Klik op een knop om te annuleren</b>",
+  "pro_timeoutQuit": "Je hebt al een tijdje niks gedaan. Over enkele seconden sluit de applicatie zich af! <b>Klik op een knop om te annuleren</b>",
+  "pro_launcherOptions": "Applicatie instellingens",
+  "pro_inputSetup":
+  [
+    "Welkom bij het Cloudwhale Platform! Volg de instructies om je besturing in te stellen",
+    "Klik nu op een knop die voor jou het makkelijkst is om te gebruiken",
+    "Ben je blij met je keuze? Klik dan weer op dezelfde knop",
+    "Ben je tevreden met je keuze?",
+    "Klik nu op een andere knop die je kan gebruiken",
+    "Je kunt nu handmatig je reactie snelheid aangeven of een van de bestaande snelheden selecteren",
+    "Selecteer je snelheid",
+    "Ben je tevreden met deze snelheid? Zo niet, laat dan de timer aflopen om het nogmaals te proberen"
+  ],
+  "pro_LauncherClose": "Bedankt voor het gebruiken van de Cloudwhale applicatie! <b>We hopen je snel weer te zien!</b>"
+}
