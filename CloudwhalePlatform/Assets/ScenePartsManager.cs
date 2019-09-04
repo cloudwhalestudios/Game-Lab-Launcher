@@ -64,7 +64,7 @@ public class ScenePartsManager : MonoBehaviour
     [ReadOnly, SerializeField] private ScenePart activeMainPart;
     [SerializeField] private Stack<ScenePart> previousMainParts;
 
-    public State ActiveState { get => activeState; set => activeState = value; }
+    //public State ActiveState { get => activeState; set => activeState = value; }
 
     void Awake()
     {
@@ -105,7 +105,7 @@ public class ScenePartsManager : MonoBehaviour
         else if (false /* isSetupUpdateAvailable */)
         {
             //  if user wants new setup goto new setup queue (skip old)
-            StartSetup(1);
+            //StartSetup(x);
         }
         //  c. otherwise there is nothing to do so go straightto the library
         else
@@ -126,7 +126,6 @@ public class ScenePartsManager : MonoBehaviour
 
     private void AddScenePart(ScenePart part)
     {
-        // Check if part is valid
         if (part == null) return;
         StartCoroutine(LoadScenePart(part));
     }
@@ -139,6 +138,7 @@ public class ScenePartsManager : MonoBehaviour
 
     private IEnumerator LoadScenePart(ScenePart part)
     {
+        Debug.Log("Loading " + part.sceneAssetName);
         // Remove main part if new one is to be added
         if (part.type == ScenePart.Type.Main && activeMainPart != null)
             yield return UnloadScenePart(activeMainPart);

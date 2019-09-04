@@ -1,5 +1,4 @@
-﻿using PlayerPreferences;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +9,7 @@ public class PlatformPreferences
     static PlatformPreferences current;
 
     [SerializeField] bool completedSetup;
+    [SerializeField] string language;
     [SerializeField] KeyCode[] keys;
     [SerializeField] float menuProgressionTimer = 5f;
     [SerializeField] float platformVolumeLevel = -1f;
@@ -25,7 +25,7 @@ public class PlatformPreferences
             if (current != null)
                 return current;
 
-            current = PlayerPreferenceManager.Load<PlatformPreferences>();
+            current = PreferenceManager.Load<PlatformPreferences>();
 
             return current;
         }
@@ -36,26 +36,13 @@ public class PlatformPreferences
     public float ReactionTime { get => menuProgressionTimer; set { menuProgressionTimer = value; Save(); } }
     public float PlatformVolumeLevel { get => platformVolumeLevel; set { platformVolumeLevel = value; Save(); } }
     public float GameVolumeLevel { get => gameVolumeLevel; set { gameVolumeLevel = value; Save(); } }
+    public string Language { get => language; set { language = value; Save(); } }
+    public bool PlatformMute { get => platformMute; set { platformMute = value; Save(); } }
+    public bool GameMute { get => gameMute; set { gameMute = value; Save(); } }
 
-    public bool PlatformMute
-    {
-        get => platformMute; set
-        {
-            platformMute = value;
-            Save();
-        }
-    }
-    public bool GameMute
-    {
-        get => gameMute; set
-        {
-            gameMute = value;
-            Save();
-        }
-    }
 
     public static void Save()
     {
-        PlayerPreferenceManager.Save(current);
+        PreferenceManager.Save(current);
     }
 }

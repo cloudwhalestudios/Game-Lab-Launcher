@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,15 +17,23 @@ public class BootController : MonoBehaviour
     private void Start()
     {
         AudioManager.Instance.PlaySound(AudioManager.Instance.Launch);
-        StartCoroutine(StartNextScene());
+        StartCoroutine(LoadCoroutine());
 
-        // Load the platform preferences
-        isUserSetup = PlatformPreferences.Current.CompletedSetup;
+        StartCoroutine(BootCoroutine());
         
+
+    }
+
+    private IEnumerator LoadCoroutine()
+    {
+        // Load the platform preferences a
+        isUserSetup = PlatformPreferences.Current.CompletedSetup;
+        yield return LanguageManager.Instance.FetchTranslations(PlatformPreferences.Current.Language);
+
         finishedLoading = true;
     }
 
-    IEnumerator StartNextScene()
+    IEnumerator BootCoroutine()
     {
         var elapsedTime = 0f;
 
