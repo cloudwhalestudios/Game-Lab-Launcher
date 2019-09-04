@@ -64,6 +64,7 @@ public class ScenePartsManager : MonoBehaviour
     [ReadOnly, SerializeField] private ScenePart activeMainPart;
     [SerializeField] private Stack<ScenePart> previousMainParts;
 
+    [ReadOnly, SerializeField] private int setupProgress = 0;
     //public State ActiveState { get => activeState; set => activeState = value; }
 
     void Awake()
@@ -99,19 +100,32 @@ public class ScenePartsManager : MonoBehaviour
         //  a. if user is first time user goto setup
         if (!isUserSetup)
         {
-            StartSetup();
+            setupProgress = -1;
+            ContinueSetup();
+
         }
         //  b. if user is returning user and new setups were added inform user of news and prompt for setup
         else if (false /* isSetupUpdateAvailable */)
         {
             //  if user wants new setup goto new setup queue (skip old)
-            //StartSetup(x);
+            ContinueSetup();
         }
         //  c. otherwise there is nothing to do so go straightto the library
         else
         {
             StartLibrary();
         }
+    }
+
+    public void RedoCurrentSetup()
+    {
+        StartSetup(setupProgress);
+    }
+
+    public void ContinueSetup()
+    {
+        setupProgress++;
+        StartSetup(setupProgress);
     }
 
     private void StartSetup(int position = 0)
