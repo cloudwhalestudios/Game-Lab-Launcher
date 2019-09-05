@@ -13,7 +13,7 @@ public class InputSetupController : BaseSetupController
 
 
     [Header("User Feedback")]
-    [SerializeField] List<SetupStep.TranslatedText> buttonInUseTextKeys;
+    [SerializeField] SetupStep.TranslatedText buttonInUseWarningKey;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] bool waitingForNextInput;
@@ -24,18 +24,18 @@ public class InputSetupController : BaseSetupController
     [SerializeField, ReadOnly] KeyCode secondaryKey;
     [SerializeField, ReadOnly] bool confirmSecondaryKey;
 
-    [SerializeField, ReadOnly] bool confirmFinal;
-
-    void Start ()
+    public override void StartController()
     {
         StartCoroutine(InputSetupCoroutine());
     }
 
     private IEnumerator InputSetupCoroutine()
     {
-        for (int i = 0; i < setupSteps.Count; i++)
+        waitingForNextInput = false;
+
+        for (currentStepIndex = 0; currentStepIndex < setupSteps.Count; currentStepIndex++)
         {
-            yield return StartNewCoroutine(StepCoroutine(i));
+            yield return StartNewSetupCoroutine(StepCoroutine(currentStepIndex));
         }
 
         yield return null;
@@ -45,11 +45,10 @@ public class InputSetupController : BaseSetupController
     {
         SetupStep s = setupSteps[index];
         // Update Text display
-        tMPTitle.text = s.showTitle ? s.title : "";
+        tMPTitle.gameObject.SetActive(s.showTitle);
+        tMPTitle.text = s.showTitle ? LanguageManager.Instance.GetTranslation(s.titleKey.key, s.titleKey.index) : "";
 
         StartNewTextUpdateCoroutine(s.textTranslationKeys);
-
-        waitingForNextInput = false;
 
         if (index == primaryStepIndex) // wait on primary button press
         {
@@ -67,6 +66,7 @@ public class InputSetupController : BaseSetupController
                 confirmPrimaryKey = primaryKey == GetKeyInput();
             }
             waitingForNextInput = true;
+
         }
         else if (index == secondaryStepIndex) // wait on secondary button press
         {
@@ -86,7 +86,7 @@ public class InputSetupController : BaseSetupController
         }
         else if (index == finalConfirmStepIndex) // give user choice to accept or redo button setup
         {
-            while (!confirmFinal)
+            while (true)
             {
                 yield return null;
                 KeyCode pressed = GetKeyInput();
@@ -123,7 +123,7 @@ public class InputSetupController : BaseSetupController
                 if (key == primaryKey)
                 {
                     // Key already in use
-                    StartNewTextUpdateCoroutine(buttonInUseTextKeys);
+                    StartNewWarningCoroutine(buttonInUseWarningKey);
                     return;
                 }
 

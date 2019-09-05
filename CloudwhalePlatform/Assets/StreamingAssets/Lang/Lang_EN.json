@@ -1,5 +1,7 @@
 //Language: English
 {
+  "btn_yes": "Yes",
+  "btn_no": "No",
   "btn_confirm": "Confirm",
   "btn_options": "Options",
   "btn_retry": "Retry",
@@ -11,16 +13,21 @@
   "pro_timeoutReturn": "You haven't done anything in a while. You will return to your library shortly. <b>Press any button to cancel</b>",
   "pro_timeoutQuit": "You haven't done anything in a while. The application will close shortly. <b>Press any button to cancel</b>",
   "pro_launcherOptions": "Launcher Options",
-  "pro_inputSetup": 
-  [
-    "Welcome to the Cloudwhale Platform! Please set up your controls by following the instructions", 
-    "Please press the button you are most comfortable using",
-    "Are you happy with your choice? Please use the button again to confirm.", 
-    "Are you comfortable with your button setup?", 
-    "Please press another button that you can use",
-    "You can now set your reaction speed by either selecting a preset, or calibrating manually", 
-    "Select your speed", 
-    "Are you comfortable with this speed? If not, please wait until the timer runs out in order to try again"
+  "pro_inputSetupTitle": [
+    "Press Button One NOW",
+    "Press Button One Again",
+    "Press Button Two NOW",
+    "Press Button Two Again",
+    "Are these buttons okay?"
+  ],
+  "pro_inputSetupText": [
+    "This will be your most used button",
+    "Lets confirm its the right button",
+    "This will be your least used button",
+    "Lets confirm its the right button"
+  ],
+  "pro_inputSetupWarning": [
+    "The Button you pressed is already in use"
   ],
   "pro_LauncherClose": "Thank you for using the Cloudwhale Launcher! <b>We hope to see you again soon!</b>"
 }

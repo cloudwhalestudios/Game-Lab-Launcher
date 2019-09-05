@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BootController : MonoBehaviour
+public class BootController : BaseController
 {
     [Header("Boot Options")]
     [SerializeField] private float minBootDelay = 2f;
@@ -14,14 +14,11 @@ public class BootController : MonoBehaviour
     bool finishedLoading = false;
     bool interrupt = false;
 
-    private void Start()
+    public override void StartController()
     {
         AudioManager.Instance.PlaySound(AudioManager.Instance.Launch);
         StartCoroutine(LoadCoroutine());
-
         StartCoroutine(BootCoroutine());
-        
-
     }
 
     private IEnumerator LoadCoroutine()

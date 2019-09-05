@@ -254,6 +254,7 @@ MonoBehaviour:
     type: 0
     reference:
       m_Handle: 0
+  setupProgress: 0
 --- !u!1 &874953788
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24174228a762cf4fba8661a61ab2b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallbackLanguage: Lang_NL
+  fallbackLanguage: Lang_EN
   availableLanguages:
   - Lang_EN
   - Lang_NL

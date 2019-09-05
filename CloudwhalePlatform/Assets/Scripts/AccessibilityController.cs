@@ -18,9 +18,11 @@ public class AccessibilityController : MonoBehaviour
         tmpText.rectTransform.sizeDelta = sizeDelta;
     }
 
-    public static void FindAndAdjustSizeDeltas(RectTransform container)
+    public static void FindAndAdjustSizeDeltas()
     {
-        foreach (var tmpText in container.GetComponentsInChildren<TextMeshProUGUI>())
+        var tmpTextUGUIs = FindObjectsOfType<TextMeshProUGUI>();
+        Debug.Log("Adjusting deltas of " + tmpTextUGUIs.Length + " texts");
+        foreach (var tmpText in tmpTextUGUIs)
         {
             AdjustSizeDelta(tmpText);
         }

@@ -42,7 +42,7 @@ public class LanguageManager : MonoBehaviour
     public string GetTranslation(string key, int index = 0)
     {
         // TODO: check if translations loaded before trying to get one
-
+        Debug.Log("Looking for translation " + key + "[" + index + "]");
 
         // First find the correct translation for the given parameters
         var property = translationsJSON[key];

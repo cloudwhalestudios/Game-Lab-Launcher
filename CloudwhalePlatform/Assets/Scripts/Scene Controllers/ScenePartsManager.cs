@@ -163,10 +163,14 @@ public class ScenePartsManager : MonoBehaviour
         
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(part.sceneAssetName));
         part.reference = SceneManager.GetActiveScene();
+
+        // Resize text mesh pro to fit
+        AccessibilityController.FindAndAdjustSizeDeltas();
         
         if (part.type == ScenePart.Type.Main) activeMainPart = part;
 
-        yield return new WaitForSeconds(2f);
+        var controller = FindObjectOfType<BaseController>();
+        controller.StartController();
     }
 
     private IEnumerator UnloadScenePart(ScenePart part)
